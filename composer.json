@@ -1,4 +1,6 @@
 {
+    "name": "sylvainguerrin/front2back",
+    "description": "Code source front2back.fr",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
@@ -94,5 +96,5 @@
             "allow-contrib": false,
             "require": "5.2.*"
         }
-    }
+    },
 }
