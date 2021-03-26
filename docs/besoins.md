@@ -14,6 +14,9 @@
 Ajout du rôle contributeur
 Redéfinition du rôle lecteur
 
+- Rôle contributeur:
+En plus des commentaires, peut ajouter du code
+
 - Ajout du système de badges:
 Badges pour les contributeurs et les lecteurs
 
