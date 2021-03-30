@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class LoginTest extends WebTestCase
 {
-    public function testIfLoginSuccesfull(): void
+    public function testIfLoginSuccessfully(): void
     {
         $client = static::createClient();
 
