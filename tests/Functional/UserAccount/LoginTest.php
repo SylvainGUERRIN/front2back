@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace App\Tests\Functional\UserAccount;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class LoginTest
- * @package App\Tests\Functional
+ * @package App\Tests\Functional\UserAccount
  */
 class LoginTest extends WebTestCase
 {

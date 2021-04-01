@@ -38,8 +38,7 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -128,8 +127,7 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         Request $request,
         TokenInterface $token,
         string $providerKey
-    ): RedirectResponse
-    {
+    ): RedirectResponse {
 //        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
 //            return new RedirectResponse($targetPath);
 //        }
