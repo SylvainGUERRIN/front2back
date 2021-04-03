@@ -8,8 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class LoginTest
- * @package App\Tests\Functional\UserAccount
+ * Class LoginTest.
  */
 class LoginTest extends WebTestCase
 {
@@ -17,10 +16,10 @@ class LoginTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request("GET", "/login");
-        $form = $crawler->filter("form[name=login]")->form([
-            "email" => "ain@email.com",
-            "password" => "password"
+        $crawler = $client->request('GET', '/login');
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'ain@email.com',
+            'password' => 'password',
         ]);
 
         $client->submit($form);
@@ -29,17 +28,17 @@ class LoginTest extends WebTestCase
 
         $client->followRedirect();
 
-        self::assertRouteSame("index");
+        self::assertRouteSame('index');
     }
 
     public function testIfEmailDoesNotExist(): void
     {
         $client = static::createClient();
 
-        $crawler = $client->request("GET", "/login");
-        $form = $crawler->filter("form[name=login]")->form([
-            "email" => "fail@email.com",
-            "password" => "password"
+        $crawler = $client->request('GET', '/login');
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'fail@email.com',
+            'password' => 'password',
         ]);
 
         $client->submit($form);
@@ -48,17 +47,17 @@ class LoginTest extends WebTestCase
 
         $client->followRedirect();
 
-        self::assertRouteSame("security_login");
+        self::assertRouteSame('security_login');
     }
 
     public function testIfPasswordIsWrong(): void
     {
         $client = static::createClient();
 
-        $crawler = $client->request("GET", "/login");
-        $form = $crawler->filter("form[name=login]")->form([
-            "email" => "ain@email.com",
-            "password" => "pass"
+        $crawler = $client->request('GET', '/login');
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'ain@email.com',
+            'password' => 'pass',
         ]);
 
         $client->submit($form);
@@ -67,18 +66,18 @@ class LoginTest extends WebTestCase
 
         $client->followRedirect();
 
-        self::assertRouteSame("security_login");
+        self::assertRouteSame('security_login');
     }
 
     public function testIfWrongCsrfToken(): void
     {
         $client = static::createClient();
 
-        $crawler = $client->request("GET", "/login");
-        $form = $crawler->filter("form[name=login]")->form([
-            "email" => "ain@email.com",
-            "password" => "password",
-            "_csrf_token" => "fail"
+        $crawler = $client->request('GET', '/login');
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'ain@email.com',
+            'password' => 'password',
+            '_csrf_token' => 'fail',
         ]);
 
         $client->submit($form);
@@ -87,6 +86,6 @@ class LoginTest extends WebTestCase
 
         $client->followRedirect();
 
-        self::assertRouteSame("security_login");
+        self::assertRouteSame('security_login');
     }
 }

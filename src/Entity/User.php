@@ -42,6 +42,11 @@ class User implements UserInterface
      */
     private string $password;
 
+    /**
+     * @ORM\Column(type="date_immutable")
+     */
+    private $registeredAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,24 +62,22 @@ class User implements UserInterface
 
     /**
      * @param mixed $firstname
+     *
      * @return $this
      */
     public function setFirstname($firstname): self
     {
         $this->firstname = $firstname;
+
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
-     * @param string $email
      * @return $this
      */
     public function setEmail(string $email): self
@@ -124,6 +127,26 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredAt(): ?\DateTimeInterface
+    {
+        return $this->registeredAt;
+    }
+
+    /**
+     * @param mixed $registeredAt
+     *
+     * @return $this
+     */
+    public function setRegisteredAt(\DateTimeInterface $registeredAt): self
+    {
+        $this->registeredAt = $registeredAt;
 
         return $this;
     }

@@ -11,29 +11,29 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegisterType extends AbstractType
+class AccountType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('firstname', TextType::class, [
                 'required' => true,
-                'label' =>'Votre prénom',
-                'attr' => ['placeholder' => 'Veuillez mettre votre prénom']
+                'label' => 'Votre prénom',
+                'attr' => ['placeholder' => 'Veuillez mettre votre prénom'],
             ])
-            ->add('mail', EmailType::class, [
+            ->add('email', EmailType::class, [
                 'required' => true,
-                'label' =>'Votre email',
-                'attr' => ['placeholder' => 'Veuillez mettre votre email']
+                'label' => 'Votre email',
+                'attr' => ['placeholder' => 'Veuillez mettre votre email'],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => false, 'attr' => ['placeholder' => 'Mot de passe']],
+                'first_options' => ['label' => false, 'attr' => ['placeholder' => 'Mot de passe']],
                 'second_options' => ['label' => false, 'attr' => [
-                    'placeholder' => 'Confirmer le mot de passe']],
+                'placeholder' => 'Confirmer le mot de passe', ]],
             ])
         ;
     }
@@ -44,5 +44,4 @@ class RegisterType extends AbstractType
             'data_class' => User::class,
         ]);
     }
-
 }
