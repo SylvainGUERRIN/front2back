@@ -19,27 +19,57 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $firstname;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
+
+    /**
+     * @ORM\Column(type="date_immutable")
+     */
+    private $registeredAt;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param mixed $firstname
+     *
+     * @return $this
+     */
+    public function setFirstname($firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -47,6 +77,9 @@ class User implements UserInterface
         return $this->email;
     }
 
+    /**
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -99,6 +132,26 @@ class User implements UserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getRegisteredAt(): ?\DateTimeInterface
+    {
+        return $this->registeredAt;
+    }
+
+    /**
+     * @param mixed $registeredAt
+     *
+     * @return $this
+     */
+    public function setRegisteredAt(\DateTimeInterface $registeredAt): self
+    {
+        $this->registeredAt = $registeredAt;
+
+        return $this;
+    }
+
+    /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
@@ -112,7 +165,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
