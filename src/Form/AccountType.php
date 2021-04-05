@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AccountType extends AbstractType
 {
@@ -20,11 +23,19 @@ class AccountType extends AbstractType
                 'required' => true,
                 'label' => 'Votre prénom',
                 'attr' => ['placeholder' => 'Veuillez mettre votre prénom'],
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3]),
+                ],
             ])
             ->add('email', EmailType::class, [
                 'required' => true,
                 'label' => 'Votre email',
                 'attr' => ['placeholder' => 'Veuillez mettre votre email'],
+                'constraints' => [
+                    new NotBlank(),
+                    new Email([], 'Cet email n\'est pas valide.'),
+                ],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -34,6 +45,10 @@ class AccountType extends AbstractType
                 'first_options' => ['label' => false, 'attr' => ['placeholder' => 'Mot de passe']],
                 'second_options' => ['label' => false, 'attr' => [
                 'placeholder' => 'Confirmer le mot de passe', ]],
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 8]),
+                ],
             ])
         ;
     }

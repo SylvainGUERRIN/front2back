@@ -6,6 +6,7 @@ namespace App\Tests\Functional\UserAccount;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class LoginTest.
@@ -16,7 +17,11 @@ class LoginTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/login');
+        /** @var UrlGeneratorInterface $urlGenerator */
+        $urlGenerator = $client->getContainer()->get('router');
+
+        $crawler = $client->request('GET', $urlGenerator->generate('security_login'));
+//        $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('form[name=login]')->form([
             'email' => 'ain@email.com',
             'password' => 'password',
@@ -35,7 +40,12 @@ class LoginTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/login');
+        /** @var UrlGeneratorInterface $urlGenerator */
+        $urlGenerator = $client->getContainer()->get('router');
+
+        $crawler = $client->request('GET', $urlGenerator->generate('security_login'));
+
+//        $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('form[name=login]')->form([
             'email' => 'fail@email.com',
             'password' => 'password',
@@ -54,7 +64,12 @@ class LoginTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/login');
+        /** @var UrlGeneratorInterface $urlGenerator */
+        $urlGenerator = $client->getContainer()->get('router');
+
+        $crawler = $client->request('GET', $urlGenerator->generate('security_login'));
+
+//        $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('form[name=login]')->form([
             'email' => 'ain@email.com',
             'password' => 'pass',
@@ -73,7 +88,12 @@ class LoginTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/login');
+        /** @var UrlGeneratorInterface $urlGenerator */
+        $urlGenerator = $client->getContainer()->get('router');
+
+        $crawler = $client->request('GET', $urlGenerator->generate('security_login'));
+
+//        $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('form[name=login]')->form([
             'email' => 'ain@email.com',
             'password' => 'password',
