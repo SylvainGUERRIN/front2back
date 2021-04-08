@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\AccountType;
+use App\Form\Account\RegistrationType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -46,12 +46,15 @@ class SecurityController extends AbstractController
 
     /**
      * @Route ("/register", name="security_register")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     * @return Response
      */
     public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
     {
         $user = new User();
 
-        $form = $this->createForm(AccountType::class, $user);
+        $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
 
@@ -75,14 +78,6 @@ class SecurityController extends AbstractController
         return $this->render('site/register.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route ("/profile", name="security_profile")
-     */
-    public function profile(Request $request): Response
-    {
-        return $this->render('user/profile.html.twig');
     }
 
     /**

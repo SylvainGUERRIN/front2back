@@ -33,7 +33,7 @@ class LoginTest extends WebTestCase
 
         $client->followRedirect();
 
-        self::assertRouteSame('index');
+        self::assertRouteSame('account_profile');
     }
 
     public function testIfEmailDoesNotExist(): void
