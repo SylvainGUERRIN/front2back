@@ -14,13 +14,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @template T
+ * @extends ServiceEntityRepository<T>
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+
+    private ManagerRegistry $em;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+        $this->em = $registry;
     }
+
+    use UniqueEmailTrait;
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
@@ -32,8 +40,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
 
         $user->setPassword($newEncodedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $this->em->getManager()->persist($user);
+        $this->em->getManager()->flush();
     }
 
     // /**

@@ -18,8 +18,9 @@ class EditProfileType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => 'Modifier votre prénom',
+                'empty_data' => '',
 //                'attr' => ['placeholder' => 'Veuillez mettre votre prénom'],
                 'constraints' => [
                     new NotBlank(),
@@ -27,8 +28,9 @@ class EditProfileType extends AbstractType
                 ],
             ])
             ->add('email', EmailType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => 'Modifier votre email',
+                'empty_data' => '',
 //                'attr' => ['placeholder' => 'Veuillez mettre votre email'],
                 'constraints' => [
                     new NotBlank(),
@@ -44,5 +46,4 @@ class EditProfileType extends AbstractType
             'data_class' => User::class,
         ]);
     }
-
 }
