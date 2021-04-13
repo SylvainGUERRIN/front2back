@@ -36,8 +36,8 @@ class ProfileTest extends WebTestCase
 //        $crawler = $client->request('GET', '/register');
 
         $form = $crawler->filter('form[name=edit_profile]')->form([
-            'edit_profile[firstname]' => 'ain',
-            'edit_profile[email]' => 'ain@email.com',
+            'edit_profile[firstname]' => 'ain0',
+            'edit_profile[email]' => 'ain0@email.com',
         ]);
 
         $client->submit($form);
@@ -104,15 +104,15 @@ class ProfileTest extends WebTestCase
 
     public function providerForBadDatasInEditProfileForm(): Generator
     {
-//        yield [
-//            [
-//                'edit_profile[firstname]' => 'ain',
-//                'edit_profile[email]' => 'ain@email.com',
-//            ],
-//            [
-//                'Cette valeur est déjà utilisée.',
-//            ],
-//        ];
+        yield [
+            [
+                'edit_profile[firstname]' => 'ain',
+                'edit_profile[email]' => 'ain2@email.com',
+            ],
+            [
+                'Cette valeur est déjà utilisée.',
+            ],
+        ];
 
         yield [
             [

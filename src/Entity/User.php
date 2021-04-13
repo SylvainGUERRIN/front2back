@@ -10,10 +10,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+// @UniqueEntity(fields={"email"}, repositoryMethod="findByUniqueEmail") to use in repository
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
- * @UniqueEntity("email", repositoryMethod="findByUniqueEmail")
+ * @UniqueEntity(fields={"email"}, message="Cette valeur est déjà utilisée.")
  */
 class User implements UserInterface
 {

@@ -6,7 +6,6 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -17,8 +16,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @template T
  * @extends ServiceEntityRepository<T>
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends ServiceEntityRepository
 {
+    use UniqueEmailTrait;
 
     private ManagerRegistry $em;
 
@@ -28,21 +28,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->em = $registry;
     }
 
-    use UniqueEmailTrait;
-
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
-    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
-    {
-        if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
-        }
-
-        $user->setPassword($newEncodedPassword);
-        $this->em->getManager()->persist($user);
-        $this->em->getManager()->flush();
-    }
+//    /**
+//     * Used to upgrade (rehash) the user's password automatically over time.
+//     */
+//    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+//    {
+//        if (!$user instanceof User) {
+//            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+//        }
+//
+//        $user->setPassword($newEncodedPassword);
+//        $this->em->getManager()->persist($user);
+//        $this->em->getManager()->flush();
+//    }
 
     // /**
     //  * @return User[] Returns an array of User objects

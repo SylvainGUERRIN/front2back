@@ -23,8 +23,8 @@ class LoginTest extends WebTestCase
         $crawler = $client->request('GET', $urlGenerator->generate('security_login'));
 //        $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('form[name=login]')->form([
-            'email' => 'ain@email.com',
-            'password' => 'password',
+            'email' => 'ain0@email.com',
+            'password' => 'password0',
         ]);
 
         $client->submit($form);
@@ -48,7 +48,7 @@ class LoginTest extends WebTestCase
 //        $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('form[name=login]')->form([
             'email' => 'fail@email.com',
-            'password' => 'password',
+            'password' => 'password0',
         ]);
 
         $client->submit($form);
@@ -71,7 +71,7 @@ class LoginTest extends WebTestCase
 
 //        $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('form[name=login]')->form([
-            'email' => 'ain@email.com',
+            'email' => 'ain0@email.com',
             'password' => 'pass',
         ]);
 
@@ -95,8 +95,8 @@ class LoginTest extends WebTestCase
 
 //        $crawler = $client->request('GET', '/login');
         $form = $crawler->filter('form[name=login]')->form([
-            'email' => 'ain@email.com',
-            'password' => 'password',
+            'email' => 'ain0@email.com',
+            'password' => 'password0',
             '_csrf_token' => 'fail',
         ]);
 
