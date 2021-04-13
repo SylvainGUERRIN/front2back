@@ -23,6 +23,7 @@ security:
                     - App\Security\Guard\WebAuthenticator
             logout:
                 path: security_logout
+                target: security_login
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -37,3 +38,4 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/profile, roles: ROLE_USER }

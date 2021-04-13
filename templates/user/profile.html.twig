@@ -2,6 +2,20 @@
 
 {% block body %}
 
-    <h1>Bienvenue sur votre profil</h1>
+    <h1>Modifier vos données personnelles</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_label(form.firstname) }}
+    {{ form_errors(form.firstname) }}
+    {{ form_widget(form.firstname) }}
+
+    {{ form_label(form.email) }}
+    {{ form_errors(form.email) }}
+    {{ form_widget(form.email) }}
+
+    <button type="submit">Enregistrer les modifications</button>
+
+    {{ form_end(form) }}
 
 {% endblock %}

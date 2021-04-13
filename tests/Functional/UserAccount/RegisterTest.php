@@ -19,11 +19,11 @@ class RegisterTest extends WebTestCase
 
 //        $crawler = $client->request('GET', '/register');
 
-        $form = $crawler->filter('form[name=account]')->form([
-            'account[firstname]' => 'ain',
-            'account[email]' => 'ain@email.com',
-            'account[password][first]' => 'password',
-            'account[password][second]' => 'password',
+        $form = $crawler->filter('form[name=registration]')->form([
+            'registration[firstname]' => 'ain',
+            'registration[email]' => 'ain@email.com',
+            'registration[password][first]' => 'password',
+            'registration[password][second]' => 'password',
         ]);
 
         $client->submit($form);
@@ -44,11 +44,11 @@ class RegisterTest extends WebTestCase
 
         $crawler = $client->request('GET', $urlGenerator->generate('security_register'));
 
-        $form = $crawler->filter('form[name=account]')->form([
-            'account[firstname]' => '',
-            'account[email]' => 'ain@email.com',
-            'account[password][first]' => 'password',
-            'account[password][second]' => 'password',
+        $form = $crawler->filter('form[name=registration]')->form([
+            'registration[firstname]' => '',
+            'registration[email]' => 'ain0@email.com',
+            'registration[password][first]' => 'password0',
+            'registration[password][second]' => 'password0',
         ]);
 
         $client->submit($form);
@@ -57,7 +57,7 @@ class RegisterTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_OK);
 
         self::assertSelectorTextContains(
-            'form[name=account] > div > ul > li',
+            'form[name=registration] > div > ul > li',
             'Cette valeur ne doit pas être vide.'
         );
     }
@@ -71,11 +71,11 @@ class RegisterTest extends WebTestCase
 
         $crawler = $client->request('GET', $urlGenerator->generate('security_register'));
 
-        $form = $crawler->filter('form[name=account]')->form([
-            'account[firstname]' => 'ai',
-            'account[email]' => 'ain@email.com',
-            'account[password][first]' => 'password',
-            'account[password][second]' => 'password',
+        $form = $crawler->filter('form[name=registration]')->form([
+            'registration[firstname]' => 'ai',
+            'registration[email]' => 'ain0@email.com',
+            'registration[password][first]' => 'password0',
+            'registration[password][second]' => 'password0',
         ]);
 
         $client->submit($form);
@@ -84,7 +84,7 @@ class RegisterTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_OK);
 
         self::assertSelectorTextContains(
-            'form[name=account] > div > ul > li',
+            'form[name=registration] > div > ul > li',
             'Cette chaîne est trop courte. Elle doit avoir au minimum 3 caractères.'
         );
     }
@@ -98,11 +98,11 @@ class RegisterTest extends WebTestCase
 
         $crawler = $client->request('GET', $urlGenerator->generate('security_register'));
 
-        $form = $crawler->filter('form[name=account]')->form([
-            'account[firstname]' => 'ain',
-            'account[email]' => '',
-            'account[password][first]' => 'password',
-            'account[password][second]' => 'password',
+        $form = $crawler->filter('form[name=registration]')->form([
+            'registration[firstname]' => 'ain0',
+            'registration[email]' => '',
+            'registration[password][first]' => 'password0',
+            'registration[password][second]' => 'password0',
         ]);
 
         $client->submit($form);
@@ -110,7 +110,7 @@ class RegisterTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_OK);
 //        self::assertResponseStatusCodeSame(Response::HTTP_OK);
         self::assertSelectorTextContains(
-            'form[name=account] > div > ul > li',
+            'form[name=registration] > div > ul > li',
             'Cette valeur ne doit pas être vide.'
         );
     }
@@ -124,11 +124,11 @@ class RegisterTest extends WebTestCase
 
         $crawler = $client->request('GET', $urlGenerator->generate('security_register'));
 
-        $form = $crawler->filter('form[name=account]')->form([
-            'account[firstname]' => 'ain',
-            'account[email]' => 'ain.com',
-            'account[password][first]' => 'password',
-            'account[password][second]' => 'password',
+        $form = $crawler->filter('form[name=registration]')->form([
+            'registration[firstname]' => 'ain0',
+            'registration[email]' => 'ain0.com',
+            'registration[password][first]' => 'password0',
+            'registration[password][second]' => 'password0',
         ]);
 
         $client->submit($form);
@@ -136,7 +136,7 @@ class RegisterTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_OK);
 
         self::assertSelectorTextContains(
-            'form[name=account] > div > ul > li',
+            'form[name=registration] > div > ul > li',
             'Cet email n\'est pas valide.'
         );
     }
@@ -150,11 +150,11 @@ class RegisterTest extends WebTestCase
 
         $crawler = $client->request('GET', $urlGenerator->generate('security_register'));
 
-        $form = $crawler->filter('form[name=account]')->form([
-            'account[firstname]' => 'ain',
-            'account[email]' => 'ain@email.com',
-            'account[password][first]' => 'password',
-            'account[password][second]' => 'pass',
+        $form = $crawler->filter('form[name=registration]')->form([
+            'registration[firstname]' => 'ain6',
+            'registration[email]' => 'ain6@email.com',
+            'registration[password][first]' => 'password0',
+            'registration[password][second]' => 'pass',
         ]);
 
         $client->submit($form);
@@ -166,7 +166,7 @@ class RegisterTest extends WebTestCase
 //        self::assertRouteSame('security_register');
 
         self::assertSelectorTextContains(
-            'form[name=account] > div > ul > li',
+            'form[name=registration] > div > ul > li',
             'Les mots de passe ne correspondent pas.'
         );
     }
@@ -180,11 +180,11 @@ class RegisterTest extends WebTestCase
 
         $crawler = $client->request('GET', $urlGenerator->generate('security_register'));
 
-        $form = $crawler->filter('form[name=account]')->form([
-            'account[firstname]' => 'ain',
-            'account[email]' => 'ain@email.com',
-            'account[password][first]' => 'passwor',
-            'account[password][second]' => 'passwor',
+        $form = $crawler->filter('form[name=registration]')->form([
+            'registration[firstname]' => 'ain6',
+            'registration[email]' => 'ain6@email.com',
+            'registration[password][first]' => 'passwor',
+            'registration[password][second]' => 'passwor',
         ]);
 
         $client->submit($form);
@@ -193,7 +193,7 @@ class RegisterTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_OK);
 
         self::assertSelectorTextContains(
-            'form[name=account] > div > ul > li',
+            'form[name=registration] > div > ul > li',
             'Cette chaîne est trop courte. Elle doit avoir au minimum 8 caractères.'
         );
     }

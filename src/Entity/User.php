@@ -6,11 +6,16 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
+// @UniqueEntity(fields={"email"}, repositoryMethod="findByUniqueEmail") to use in repository
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields={"email"}, message="Cette valeur est déjà utilisée.")
  */
 class User implements UserInterface
 {
@@ -19,17 +24,18 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    protected ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $firstname;
+    protected string $firstname;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
      */
-    private ?string $email;
+    protected ?string $email;
 
     /**
      * @ORM\Column(type="json")
