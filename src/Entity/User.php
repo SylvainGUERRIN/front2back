@@ -53,6 +53,11 @@ class User implements UserInterface
      */
     private $registeredAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Avatar", inversedBy="user", cascade={"persist", "remove"})
+     */
+    protected ?Avatar $avatar;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +158,18 @@ class User implements UserInterface
     public function setRegisteredAt(\DateTimeInterface $registeredAt): self
     {
         $this->registeredAt = $registeredAt;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
