@@ -1,0 +1,76 @@
+@startuml
+package "Entities" #FFF {
+    class User {
+        {field} id: int
+        {field} firstname: string
+        {field} lastname: string
+        {field} email: string
+        {field} password: string
+        {field} createdAt: DateTimeInterface
+        {field} role: array
+        [field] avatar: relation
+        {field} comments: relation
+        {field} favorites: relation
+        {field} articles: relation
+    }
+
+    class Comment {
+        {field} id: int
+        {field} content: text
+        {field} mail: varchar 255
+        {field} commentedAt: dateTimeInterface
+        {field} approval: boolean
+        {field} article: relation
+        {field} user: relation
+    }
+
+    class Like {
+        {field} id: int
+        {field} likeAt: dateTimeInterface
+    }
+
+    class Article {
+        {field} id: int
+        {field} title: varchar 255
+        {field} slug: varchar 255
+        {field} url_image: varchar 255
+        {field} content: text
+        {field} created_at: dateTimeInterface
+        {field} modified_at: dateTimeInterface
+        {field} user: relation
+        {field} ref_description: varchar 255
+    }
+
+    class Category {
+        {field} id: int
+        {field} name: varchar 255
+        {field} content: text
+    }
+
+    class Tag {
+        {field} id: int
+        {field} name: varchar 255
+        {field} content: text
+    }
+
+    class Avatar {
+        {field} id: int
+        {field} url_avatar: varchar 255
+        {field} updated_at: dateTimeInterface
+        {field} validated: boolean
+        {field} user: relation
+    }
+
+    User "One" --* "Many" Article : To
+    User "One" --* "Many" Comment : To
+    User "One" --* "Many" Like : To
+    User "One" --* "One" Avatar : To
+
+    Article "One" --* "Many" Like : To
+    Article "Many" --* "One" Category : To
+    Article "Many" --* "Many" Tag : To
+
+    Comment "Many" --* "Many" Article : To
+    Comment "Many" --* "One" User : To
+}
+@enduml
