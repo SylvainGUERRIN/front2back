@@ -8,6 +8,7 @@ package "Entities" #FFF {
         {field} password: string
         {field} createdAt: DateTimeInterface
         {field} role: array
+        [field] avatar: relation
         {field} comments: relation
         {field} favorites: relation
         {field} articles: relation
@@ -56,6 +57,8 @@ package "Entities" #FFF {
         {field} id: int
         {field} url_avatar: varchar 255
         {field} updated_at: dateTimeInterface
+        {field} validated: boolean
+        {field} user: relation
     }
 
     User "One" --* "Many" Article : To
