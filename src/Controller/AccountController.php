@@ -26,6 +26,7 @@ class AccountController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
+        $avatar = $user->getAvatar();
 
         $form = $this->createForm(EditProfileType::class, $user)->handleRequest($request);
 

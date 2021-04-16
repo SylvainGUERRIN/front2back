@@ -6,6 +6,12 @@
 
     {{ form_start(form) }}
 
+    {% if avatar is not null and avatar is not empty %}
+        <img src="{{ vich_uploader_asset(avatar, 'imageFile') }}" alt="avatar de l'utilisateur" width="100%">
+    {% else %}
+        <img src="{{ asset('img/profil/default.png') }}" alt="avatar par défaut" width="100%">
+    {% endif %}
+
     {{ form_label(form.firstname) }}
     {{ form_errors(form.firstname) }}
     {{ form_widget(form.firstname) }}
