@@ -3,6 +3,7 @@
 namespace App\Form\Account;
 
 use App\Entity\User;
+use App\Form\AvatarType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -36,6 +37,11 @@ class EditProfileType extends AbstractType
                     new NotBlank(),
                     new Email([], 'Cet email n\'est pas valide.'),
                 ],
+            ])
+            ->add('avatar', AvatarType::class, [
+                'label' => ' ',
+                'required' => true,
+                'mapped' => true,
             ])
         ;
     }

@@ -7,10 +7,17 @@
     {{ form_start(form) }}
 
     {% if avatar is not null and avatar is not empty %}
+        {{ dump(vich_uploader_asset(avatar, 'imageFile')) }}
         <img src="{{ vich_uploader_asset(avatar, 'imageFile') }}" alt="avatar de l'utilisateur" width="100%">
     {% else %}
-        <img src="{{ asset('img/profil/default.png') }}" alt="avatar par défaut" width="100%">
+{#        <img src="{{ asset('img/profil/default.png') }}" alt="avatar par défaut" width="100%">#}
     {% endif %}
+
+{#    <img id="avatarPreview" src="#" alt="" class="img-preview-none">#}
+    {{ form_label(form.avatar) }}
+    {{ form_errors(form.avatar) }}
+    {{ form_widget(form.avatar) }}
+    <small>Merci de mettre une photo où vous êtes visible, de préférence une photo du visage.</small>
 
     {{ form_label(form.firstname) }}
     {{ form_errors(form.firstname) }}

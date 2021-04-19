@@ -37,7 +37,7 @@ class Avatar
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected string $url;
+    protected $url;
 
     /**
      * @ORM\Column(type="datetime")
@@ -59,19 +59,19 @@ class Avatar
         return $this->id;
     }
 
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
 
         return $this;
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -83,7 +83,7 @@ class Avatar
         return $this;
     }
 
-    public function isValidatedAt(): bool
+    public function isValidatedAt(): ?bool
     {
         return $this->validatedAt;
     }
@@ -118,7 +118,7 @@ class Avatar
         return $this->imageFile;
     }
 
-    public function setImageFile(?File $imageFile = null): Avatar
+    public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
         /*if($this->imageFile instanceof UploadedFile){
@@ -128,7 +128,7 @@ class Avatar
             $this->updatedAt = new \DateTime('now');
         }
 
-        return $this;
+//        return $this;
     }
 
     public function __toString()
