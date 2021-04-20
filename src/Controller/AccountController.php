@@ -33,7 +33,7 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 //            dd($form->getData()->getAvatar());
-            dump($form->getData()->getAvatar()->getUrl());
+            //dump($form->getData()->getAvatar()->getUrl());
             //$user->getAvatar()->setValidatedAt(false);
 //            $form->get('avatar')->get('validatedAt')->setData(false);
             //dd($form->getData()->getAvatar());

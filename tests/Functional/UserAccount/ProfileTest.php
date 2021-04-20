@@ -8,6 +8,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Generator;
 //use PHPUnit\Framework\MockObject\Generator;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestAssertionsTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -16,6 +17,9 @@ class ProfileTest extends WebTestCase
 {
     public function testProfileFillWithGoodData(): void
     {
+        // trait with methods for testing
+        //$trait = WebTestAssertionsTrait::;
+
         $client = static::createClient();
 
         /** @var UrlGeneratorInterface $urlGenerator */
