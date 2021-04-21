@@ -26,10 +26,18 @@ class AccountController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
+        $avatar = $user->getAvatar();
 
         $form = $this->createForm(EditProfileType::class, $user)->handleRequest($request);
+        //$form->get('avatar')->get('validatedAt')->setData(false);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            dd($form->getData()->getAvatar());
+            //dump($form->getData()->getAvatar()->getUrl());
+            //$user->getAvatar()->setValidatedAt(false);
+//            $form->get('avatar')->get('validatedAt')->setData(false);
+            //dd($form->getData()->getAvatar());
+            //$this->doctrine->getManager()->persist($user);
             $this->doctrine->getManager()->flush();
 
             $this->addFlash(
@@ -37,11 +45,12 @@ class AccountController extends AbstractController
                 'Votre profil a bien été modifié.'
             );
 
-//            return $this->redirectToRoute('account_profile');
+            return $this->redirectToRoute('account_profile');
         }
 
         return $this->render('user/profile.html.twig', [
             'form' => $form->createView(),
+            'avatar' => $avatar,
         ]);
     }
 }

@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="`user`")
  * @UniqueEntity(fields={"email"}, message="Cette valeur est déjà utilisée.")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -52,6 +53,11 @@ class User implements UserInterface
      * @ORM\Column(type="date_immutable")
      */
     private $registeredAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Avatar", inversedBy="user", cascade={"persist", "remove"})
+     */
+    protected ?Avatar $avatar;
 
     public function getId(): ?int
     {
@@ -157,6 +163,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
@@ -175,5 +193,20 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function serialize(): ?string
+    {
+        return serialize([$this->id, $this->email, $this->password]);
+    }
+
+    public function unserialize($data): void
+    {
+        [$this->id, $this->email, $this->password] = unserialize($data, ['allowed_classes' => false]);
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getFirstname();
     }
 }
