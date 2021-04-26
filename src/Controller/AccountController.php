@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
@@ -58,12 +59,21 @@ class AccountController extends AbstractController
     /**
      * @Route ("/edit-password", name="account_edit_password")
      */
-    public function editPassword(Request $request): Response
+    public function editPassword(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
     {
-        /** @var User $user */
-        $user = $this->getUser();
 
-        $form = $this->createForm(EditPasswordType::class, $user)->handleRequest($request);
+        $form = $this->createForm(EditPasswordType::class)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+            $user->setPassword($userPasswordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
+            $this->doctrine->getManager()->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été modifié avec succès.');
+
+            return $this->redirectToRoute('account_profile');
+        }
 
         return $this->render('user/edit-password.html.twig', [
             'form' => $form->createView(),
