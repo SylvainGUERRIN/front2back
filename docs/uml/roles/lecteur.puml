@@ -1,0 +1,10 @@
+@startwbs
++ Utilisateur connecté avec le rôle lecteur
+++ Page Accueil
++++ Page d'une catégorie
++++ Page d'un article
+++ Blog
++++ Page d'un article
+++ Contact
+++ Page de profil
+@endwbs
