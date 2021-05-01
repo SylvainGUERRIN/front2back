@@ -6,6 +6,7 @@ database Database
 
 rectangle "Mon profil" {
     User -- (Mon profil)
+    (Création d'articles de veille) .> (Mon profil)
     (Modifier mes veilles favorites) .> (Mon profil)
     (Modifier mes alertes mails) .> (Mon profil)
     (Modifier mes informations personnelles) .> (Mon profil)

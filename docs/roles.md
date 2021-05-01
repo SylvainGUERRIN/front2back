@@ -37,3 +37,4 @@
 - Rôle anonyme(utilisateur qui n'a pas de comptes):
 
 - Possibilité de commenter mais avec le minimum d'outils.
+- Accède aux articles sept jours après leurs publication
