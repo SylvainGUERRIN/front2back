@@ -8,7 +8,7 @@ package "Entities" #FFF {
         {field} password: string
         {field} createdAt: DateTimeInterface
         {field} role: array
-        [field] avatar: relation
+        {field} avatar: relation
         {field} comments: relation
         {field} favorites: relation
         {field} articles: relation
@@ -24,7 +24,7 @@ package "Entities" #FFF {
         {field} user: relation
     }
 
-    class Like {
+    class Favorite {
         {field} id: int
         {field} likeAt: dateTimeInterface
     }
@@ -39,12 +39,6 @@ package "Entities" #FFF {
         {field} modified_at: dateTimeInterface
         {field} user: relation
         {field} ref_description: varchar 255
-    }
-
-    class Category {
-        {field} id: int
-        {field} name: varchar 255
-        {field} content: text
     }
 
     class Tag {
@@ -63,14 +57,12 @@ package "Entities" #FFF {
 
     User "One" --* "Many" Article : To
     User "One" --* "Many" Comment : To
-    User "One" --* "Many" Like : To
+    User "One" --* "Many" Favorite : To
     User "One" --* "One" Avatar : To
 
-    Article "One" --* "Many" Like : To
-    Article "Many" --* "One" Category : To
+    Article "One" --* "Many" Favorite : To
     Article "Many" --* "Many" Tag : To
 
-    Comment "Many" --* "Many" Article : To
-    Comment "Many" --* "One" User : To
+    Comment "Many" --* "One" Article : To
 }
 @enduml
