@@ -1,0 +1,30 @@
+@startwbs
++ Utilisateur connecté avec le rôle administrateur
+++ Page Accueil
++++ Page d'une catégorie
++++ Page d'un article
+++ Blog
++++ Page d'une catégorie
++++ Page d'un article
+++ Contact
+++ Page de profil
++++ Page modifications veilles favorites
++++ Page modifications alertes mail
++++ Page modifications informations personnelles
++++ Page modifications mot de passe
+++ Page d'administration
++++ Page gestion des articles
+++++ Page création d'un article
+++++ Page modification d'un article
+++++ Page suppression d'un article
++++ Page gestion des tags
+++++ Page création d'un tag
+++++ Page modification d'un tag
+++++ Page suppression d'un tag
++++ Page gestion des utilisateurs
+++++ Page moderation d'un utilisateur
+++++ Page suppression d'un utilisateur
++++ Page gestion dela publication des articles des contributeurs
+++++ Page validation/lecture/suppression des articles d'un contributeur
+
+@endwbs
