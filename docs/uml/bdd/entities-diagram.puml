@@ -60,7 +60,7 @@ package "Entities" #FFF {
     User "One" --* "Many" Favorite : To
     User "One" --* "One" Avatar : To
 
-    Article "One" --* "Many" Favorite : To
+    Favorite "Many" --* "One" Tag : To
     Article "Many" --* "Many" Tag : To
 
     Comment "Many" --* "One" Article : To
