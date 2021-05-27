@@ -1,0 +1,45 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+database Database
+
+rectangle "Mon profil" {
+    User -- (Mon profil)
+
+    (Modifier mes veilles favorites) .> (Mon profil)
+    (Modifier mes alertes mails) .> (Mon profil)
+    (Modifier mes informations personnelles) .> (Mon profil)
+    (Modifier mon avatar) .> (Mon profil)
+    (Modifier mon mot de passe) .> (Mon profil)
+    (Modifier mon email) .> (Mon profil)
+    (Mon profil) -- Database
+}
+
+rectangle "Gestion des articles" {
+    User -- (Gestion des articles)
+    (Création d'articles de veille) .> (Database)
+    (Modification d'articles de veille) .> (Database)
+    (Suppression d'articles de veille) .> (Database)
+}
+
+rectangle "Gestion des articles des contributeurs" {
+    User -- (Gestion des articles des contributeurs)
+    (Lecture d'articles de veille des contributeurs) .> (Database)
+    (Validation d'articles de veille des contributeurs) .> (Database)
+    (Suppression d'articles de veille des contributeurs) .> (Database)
+}
+
+rectangle "Gestion des tags" {
+    User -- (Gestion des tags)
+    (Création des tags) .> (Database)
+    (Modification des tags) .> (Database)
+    (Suppression des tags) .> (Database)
+}
+
+rectangle "Gestion des utilisateurs" {
+    User -- (Gestion des utilisateurs)
+    (modération d'un utilisateur) .> (Database)
+    (suppression d'un utilisateur) .> (Database)
+}
+@enduml

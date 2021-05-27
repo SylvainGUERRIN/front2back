@@ -11,8 +11,9 @@
 +++ Page gestion des articles
 ++++ Page création d'article
 ++++ Page modification d'article
-+++ Page modifications veilles favorites
-+++ Page modifications alertes mail
++++ Page modifications veilles
+++++ Modifier les veilles favorites
+++++ Modifier les alertes mail
 +++ Page modifications informations personnelles
 +++ Page modifications mot de passe
 @endwbs
