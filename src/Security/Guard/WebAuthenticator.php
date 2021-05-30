@@ -45,20 +45,12 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    /**
-     * @param Request $request
-     * @return bool
-     */
     public function supports(Request $request): bool
     {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
     public function getCredentials(Request $request): array
     {
         $credentials = [
@@ -76,7 +68,7 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
     /**
      * @param mixed $credentials
-     * @param UserProviderInterface $userProvider
+     *
      * @return object|UserInterface|null
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
@@ -98,8 +90,6 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
     /**
      * @param mixed $credentials
-     * @param UserInterface $user
-     * @return bool
      */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
@@ -108,8 +98,8 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     *
      * @param $credentials
-     * @return string|null
      */
     public function getPassword($credentials): ?string
     {
@@ -117,10 +107,6 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     }
 
     /**
-     * @param Request $request
-     * @param TokenInterface $token
-     * @param string $providerKey
-     * @return RedirectResponse
      * @throws \Exception
      */
     public function onAuthenticationSuccess(
@@ -134,12 +120,9 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 //
 //        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
 //        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        return new RedirectResponse($this->urlGenerator->generate("index"));
+        return new RedirectResponse($this->urlGenerator->generate('account_profile'));
     }
 
-    /**
-     * @return string
-     */
     protected function getLoginUrl(): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

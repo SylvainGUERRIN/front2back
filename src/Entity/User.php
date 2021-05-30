@@ -6,30 +6,37 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
+// @UniqueEntity(fields={"email"}, repositoryMethod="findByUniqueEmail") to use in repository
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields={"email"}, message="Cette valeur est déjà utilisée.")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    protected ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $firstname;
+    protected string $firstname;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
      */
-    private ?string $email;
+    protected ?string $email;
 
     /**
      * @ORM\Column(type="json")
@@ -42,10 +49,17 @@ class User implements UserInterface
      */
     private string $password;
 
+    private ?string $plainPassword = null;
+
     /**
      * @ORM\Column(type="date_immutable")
      */
     private $registeredAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Avatar", inversedBy="user", cascade={"persist", "remove"})
+     */
+    protected ?Avatar $avatar;
 
     public function getId(): ?int
     {
@@ -131,6 +145,16 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
     /**
      * @return mixed
      */
@@ -147,6 +171,18 @@ class User implements UserInterface
     public function setRegisteredAt(\DateTimeInterface $registeredAt): self
     {
         $this->registeredAt = $registeredAt;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
@@ -169,5 +205,20 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function serialize(): ?string
+    {
+        return serialize([$this->id, $this->email, $this->password]);
+    }
+
+    public function unserialize($data): void
+    {
+        [$this->id, $this->email, $this->password] = unserialize($data, ['allowed_classes' => false]);
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getFirstname();
     }
 }
