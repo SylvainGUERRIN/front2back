@@ -1,0 +1,11 @@
+@startwbs
++ Utilisateur non connecté (rôle anonyme))
+++ Page Accueil
++++ Page d'une catégorie
++++ Page d'un article
+++ Blog
++++ Page d'un article
+++ Contact
+++ Page d'inscription
+++ Page de connexion
+@endwbs

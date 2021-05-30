@@ -8,14 +8,16 @@
 
 - Possibilitée de poster un commentaire sans être connecté
 
-- Système de modération pour les articles des contributeurs
+- Système de modération pour les articles des contributeurs,
+avec validation. Retour au contributeur si propos innapropriés
 
 - Refonte du système de rôles:
 Ajout du rôle contributeur
-Redéfinition du rôle lecteur
+Redéfinition du rôle lecteur (plus de features pour commenter)
 
 - Rôle contributeur:
 En plus des commentaires, peut ajouter du code
+Peut poster ses propres articles
 
 - Ajout du système de badges:
 Badges pour les contributeurs et les lecteurs

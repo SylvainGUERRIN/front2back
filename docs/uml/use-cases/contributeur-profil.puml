@@ -6,6 +6,7 @@ database Database
 
 rectangle "Mon profil" {
     User -- (Mon profil)
+
     (Modifier mes veilles favorites) .> (Mon profil)
     (Modifier mes alertes mails) .> (Mon profil)
     (Modifier mes informations personnelles) .> (Mon profil)
@@ -13,5 +14,10 @@ rectangle "Mon profil" {
     (Modifier mon mot de passe) .> (Mon profil)
     (Modifier mon email) .> (Mon profil)
     (Mon profil) -- Database
+}
+
+rectangle "Mes articles" {
+    User -- (Mes articles)
+    (Création d'articles de veille) .> (Database)
 }
 @enduml

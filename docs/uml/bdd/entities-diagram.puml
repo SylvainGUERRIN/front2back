@@ -8,9 +8,11 @@ package "Entities" #FFF {
         {field} password: string
         {field} createdAt: DateTimeInterface
         {field} role: array
+        {field} mailAlert: boolean
+        {field} avatar: relation
         {field} comments: relation
         {field} favorites: relation
-        {field} articles: relation
+        {field} post: relation
     }
 
     class Comment {
@@ -19,55 +21,54 @@ package "Entities" #FFF {
         {field} mail: varchar 255
         {field} commentedAt: dateTimeInterface
         {field} approval: boolean
-        {field} article: relation
+        {field} post: relation
         {field} user: relation
     }
 
-    class Like {
+    class Favorite {
         {field} id: int
         {field} likeAt: dateTimeInterface
+        {field} user: relation
+        {field} tag: relation
     }
 
-    class Article {
+    class Post {
         {field} id: int
         {field} title: varchar 255
         {field} slug: varchar 255
         {field} url_image: varchar 255
+        {field} excerpt: text
         {field} content: text
         {field} created_at: dateTimeInterface
         {field} modified_at: dateTimeInterface
         {field} user: relation
         {field} ref_description: varchar 255
-    }
-
-    class Category {
-        {field} id: int
-        {field} name: varchar 255
-        {field} content: text
+        {field} tag: relation
     }
 
     class Tag {
         {field} id: int
         {field} name: varchar 255
         {field} content: text
+        {field} post: relation
     }
 
     class Avatar {
         {field} id: int
         {field} url_avatar: varchar 255
         {field} updated_at: dateTimeInterface
+        {field} validated: boolean
+        {field} user: relation
     }
 
-    User "One" --* "Many" Article : To
+    User "One" --* "Many" Post : To
     User "One" --* "Many" Comment : To
-    User "One" --* "Many" Like : To
+    User "One" --* "Many" Favorite : To
     User "One" --* "One" Avatar : To
 
-    Article "One" --* "Many" Like : To
-    Article "Many" --* "One" Category : To
-    Article "Many" --* "Many" Tag : To
+    Favorite "Many" --* "One" Tag : To
+    Post "Many" --* "Many" Tag : To
 
-    Comment "Many" --* "Many" Article : To
-    Comment "Many" --* "One" User : To
+    Comment "Many" --* "One" Post : To
 }
 @enduml
