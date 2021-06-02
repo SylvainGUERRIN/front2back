@@ -97,10 +97,10 @@ jobs:
       - name: Check Symfony requirements
         run: vendor/bin/requirements-checker
 
-      - name: Check the Symfony console
-        run: |
-          bin/console about
-          bin/console strangebuzz:version
+      #use it only or tests commands in CI
+#      - name: Check the Symfony console
+#        run: |
+#          php bin/console command-name
 
       ## —— Coding standards ✨ ————————————————————————————————————————————————
       # Can't handle PHP8 for now
