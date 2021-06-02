@@ -1,5 +1,5 @@
 # https://help.github.com/en/actions
-name: Full CI process for Symfony 5
+name: Full CI process for Front2Back
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ on:
 #  ES_HTTP_PORT: 9209
 jobs:
   symfony:
-    name: Symfony 5.2 (PHP ${{ matrix.php-versions }})
+    name: Continuous Integration (PHP ${{ matrix.php-versions }})
     # https://hub.docker.com/_/ubuntu/
     runs-on: ubuntu-20.04
     services:
@@ -63,17 +63,17 @@ jobs:
 #          redis version: '5'
 
       ## —— Yarn 🐱 ————————————————————————————————————————————————————————————
-#      - name: Yarn install
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: '12'
+      - name: Yarn install
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 #          registry-url: npm.fontawesome.com
-#      - run: yarn install
+      - run: yarn install
 #        env:
 #          NODE_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-#
-#      - name: Yarn build
-#        run: yarn run encore production
+
+      - name: Yarn build
+        run: yarn run encore production
 
       # —— Composer 🧙‍️ —————————————————————————————————————————————————————————
       - name: Validate composer.json and composer.lock
