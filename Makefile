@@ -5,10 +5,10 @@ GIT           = git
 YARN          = yarn
 
 ## Install vendors according to the current composer.lock file
-install: composer.json
-	$(COMPOSER) install
-#install: composer.lock
-#	$(COMPOSER) install --no-progress --prefer-dist --optimize-autoloader
+#install: composer.json
+#	$(COMPOSER) install
+install: composer.lock
+	$(COMPOSER) install --no-progress --prefer-dist --optimize-autoloader
 
 unit-tests:
 	php bin/phpunit --testsuite unit
