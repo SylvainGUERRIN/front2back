@@ -31,15 +31,8 @@ class AccountController extends AbstractController
         $avatar = $user->getAvatar();
 
         $form = $this->createForm(EditProfileType::class, $user)->handleRequest($request);
-        //$form->get('avatar')->get('validatedAt')->setData(false);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            dd($form->getData()->getAvatar());
-            //dump($form->getData()->getAvatar()->getUrl());
-            //$user->getAvatar()->setValidatedAt(false);
-//            $form->get('avatar')->get('validatedAt')->setData(false);
-            //dd($form->getData()->getAvatar());
-            //$this->doctrine->getManager()->persist($user);
             $this->doctrine->getManager()->flush();
 
             $this->addFlash(
