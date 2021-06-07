@@ -1,0 +1,21 @@
+/*
+for help with scss
+command to compile: sass styles/styles.scss styles/styles.css
+command to compile with option --watch for avoid repeat command: sass styles/globals.scss styles/styles.css --watch
+map file it's to know where errors come from in sass
+ */
+
+//globals
+
+@import "~bootstrap/scss/bootstrap";
+@import "../layout/variables";
+@import "../layout/fonts.scss";
+@import "../layout/general.scss";
+
+//elements
+//@import "../layout/buttons.scss";
+//@import "../layout/navbar.scss";
+//@import "../layout/side-menu.scss";
+//@import "../layout/footer.scss";
+
+//pages

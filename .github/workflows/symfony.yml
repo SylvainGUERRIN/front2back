@@ -123,3 +123,11 @@ jobs:
 #        run: |
 #          cp phpunit.xml.ci phpunit.xml
 #          ./vendor/bin/phpunit --testsuite='main'
+
+      # —— Code coverage 🎵 ——————————————————————————————————————————————————————————
+#      - name: Send code coverage
+#        uses: codecov/codecov-action@v1
+#        continue-on-error: true
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          files: ./var/coverage/clover.xml

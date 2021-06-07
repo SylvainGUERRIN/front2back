@@ -1,0 +1,23 @@
+/* general */
+body{
+  font-family: 'IBM Plex Sans', sans-serif;
+  //position: relative;
+}
+h1{
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: $dark-blue;
+}
+a{
+  color: #ffffff;
+  p {
+    color: #000000;
+  }
+  .link{
+    color: #00ccbc;
+  }
+  &:hover{
+    color: #00ccbc;
+    text-decoration: none;
+  }
+}
