@@ -1,0 +1,10 @@
+.form-top{
+  clip-path: polygon(50% 85%, 91% 50%, 100% 26%, 100% 100%, 0 100%, 0 25%, 9% 50%);
+  background-color: $dark-blue;
+  height: 140px;
+}
+.form-bottom{
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 92% 50%, 50% 29%, 8% 50%, 0 76%);
+  background-color: $dark-blue;
+  height: 160px;
+}
