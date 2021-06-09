@@ -28,7 +28,7 @@
                     </ul>
                 </div>
                 <ul class="navbar-nav ml-auto">
-                    {#                {% if app.user is not null and app.user.activation == true %}#}
+                    {% if app.user is not null and app.user.activate == true %}
                     {#                    <li class="nav-item dropdown">#}
                     {#                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">#}
                     {#                            <img src="{% if app.user.avatarurl is null %}{{ asset('avatars/user-default-64px.png') }}#}
@@ -42,14 +42,14 @@
                     {#                            <a href="{{ path('deconnexion') }}" class="dropdown-item">Se déconnecter</a>#}
                     {#                        </div>#}
                     {#                    </li>#}
-                    {#                {% else %}#}
-                    <li class="nav-item">
-                        <a href="{{ path('security_register') }}" class="nav-link">S'inscrire</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('security_login') }}" class="nav-link">Connexion</a>
-                    </li>
-                    {#                {% endif %}#}
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{{ path('security_register') }}" class="nav-link">S'inscrire</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('security_login') }}" class="nav-link">Connexion</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
