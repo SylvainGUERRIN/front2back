@@ -6,13 +6,18 @@ body{
 h1, h2, h3{
   font-family: 'Bungee Shade', serif;
 }
-p, a{
-  font-family: 'Roboto Light', serif;
-}
 h1{
   font-weight: 700;
   letter-spacing: 0.05em;
   color: $dark-blue;
+}
+
+p, a{
+  font-family: 'Roboto Light', serif;
+  font-size: 20px;
+}
+a:hover{
+  text-decoration: none;
 }
 
 //a{

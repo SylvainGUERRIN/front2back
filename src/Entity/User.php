@@ -57,6 +57,12 @@ class User implements UserInterface, \Serializable
     private $registeredAt;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @var bool
+     */
+    private bool $activate;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Avatar", inversedBy="user", cascade={"persist", "remove"})
      */
     protected ?Avatar $avatar;
@@ -174,6 +180,25 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isActivate(): bool
+    {
+        return $this->activate;
+    }
+
+    /**
+     * @param bool $activate
+     * @return User
+     */
+    public function setActivate(bool $activate): User
+    {
+        $this->activate = $activate;
+        return $this;
+    }
+
 
     public function getAvatar(): ?Avatar
     {
