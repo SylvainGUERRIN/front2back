@@ -33,3 +33,37 @@ a:hover{
 //    text-decoration: none;
 //  }
 //}
+
+//utilities (if to big create utilities.scss to put it in
+//menu links
+@mixin menu-links($top){
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  .nav-link{
+    color: white;
+    &:hover{
+      color: $light-blue;
+    }
+  }
+
+  &:hover {
+    &:before {
+      content: '</';
+      position: absolute;
+      left: 0;
+      top: $top;
+      color: $light-blue;
+      font-weight: bold;
+    }
+
+    &:after {
+      content: '>';
+      position: absolute;
+      right: 0;
+      top: $top;
+      color: $light-blue;
+      font-weight: bold;
+    }
+  }
+}

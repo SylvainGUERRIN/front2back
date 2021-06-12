@@ -10,27 +10,8 @@
 }
 
 //think to do include for all menus
-.nav-item{
-  position: relative;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.nav-item:hover{
-  &:before{
-    content: '</';
-    position: absolute;
-    left: 0;
-    top: 20%;
-    color: $light-blue;
-    font-weight: bold;
-  }
-  &:after{
-    content: '>';
-    position: absolute;
-    right: 0;
-    top: 20%;
-    color: $light-blue;
-    font-weight: bold;
+header{
+  .nav-item{
+    @include menu-links(20%);
   }
 }

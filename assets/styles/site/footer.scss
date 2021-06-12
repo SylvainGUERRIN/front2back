@@ -11,6 +11,7 @@ footer{
   .sitemap{
     .nav-item{
       width: 25%;
+      @include menu-links(0);
       margin: 0 auto;
       .nav-link{
         //display: inline-block;
@@ -28,7 +29,7 @@ footer{
 @media screen and (max-width:756px){
   footer {
     .sitemap {
-      .nav-item {
+      .nav-item{
         width: 50%;
       }
     }
