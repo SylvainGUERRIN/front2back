@@ -63,6 +63,7 @@ class SecurityController extends AbstractController
             $user->setPassword($hashPass);
             $user->setRegisteredAt(new \DateTimeImmutable('now'));
             $user->setRoles(['ROLE_USER']);
+            $user->setActivate(true);
 
             $em = $this->doctrine->getManager();
             $em->persist($user);

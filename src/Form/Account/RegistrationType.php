@@ -22,7 +22,13 @@ class RegistrationType extends AbstractType
             ->add('firstname', TextType::class, [
                 'required' => true,
                 'label' => 'Votre prénom',
-                'attr' => ['placeholder' => 'Veuillez mettre votre prénom'],
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'placeholder' => 'Veuillez mettre votre prénom',
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 3]),
@@ -31,7 +37,13 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => true,
                 'label' => 'Votre email',
-                'attr' => ['placeholder' => 'Veuillez mettre votre email'],
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'placeholder' => 'Veuillez mettre votre email',
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new Email([], 'Cet email n\'est pas valide.'),
@@ -42,9 +54,26 @@ class RegistrationType extends AbstractType
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options' => ['label' => false, 'attr' => ['placeholder' => 'Mot de passe']],
-                'second_options' => ['label' => false, 'attr' => [
-                'placeholder' => 'Confirmer le mot de passe', ]],
+                'first_options' => [
+                    'label' => 'Votre mot de passe',
+                    'label_attr' => [
+                        'class' => 'form-label',
+                    ],
+                    'attr' => [
+                        'placeholder' => 'Mot de passe',
+                        'class' => 'form-control mb-3',
+                    ]
+                ],
+                'second_options' => [
+                    'label' => 'Confirmez votre mot de passe',
+                    'label_attr' => [
+                        'class' => 'form-label',
+                    ],
+                    'attr' => [
+                        'placeholder' => 'Confirmer le mot de passe',
+                        'class' => 'form-control',
+                        ]
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 8]),
