@@ -24,6 +24,7 @@ class AdminFixtures extends Fixture
         $user->setRoles(['ROLE_ADMIN']);
         $user->setRegisteredAt(new \DateTimeImmutable('now'));
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, 'password'));
+        $user->setActivate(true);
 
         $manager->persist($user);
 

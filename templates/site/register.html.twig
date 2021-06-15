@@ -1,17 +1,28 @@
 {%  extends 'site/partials/base.html.twig' %}
 
+{% block title %}Inscription - Front2Back{% endblock %}
+
 {% block body %}
 
-    <h1>Inscription</h1>
+    <h1>S'inscrire</h1>
 
-    {{ form_start(form) }}
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-12 col-lg-6 mb-3">
+                {{ form_row(form.firstname) }}
+            </div>
+            <div class="col-md-12 col-lg-6 mb-3">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.password) }}
+            </div>
 
-    {{ form_row(form.firstname) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
 
-    <button type="submit">S'inscrire</button>
-
-    {{ form_end(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 
 {% endblock %}

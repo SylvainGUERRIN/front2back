@@ -25,6 +25,7 @@ class UserFixtures extends Fixture
             $user->setEmail('ain'.$i.'@email.com');
             $user->setRegisteredAt(new \DateTimeImmutable('now'));
             $user->setPassword($this->userPasswordEncoder->encodePassword($user, 'password'.$i));
+            $user->setActivate(true);
 
             $manager->persist($user);
         }
