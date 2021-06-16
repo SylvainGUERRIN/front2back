@@ -3,5 +3,18 @@
   a{
     display: inline-block;
     margin-top: 29px;
+    .logo{
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 550px){
+  .header-background{
+    a{
+      .logo{
+        width: 90%;
+      }
+    }
   }
 }
