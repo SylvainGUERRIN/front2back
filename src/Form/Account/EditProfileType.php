@@ -21,6 +21,12 @@ class EditProfileType extends AbstractType
             ->add('firstname', TextType::class, [
                 'required' => false,
                 'label' => 'Modifier votre prénom',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'empty_data' => '',
 //                'attr' => ['placeholder' => 'Veuillez mettre votre prénom'],
                 'constraints' => [
@@ -31,6 +37,12 @@ class EditProfileType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => false,
                 'label' => 'Modifier votre email',
+                'label_attr' => [
+                    'class' => 'form-label mt-3',
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'empty_data' => '',
 //                'attr' => ['placeholder' => 'Veuillez mettre votre email'],
                 'constraints' => [

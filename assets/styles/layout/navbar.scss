@@ -11,7 +11,26 @@
 
 //think to do include for all menus
 header{
-  .nav-item{
-    @include menu-links(20%);
+  .navbar{
+    .container{
+
+      .nav-item{
+        @include menu-links(20%);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px){
+  header{
+    .navbar{
+      .container{
+        text-align: center;
+        .navbar-toggler{
+          display: block;
+          margin: 0 auto 20px auto;
+        }
+      }
+    }
   }
 }

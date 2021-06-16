@@ -33,9 +33,15 @@ class AvatarType extends AbstractType
 //            ])
             ->add('imageFile', FileType::class, [
                 'label' => 'Sélectionnez une image pour mettre dans votre profil :',
+                'label_attr' => [
+                    'class' => 'form-label mt-3',
+                ],
                 'required' => true,
                 'mapped' => true,
-                'attr' => ['placeholder' => 'Choisir sa photo de profil'],
+                'attr' => [
+                    'placeholder' => 'Choisir sa photo de profil',
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
                     new Image([
                         'maxSize' => '6M',
