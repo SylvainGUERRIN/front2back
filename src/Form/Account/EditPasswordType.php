@@ -18,6 +18,12 @@ class EditPasswordType extends AbstractType
         $builder
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe actuel',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new UserPassword(),
@@ -25,12 +31,25 @@ class EditPasswordType extends AbstractType
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
+                'label' => false,
                 'invalid_message' => 'Votre mot de passe doit être similaire à la confirmation.',
                 'first_options' => [
-                    'label' => 'Nouveau mot de passe',
+                    'label' => 'Veuillez mettre votre nouveau mot de passe',
+                    'label_attr' => [
+                        'class' => 'form-label',
+                    ],
+                    'attr' => [
+                        'class' => 'form-control',
+                    ],
                 ],
                 'second_options' => [
                     'label' => 'Confirmez votre mot de passe',
+                    'label_attr' => [
+                        'class' => 'form-label',
+                    ],
+                    'attr' => [
+                        'class' => 'form-control',
+                    ],
                 ],
                 'constraints' => [
                     new Length(['min' => 8]),
