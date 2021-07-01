@@ -32,4 +32,6 @@ class AccountControler extends AbstractController
 //            'avatar' => $avatar,
         ]);
     }
+
+    //add function to manage password edition
 }

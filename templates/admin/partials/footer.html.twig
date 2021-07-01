@@ -1,0 +1,32 @@
+<div class="form-footer"></div>
+<footer class="py-5 text-center text-white footer-color">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 sitemap">
+                <h4>Plan du site</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('admin_dashboard') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        {#                        <a class="nav-link" href="{{ path('contact') }}">Contact</a>#}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <a class="logo-footer" href="{{ path('home') }}"><img src="{{ asset('build/content/logo/logo-256px.jpg') }}" alt="logo front2back"></a>
+                <p>2018-2021</p>
+                {#                <a href="{{ path('conditions-generales') }}"><h5>Conditions générales</h5></a>#}
+            </div>
+            <div class="col-sm-12 col-md-4">
+                {#                <a class="img-footer" href="{{ path('contact') }}">#}
+                {#                    <img class="img-author-footer" src="{{ asset('charte/ainessette.png') }}" alt="image auteur du blog">#}
+                {#                </a>#}
+            </div>
+        </div>
+    </div>
+</footer>
+
