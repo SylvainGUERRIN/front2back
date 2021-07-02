@@ -5,6 +5,7 @@
         <div class="form-top"></div>
     </div>
 
+    {% if app.user is not null %}
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky">
         <div class="container">
             {#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">#}
@@ -33,9 +34,9 @@
                             <li>
                                 <a href="{{ path('account_admin_profile') }}" class="dropdown-item">Modifier mon profil</a>
                             </li>
-{#                            <li>#}
-{#                                <a href="{{ path('account_admin_edit_password') }}" class="dropdown-item">Modifier mon mot de passe</a>#}
-{#                            </li>#}
+                            <li>
+                                <a href="{{ path('account_admin_edit_password') }}" class="dropdown-item">Modifier mon mot de passe</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -48,6 +49,9 @@
             </div>
         </div>
     </nav>
+    {% else %}
+        <h1 class="text-center">Connexion à l'administration du site</h1>
+    {% endif %}
 </header>
 {#change form-bottom with clip-path#}
 <div class="form-bottom"></div>

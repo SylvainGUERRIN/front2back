@@ -1,0 +1,20 @@
+.header-background{
+  background: url("../../content/site/code-accueil-1980px-min.jpg") center center / cover no-repeat;
+  a{
+    display: inline-block;
+    margin-top: 29px;
+    .logo{
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 550px){
+  .header-background{
+    a{
+      .logo{
+        width: 90%;
+      }
+    }
+  }
+}
