@@ -11,6 +11,11 @@ h1{
   letter-spacing: 0.05em;
   color: $dark-blue;
 }
+.title-color{
+  color: white;
+  background-color: $dark-blue;
+  margin-bottom: 0;
+}
 
 p, a{
   font-family: 'Roboto Light', serif;

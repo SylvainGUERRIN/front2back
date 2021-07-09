@@ -1,7 +1,7 @@
 {% set current = app.request.attributes.get("_route") %}
 <header>
     <div class="header-background text-center">
-        <a href="{{ path('admin_dashboard') }}"><img src="{{ asset('build/content/logo/logo-512px.jpg') }}" alt="logo front2back" class="logo"></a>
+        <a href="{{ path('admin_dashboard') }}"><img src="{{ asset('build/content/logo/logo-admin-512px.jpg') }}" alt="logo front2back" class="logo"></a>
         <div class="form-top"></div>
     </div>
 
@@ -50,7 +50,7 @@
         </div>
     </nav>
     {% else %}
-        <h1 class="text-center">Connexion à l'administration du site</h1>
+        <h1 class="text-center title-color">Connexion à l'administration du site</h1>
     {% endif %}
 </header>
 {#change form-bottom with clip-path#}
