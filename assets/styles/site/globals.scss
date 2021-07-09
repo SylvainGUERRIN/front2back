@@ -8,17 +8,17 @@ map file it's to know where errors come from in sass
 @use "sass:math"; //to avoid deprecated warning of using math instead of / from Bootstrap 4.6.0
 
 //globals
-@import "../layout/variables";
-@import "../layout/bootstrap-variables.scss";
+@import "layout/variables";
+@import "layout/bootstrap-variables.scss";
 
 @import "~bootstrap/scss/bootstrap";
-@import "../layout/fonts.scss";
-@import "../layout/general.scss";
+@import "layout/fonts.scss";
+@import "layout/general.scss";
 
 //elements
 //@import "../layout/buttons.scss";
-@import "../layout/navbar.scss";
-@import "../layout/clip-paths.scss";
+@import "layout/navbar.scss";
+@import "layout/clip-paths.scss";
 @import "header.scss";
 @import "footer.scss";
 

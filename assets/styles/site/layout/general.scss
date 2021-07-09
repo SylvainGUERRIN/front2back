@@ -1,0 +1,74 @@
+/* general */
+body{
+  //font-family: 'IBM Plex Sans', sans-serif;
+  //position: relative;
+}
+h1, h2, h3{
+  font-family: 'Bungee Shade', serif;
+}
+h1{
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: $dark-blue;
+}
+.title-color{
+  color: white;
+  background-color: $dark-blue;
+  margin-bottom: 0;
+}
+
+p, a{
+  font-family: 'Roboto Light', serif;
+  font-size: 20px;
+}
+a:hover{
+  text-decoration: none;
+}
+
+//a{
+//  color: #ffffff;
+//  p {
+//    color: #000000;
+//  }
+//  .link{
+//    color: #00ccbc;
+//  }
+//  &:hover{
+//    color: #00ccbc;
+//    text-decoration: none;
+//  }
+//}
+
+//utilities (if to big create utilities.scss to put it in
+//menu links
+@mixin menu-links($top){
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  .nav-link{
+    color: white;
+    &:hover{
+      color: $light-blue;
+    }
+  }
+
+  &:hover {
+    &:before {
+      content: '</';
+      position: absolute;
+      left: 0;
+      top: $top;
+      color: $light-blue;
+      font-weight: bold;
+    }
+
+    &:after {
+      content: '>';
+      position: absolute;
+      right: 0;
+      top: $top;
+      color: $light-blue;
+      font-weight: bold;
+    }
+  }
+}
