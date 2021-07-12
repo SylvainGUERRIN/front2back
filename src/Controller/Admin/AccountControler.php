@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\Account\EditPasswordType;
+use App\Form\Account\EditProfileType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +31,26 @@ class AccountControler extends AbstractController
      */
     public function profile(Request $request): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        $avatar = $user->getAvatar();
+
+        $form = $this->createForm(EditProfileType::class, $user)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->doctrine->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre profil a bien été modifié.'
+            );
+
+            return $this->redirectToRoute('account_admin_profile');
+        }
+
         return $this->render('admin/account/profile.html.twig', [
-//            'form' => $form->createView(),
-//            'avatar' => $avatar,
+            'form' => $form->createView(),
+            'avatar' => $avatar,
         ]);
     }
 

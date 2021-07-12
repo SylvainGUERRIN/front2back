@@ -31,7 +31,8 @@ security:
                 authenticators:
                     - App\Security\Guard\AdminAuthenticator
             logout:
-                path: admin_security_logout
+                path: security_admin_logout
+                target: security_admin_login
         main:
             anonymous: true
             lazy: true

@@ -3,5 +3,36 @@
 {% block title %}Profil{% endblock %}
 
 {% block body %}
-    <h1>Welcome to your profile</h1>
+    <h1>Modifier vos informations personnelles</h1>
+    <div class="container mt-5">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
+                {% if avatar is not null and avatar is not empty %}
+                    {#                    {{ dump(vich_uploader_asset(avatar, 'imageFile')) }}#}
+                    <img class="img-fluid profile-avatar" src="{{ vich_uploader_asset(avatar, 'imageFile') }}" alt="avatar de l'utilisateur" >
+                {% else %}
+                    <img class="img-fluid" src="{{ asset('build/content/profil/user-blue-default-256px.png') }}" alt="avatar par défaut">
+                {% endif %}
+                {{ form_label(form.avatar) }}
+                {{ form_errors(form.avatar) }}
+                {{ form_widget(form.avatar) }}
+                <small>Merci de mettre une photo où vous êtes visible, de préférence une photo du visage.</small>
+            </div>
+            <div class="col-md-12 col-lg-6">
+                {{ form_label(form.firstname) }}
+                {{ form_errors(form.firstname) }}
+                {{ form_widget(form.firstname) }}
+
+                {{ form_label(form.email) }}
+                {{ form_errors(form.email) }}
+                {{ form_widget(form.email) }}
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <button class="btn btn-primary" type="submit">Enregistrer les modifications</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
