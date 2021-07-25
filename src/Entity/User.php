@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
@@ -66,6 +68,11 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToOne(targetEntity="App\Entity\Avatar", inversedBy="user", cascade={"persist", "remove"})
      */
     protected ?Avatar $avatar;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="author")
+     */
+    private $posts;
 
     public function getId(): ?int
     {
@@ -208,6 +215,37 @@ class User implements UserInterface, \Serializable
     public function setAvatar(?Avatar $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): User
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): User
+    {
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            // set the owning side to null (unless already changed)
+            if ($post->getAuthor() === $this) {
+                $post->setAuthor(null);
+            }
+        }
 
         return $this;
     }
