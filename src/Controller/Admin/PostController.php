@@ -9,11 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class DashboardController.
+ * Class PostController.
  *
- * @Route ("/admin")
+ * @Route ("/admin/veilles")
  */
-class DashboardController extends AbstractController
+class PostController extends AbstractController
 {
     private ManagerRegistry $doctrine;
 
@@ -23,7 +23,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route ("/dashboard", name="admin_dashboard")
+     * @Route ("/dashboard", name="admin_posts_dashboard")
      */
     public function dashboard(Request $request): Response
     {
@@ -31,5 +31,21 @@ class DashboardController extends AbstractController
 //            'form' => $form->createView(),
 //            'avatar' => $avatar,
         ]);
+    }
+
+    /**
+     * @Route ("/create", name="admin_posts_create")
+     */
+    public function create(): Response
+    {
+        return $this->render('admin/posts/create.html.twig');
+    }
+
+    /**
+     * @Route ("/edit", name="admin_posts_edit")
+     */
+    public function edit(): Response
+    {
+        return $this->render('admin/posts/edit.html.twig');
     }
 }
