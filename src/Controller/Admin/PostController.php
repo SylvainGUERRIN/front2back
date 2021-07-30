@@ -7,6 +7,7 @@ use App\Form\Posts\PostType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,7 +21,7 @@ class PostController extends AbstractController
     private ManagerRegistry $doctrine;
     private $request;
 
-    public function __construct(ManagerRegistry $managerRegistry, Request $request)
+    public function __construct(ManagerRegistry $managerRegistry, RequestStack $request)
     {
         $this->doctrine = $managerRegistry;
         $this->request = $request;
@@ -29,7 +30,7 @@ class PostController extends AbstractController
     /**
      * @Route ("/dashboard", name="admin_posts_dashboard")
      */
-    public function dashboard(Request $request): Response
+    public function dashboard(): Response
     {
         return $this->render('admin/dashboard.html.twig', [
 //            'form' => $form->createView(),
@@ -43,7 +44,7 @@ class PostController extends AbstractController
     public function create(): Response
     {
         $post = new Post();
-        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request);
+        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->doctrine->getManager()->flush();
@@ -53,12 +54,12 @@ class PostController extends AbstractController
                 'Votre article de veille a bien été créé.'
             );
 
-            return $this->redirectToRoute('admin_posts_dashboard', [
-                'form' => $form->createView(),
-            ]);
+            return $this->redirectToRoute('admin_posts_dashboard');
         }
 
-        return $this->render('admin/posts/create.html.twig');
+        return $this->render('admin/posts/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
