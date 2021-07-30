@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class PostType extends AbstractType
 {
@@ -26,21 +27,29 @@ class PostType extends AbstractType
                 L'url se met automatiquement sauf si vous voulez la personalisée"],
                 'required' => false
             ])
-//            ->add('imageFile', FileType::class, [
-//                'label' => 'Téléchargez une image pour votre article',
-//                'data_class' => null,
-//                'required' => false,
-//                'attr' => ['placeholder' => 'choisir une image'],
-//                'mapped' => true,
-//                'constraints' => [
-//                    new Image([
-//                        'maxSize' => '3M',
-//                        'mimeTypes' => [
-//                            'image/jpg', 'image/jpeg', 'image/png', 'image/bmp'
-//                        ]
-//                    ])
-//                ]
-//            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Téléchargez une image pour votre article',
+                'data_class' => null,
+                'required' => false,
+                'attr' => ['placeholder' => 'choisir une image'],
+                'mapped' => true,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '3M',
+                        'mimeTypes' => [
+                            'image/jpg', 'image/jpeg', 'image/png', 'image/bmp'
+                        ]
+                    ])
+                ]
+            ])
+            ->add('refDescription', TextareaType::class, [
+                'label' => "Contenu pour le référencement",
+                'attr' => ['placeholder' => "Mettez le contenu pour le référencement"]
+            ])
+            ->add('excerpt', TextType::class, [
+                'label' => "Contenu pour la description",
+                'attr' => ['placeholder' => "Mettez le contenu pour la description"]
+            ])
             ->add('content', TextareaType::class, [
                 'label' => "Contenu de l'article",
                 'attr' => ['placeholder' => "Mettez le contenu de l'article"]

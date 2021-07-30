@@ -16,14 +16,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class SecurityController extends AbstractController
 {
-    private ManagerRegistry $doctrine;
-    private SessionInterface $session;
-
-    public function __construct(ManagerRegistry $managerRegistry, SessionInterface $session)
-    {
-        $this->doctrine = $managerRegistry;
-        $this->session = $session;
-    }
+//    private ManagerRegistry $doctrine;
+//    private SessionInterface $session;
+//
+//    public function __construct(ManagerRegistry $managerRegistry, SessionInterface $session)
+//    {
+//        $this->doctrine = $managerRegistry;
+//        $this->session = $session;
+//    }
 
     /**
      * @Route("/login", name="security_admin_login")
