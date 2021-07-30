@@ -59,6 +59,11 @@ class Post
     protected ?string $content;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    protected ?string $ref_description;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private ?\DateTimeInterface $post_created_at;
@@ -155,6 +160,18 @@ class Post
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getRefDescription(): ?string
+    {
+        return $this->ref_description;
+    }
+
+    public function setRefDescription(string $ref_description): self
+    {
+        $this->ref_description = $ref_description;
 
         return $this;
     }
