@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     private ManagerRegistry $doctrine;
-    private $request;
+    private RequestStack $request;
 
     public function __construct(ManagerRegistry $managerRegistry, RequestStack $request)
     {
@@ -32,7 +32,7 @@ class PostController extends AbstractController
      */
     public function dashboard(): Response
     {
-        return $this->render('admin/dashboard.html.twig', [
+        return $this->render('admin/posts/dashboard.html.twig', [
 //            'form' => $form->createView(),
 //            'avatar' => $avatar,
         ]);
