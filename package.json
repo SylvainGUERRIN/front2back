@@ -19,9 +19,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@popperjs/core": "2.9.2",
-        "bootstrap": "^5.0.1",
-        "popper.js": "^1.16.1",
+        "@popperjs/core": "^2.9.3",
+        "bootstrap": "5.1.0",
         "webpack": "^5.39.0"
     }
 }
