@@ -53,22 +53,26 @@ a:hover{
   }
 
   &:hover {
-    &:before {
-      content: '</';
-      position: absolute;
-      left: 0;
-      top: $top;
-      color: $light-blue;
-      font-weight: bold;
-    }
+    @include menu-links-pseudo-elements(20%);
+  }
+}
 
-    &:after {
-      content: '>';
-      position: absolute;
-      right: 0;
-      top: $top;
-      color: $light-blue;
-      font-weight: bold;
-    }
+@mixin menu-links-pseudo-elements($top){
+  &:before {
+    content: '</';
+    position: absolute;
+    left: 0;
+    top: $top;
+    color: $light-blue;
+    font-weight: bold;
+  }
+
+  &:after {
+    content: '>';
+    position: absolute;
+    right: 0;
+    top: $top;
+    color: $light-blue;
+    font-weight: bold;
   }
 }
