@@ -2,6 +2,7 @@
 body{
   //font-family: 'IBM Plex Sans', sans-serif;
   //position: relative;
+  background-color: #cbcbcb;
 }
 h1, h2, h3{
   font-family: 'Bungee Shade', serif;
@@ -38,6 +39,15 @@ a:hover{
 //    text-decoration: none;
 //  }
 //}
+
+//frames for admin dashboard
+.frame{
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
+  -webkit-box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
+  -moz-box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
+}
 
 //utilities (if to big create utilities.scss to put it in
 //menu links
