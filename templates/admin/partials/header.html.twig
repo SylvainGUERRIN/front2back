@@ -21,7 +21,7 @@
                         <li class="nav-item {% if current == 'admin_dashboard' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('admin_dashboard') }}">Accueil </a>
                         </li>
-                        <li class="nav-item {% if current == 'admin_posts_dashboard' %}active{% endif %}">
+                        <li class="nav-item {% if current == 'admin_posts_dashboard' or current == 'admin_posts_create' or current == 'admin_posts_edit' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('admin_posts_dashboard') }}">Veilles </a>
                         </li>
                     </ul>

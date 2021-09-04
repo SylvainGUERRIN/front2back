@@ -3,7 +3,22 @@
 {% block title %}Gestion des veilles {% endblock %}
 
 {% block body %}
-    <h1>Les dernières veilles </h1>
-    <p>put table</p>
+    <div class="container frame">
+        <div class="row">
+            <div class="col-6">
+                <h1>Les dernières veilles </h1>
+            </div>
+            <div class="col-6">
+                <a href="{{ path('admin_posts_create') }}" class="btn btn-primary">Créer une nouvelle veille</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p>put table</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
