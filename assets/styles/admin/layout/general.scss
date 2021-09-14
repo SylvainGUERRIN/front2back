@@ -2,7 +2,7 @@
 body{
   //font-family: 'IBM Plex Sans', sans-serif;
   //position: relative;
-  background-color: #cbcbcb;
+  background-color: #f0eeee;
 }
 h1, h2, h3{
   font-family: 'Bungee Shade', serif;
@@ -26,27 +26,24 @@ a:hover{
   text-decoration: none;
 }
 
-//a{
-//  color: #ffffff;
-//  p {
-//    color: #000000;
-//  }
-//  .link{
-//    color: #00ccbc;
-//  }
-//  &:hover{
-//    color: #00ccbc;
-//    text-decoration: none;
-//  }
-//}
+//buttons
+.cta-align{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 //frames for admin dashboard
 .frame{
+  padding: 2%;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
-  -webkit-box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
-  -moz-box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
+  //box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
+  //-webkit-box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
+  //-moz-box-shadow: 1px 2px 5px 5px rgba(71,71,71,0.52);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 //utilities (if to big create utilities.scss to put it in
