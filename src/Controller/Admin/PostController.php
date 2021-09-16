@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\Posts\PostType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,11 +48,17 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+
+            $post->setPostCreatedAt(new \DateTime('now'));
+            $post->setAuthor($user);
+            $post->setValidatedAt(false);
             $this->doctrine->getManager()->flush();
 
             $this->addFlash(
                 'success',
-                'Votre article de veille a bien été créé.'
+                "L'article <strong>{$post->getTitle()}</strong> a bien été crée !"
             );
 
             return $this->redirectToRoute('admin_posts_dashboard');

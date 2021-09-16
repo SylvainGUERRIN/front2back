@@ -19,19 +19,33 @@ class PostType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => "Titre de la veille",
-                'attr' => ['placeholder' => "Mettez le titre de la veille"]
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'placeholder' => "Mettez le titre de la veille",
+                    'class' => 'form-control',
+                ],
             ])
             ->add('slug', TextType::class, [
                 'label' => "L'url de la veille",
-                'attr' => ['placeholder' => "Ce champ n'est pas obligatoire.
-                L'url se met automatiquement sauf si vous voulez la personalisée"],
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'placeholder' => "Ce champ n'est pas obligatoire. L'url se met automatiquement sauf si vous voulez la personalisée",
+                    'class' => 'form-control',
+                ],
                 'required' => false
             ])
             ->add('imageFile', FileType::class, [
-                'label' => 'Téléchargez une image pour votre article',
+                'label' => 'Téléchargez une image pour votre veille',
                 'data_class' => null,
                 'required' => false,
-                'attr' => ['placeholder' => 'choisir une image'],
+                'attr' => [
+                    'placeholder' => 'choisir une image',
+                    'class' => 'form-control',
+                ],
                 'mapped' => true,
                 'constraints' => [
                     new Image([
@@ -43,17 +57,25 @@ class PostType extends AbstractType
                 ]
             ])
             ->add('refDescription', TextareaType::class, [
-                'label' => "Contenu pour le référencement",
-                'attr' => ['placeholder' => "Mettez le contenu pour le référencement"]
+                'label' => "Le texte pour référencer la veille",
+                'attr' => [
+                    'placeholder' => "Mettez le texte pour le référencement",
+                    'class' => 'form-control',
+                ]
             ])
             ->add('excerpt', TextType::class, [
-                'label' => "Contenu pour la description",
-                'attr' => ['placeholder' => "Mettez le contenu pour la description"]
+                'label' => "Contenu pour l'extrait",
+                'attr' => [
+                    'placeholder' => "Mettez l'extrait'",
+                    'class' => 'form-control',]
             ])
             ->add('content', TextareaType::class, [
-                'label' => "Contenu de l'article",
-                'attr' => ['placeholder' => "Mettez le contenu de l'article"]
+                'label' => "Contenu de la veille",
+                'attr' => [
+                    'placeholder' => "Mettez le texte de la veille",
+                    'class' => 'form-control',]
             ])
+            //->add('author')
             //->add('article_created_at') put datetime at the moment
 //            ->add('tags', EntityType::class, [
 //                'label' => "Choississez le tag correspondant à l'article",
@@ -63,7 +85,7 @@ class PostType extends AbstractType
 //                'multiple' => true,
 //                'mapped' => false
 //            ])
-            //->add('users') only if multiple users, just for one select admin
+            //->add('users') only if multiple users, just for one select for admin ?
         ;
     }
 
