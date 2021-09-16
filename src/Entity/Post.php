@@ -8,11 +8,17 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Cocur\Slugify\Slugify;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Post.
  *
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @UniqueEntity(
+ *     fields={"title"},
+ *     message="Une autre veille posséde déjà ce titre, merci de le modifier"
+ * )
  * @Vich\Uploadable()
  */
 class Post
@@ -245,5 +251,27 @@ class Post
     public function __toString()
     {
         return (string) $this->getUrlImage();
+    }
+
+    /**
+     * To initialize slug on persist or update
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     *
+     * @return void
+     */
+    public function initializeSlug(): void
+    {
+        $slugify = new Slugify();
+        $this->slug = $slugify->slugify($this->title);
+//        if(empty($this->slug)){
+//            $slugify = new Slugify();
+//            $this->slug = $slugify->slugify($this->title);
+//        }
+//        if(!empty($this->slug)){
+//            $slugify = new Slugify();
+//            $this->slug = $slugify->slugify($this->title);
+//        }
     }
 }
