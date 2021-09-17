@@ -53,7 +53,7 @@ class PostController extends AbstractController
 
             $post->setPostCreatedAt(new \DateTime('now'));
             $post->setAuthor($user);
-            $post->setValidatedAt(false);
+            $post->setValidatedAt(true);
             $this->doctrine->getManager()->flush();
 
             $this->addFlash(
@@ -70,10 +70,32 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route ("/edit", name="admin_posts_edit")
+     * @Route ("/edit/{slug}", name="admin_posts_edit")
      */
-    public function edit(): Response
+    public function edit(Post $post): Response
     {
+        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            //$user = $this->getUser();
+
+            //$post->setPostCreatedAt(new \DateTime('now'));
+            $post->setPostModifiedAt(new \DateTime('now'));
+            //$post->setAuthor($user);
+            $post->setValidatedAt(true);
+            $this->doctrine->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                "L'article <strong>{$post->getTitle()}</strong> a bien été mis à jour !"
+            );
+
+            return $this->redirectToRoute('admin_posts_dashboard', [
+                'form' => $form->createView(),
+            ]);
+        }
+
         return $this->render('admin/posts/edit.html.twig');
     }
 }
