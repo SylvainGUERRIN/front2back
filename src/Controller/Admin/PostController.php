@@ -5,7 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\Posts\PostType;
+use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -30,12 +32,18 @@ class PostController extends AbstractController
 
     /**
      * @Route ("/dashboard", name="admin_posts_dashboard")
+     * @throws \Exception
      */
-    public function dashboard(): Response
+    public function dashboard(PaginatorInterface $paginator, PostRepository $postRepository): Response
     {
+        $posts = $paginator->paginate(
+            $postRepository->findAllRecent(),
+            $this->request->getCurrentRequest()->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('admin/posts/dashboard.html.twig', [
-//            'form' => $form->createView(),
-//            'avatar' => $avatar,
+            'posts' => $posts,
         ]);
     }
 
@@ -54,6 +62,7 @@ class PostController extends AbstractController
             $post->setPostCreatedAt(new \DateTime('now'));
             $post->setAuthor($user);
             $post->setValidatedAt(true);
+            $this->doctrine->getManager()->persist($post);
             $this->doctrine->getManager()->flush();
 
             $this->addFlash(
