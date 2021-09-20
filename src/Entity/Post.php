@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Class Post.
  *
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(
  *     fields={"title"},
  *     message="Une autre veille posséde déjà ce titre, merci de le modifier"

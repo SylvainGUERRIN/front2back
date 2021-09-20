@@ -66,7 +66,7 @@ class PostType extends AbstractType
             ->add('excerpt', TextType::class, [
                 'label' => "Contenu pour l'extrait",
                 'attr' => [
-                    'placeholder' => "Mettez l'extrait'",
+                    'placeholder' => "Mettez l'extrait",
                     'class' => 'form-control',]
             ])
             ->add('content', TextareaType::class, [
