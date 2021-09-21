@@ -36,6 +36,22 @@ a:hover{
   opacity: 0.8;
 }
 
+//tables
+table{
+  //border: 1px solid black !important;
+  background-color: rgba(183, 212, 244, 0.89);
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden!important;
+  vertical-align: middle!important;
+  tbody{
+    color: #757575;
+    svg{
+      fill: white;
+    }
+  }
+}
+
 //frames for admin dashboard
 .frame{
   padding: 2%;
