@@ -100,11 +100,27 @@ class PostController extends AbstractController
                 "L'article <strong>{$post->getTitle()}</strong> a bien été mis à jour !"
             );
 
-            return $this->redirectToRoute('admin_posts_dashboard', [
-                'form' => $form->createView(),
-            ]);
+            return $this->redirectToRoute('admin_posts_dashboard');
         }
 
-        return $this->render('admin/posts/edit.html.twig');
+        return $this->render('admin/posts/edit.html.twig', [
+            'form' => $form->createView(),
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * @Route ("/delete/{slug}", name="admin_posts_delete")
+     */
+    public function delete(Post $post): Response
+    {
+        $this->doctrine->getManager()->remove($post);
+        $this->doctrine->getManager()->flush();
+
+        $this->addFlash(
+            'success',
+            "La veille <strong>{$post->getTitle()}</strong> a  bien été supprimée !"
+        );
+        return $this->redirectToRoute('admin_posts_dashboard');
     }
 }

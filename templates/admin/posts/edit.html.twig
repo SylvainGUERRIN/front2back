@@ -21,11 +21,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 mb-3">
+            <div class="col-sm-12 col-md-6 mb-3">
+                {% if post.urlImage is not null %}
+                    <img src="{{ vich_uploader_asset( post, 'imageFile') }}" alt="image de l'article de veille" class="img-fluid">
+                {% else %}
+                    Cet article n'a pas encore d'image.
+                {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-6 mb-3">
                 {{ form_errors(form.imageFile) }}
                 {{ form_label(form.imageFile) }}
                 {{ form_widget(form.imageFile) }}
             </div>
+        </div>
+        <div class="row">
             <div class="col-12 mb-3">
                 {{ form_errors(form.refDescription) }}
                 {{ form_label(form.refDescription) }}
