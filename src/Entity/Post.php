@@ -48,7 +48,7 @@ class Post
      * )
      * @Vich\UploadableField(mapping="avatar_image", fileNameProperty="url_image")
      */
-    private ?File $imageFile;
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
