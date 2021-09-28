@@ -30,7 +30,7 @@ package "Entities" #FFF {
         {field} id: int
         {field} likeAt: dateTimeInterface
         {field} user: relation
-        {field} tag: relation
+        {field} post: relation
     }
 
     class Post {
@@ -45,6 +45,9 @@ package "Entities" #FFF {
         {field} user: relation
         {field} ref_description: varchar 255
         {field} tag: relation
+        {field} favorites: relation
+        {field} comments: relation
+        {field} number_of_likes: int
     }
 
     class Tag {
@@ -52,6 +55,15 @@ package "Entities" #FFF {
         {field} name: varchar 255
         {field} content: text
         {field} post: relation
+        {field} stats: relation
+    }
+
+    class Stats {
+        {field} id: int
+        {field} Tag: relation
+        {field} FavoriteCounter: int
+        {field} number_of_views: int
+        {field} tag: relation
     }
 
     class Avatar {
@@ -67,7 +79,8 @@ package "Entities" #FFF {
     User "One" --* "Many" Favorite : To
     User "One" --* "One" Avatar : To
 
-    Favorite "Many" --* "One" Tag : To
+    Favorite "Many" --* "One" Post : To
+    Stats "One" --* "One" Tag : To
     Post "Many" --* "Many" Tag : To
 
     Comment "Many" --* "One" Post : To
