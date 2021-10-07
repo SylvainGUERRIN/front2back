@@ -74,6 +74,11 @@ class User implements UserInterface, \Serializable
      */
     private $posts;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="uthor")
+     */
+    private $comments;
+
     public function getId(): ?int
     {
         return $this->id;
