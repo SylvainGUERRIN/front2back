@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 //use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Class Post.
+ * Class Comment.
  *
  * @ORM\Entity(repositoryClass=CommentRepository::class)
  * @ORM\HasLifecycleCallbacks
@@ -51,7 +51,7 @@ class Comment
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="comments")
      */
-    protected ?Post $comments;
+    protected ?Post $post;
 
     //getters and setters
     public function getId(): ?int
@@ -118,6 +118,18 @@ class Comment
     public function setAuthor(?User $user): self
     {
         $this->author = $user;
+
+        return $this;
+    }
+
+    public function getPost(): ?Post
+    {
+        return $this->post;
+    }
+
+    public function setPost(?Post $post): self
+    {
+        $this->post = $post;
 
         return $this;
     }
