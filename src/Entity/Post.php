@@ -92,7 +92,7 @@ class Post
     protected ?User $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="comments")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post")
      */
     private $comments;
 
@@ -245,7 +245,7 @@ class Post
         return $this->comments;
     }
 
-    public function addComment(Comment $comment): Comment
+    public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
