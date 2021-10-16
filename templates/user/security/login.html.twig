@@ -33,6 +33,12 @@
             </label>
         </div>
         #}
+{#        first slug ok, use second for other feature   #}
+        {% if slug == 'profile' %}
+            <input type="hidden" name="_target_path" value="{{ path('account_profile') }}"/>
+        {% elseif slug == 'home' %}
+            <input type="hidden" name="_target_path" value="{{ path('home') }}"/>
+        {% endif %}
 
         <button class="btn btn-lg btn-primary" type="submit">
             Se connecter

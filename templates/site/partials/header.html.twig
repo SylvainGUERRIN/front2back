@@ -58,7 +58,7 @@
                             <a href="{{ path('security_register') }}" class="nav-link">S'inscrire</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('security_login') }}" class="nav-link">Connexion</a>
+                            <a href="{{ path('security_login', {'slug': 'home'}) }}" class="nav-link">Connexion</a>
                         </li>
                     {% endif %}
                 </ul>
