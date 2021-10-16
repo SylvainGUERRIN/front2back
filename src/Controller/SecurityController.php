@@ -26,11 +26,12 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="security_login")
+     * @Route("/login/{!slug}", name="security_login")
+     * @param string $slug
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, $slug = 'profile'): Response
     {
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
@@ -41,7 +42,11 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('user/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('user/security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'slug' => $slug
+        ]);
     }
 
     /**
