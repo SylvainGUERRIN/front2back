@@ -40,12 +40,12 @@ security:
             guard:
                 authenticators:
                     - App\Security\Guard\WebAuthenticator
-            form_login:
-                login_path: user_connexion
-                check_path: user_connexion
-                default_target_path: security_login
-                always_use_default_target_path: false  #change after tests if needed
-                csrf_token_generator: security.csrf.token_manager
+#            form_login:
+#                login_path: user_connexion
+#                check_path: user_connexion
+#                default_target_path: security_login
+#                always_use_default_target_path: false  #change after tests if needed
+#                csrf_token_generator: security.csrf.token_manager
             logout:
                 path: security_logout
                 target: "/login/profile"
