@@ -120,11 +120,10 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 //
 //        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
 //        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        if ($request->get('profile')) {
-            return new RedirectResponse($this->urlGenerator->generate('account_profile'));
-        }
-        //dump request here
-        if ($request->get('home')) {
+
+        //to redirect on good page with url param
+        $pathKey = explode('/', $request->getPathInfo());
+        if ($pathKey[2] === 'home') {
             return new RedirectResponse($this->urlGenerator->generate('home'));
         }
         return new RedirectResponse($this->urlGenerator->generate('account_profile'));
