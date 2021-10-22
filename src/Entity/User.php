@@ -65,6 +65,12 @@ class User implements UserInterface, \Serializable
     private bool $activate;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @var bool
+     */
+    private bool $mailAlert;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Avatar", inversedBy="user", cascade={"persist", "remove"})
      */
     protected ?Avatar $avatar;
@@ -208,6 +214,24 @@ class User implements UserInterface, \Serializable
     public function setActivate(bool $activate): User
     {
         $this->activate = $activate;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMailAlert(): bool
+    {
+        return $this->mailAlert;
+    }
+
+    /**
+     * @param bool $mailAlert
+     * @return User
+     */
+    public function setMailAlert(bool $mailAlert): User
+    {
+        $this->mailAlert = $mailAlert;
         return $this;
     }
 
