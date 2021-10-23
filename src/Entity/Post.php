@@ -96,6 +96,11 @@ class Post
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Favorite", mappedBy="post")
+     */
+    private $favorites;
+
     //getters and setters
     public function getId(): ?int
     {
@@ -262,6 +267,37 @@ class Post
             // set the owning side to null (unless already changed)
             if ($comment->getAuthor() === $this) {
                 $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Favorite[]
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorite $favorite): Post
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): Post
+    {
+        if ($this->favorites->contains($favorite)) {
+            $this->favorites->removeElement($favorite);
+            // set the owning side to null (unless already changed)
+            if ($favorite->getPost() === $this) {
+                $favorite->setPost(null);
             }
         }
 

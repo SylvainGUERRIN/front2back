@@ -28,9 +28,16 @@ class Favorite
      */
     private ?\DateTimeInterface $liked_at;
 
-    //user relation
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="favorites")
+     */
+    protected ?User $user;
 
-    //post relation
+    //post relation (many to one, bind with favorite in post entity)
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="favorites")
+     */
+    protected ?Post $post;
 
     //getters and setters
     public function getId(): ?int
@@ -46,6 +53,30 @@ class Favorite
     public function setLikedAt(\DateTimeInterface $liked_at): self
     {
         $this->liked_at = $liked_at;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPost(): ?Post
+    {
+        return $this->post;
+    }
+
+    public function setPost(?Post $post): self
+    {
+        $this->user = $post;
 
         return $this;
     }
