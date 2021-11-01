@@ -30,6 +30,11 @@ class Stats
      */
     private ?int $number_of_views;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Tag", mappedBy="stats")
+     */
+    protected ?Tag $tag;
+
     //getters and setters
     public function getId(): ?int
     {
@@ -60,4 +65,21 @@ class Stats
         return $this;
     }
 
+    public function getTag(): ?Tag
+    {
+        return $this->tag;
+    }
+
+    public function setTag(?Tag $tag): self
+    {
+        $this->tag = $tag;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newStats = null === $tag ? null : $this;
+        if ($tag->getStats() !== $newStats) {
+            $tag->setStats($newStats);
+        }
+
+        return $this;
+    }
 }
