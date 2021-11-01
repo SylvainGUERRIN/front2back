@@ -101,6 +101,11 @@ class Post
      */
     private $favorites;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tag", inversedBy="posts")
+     */
+    protected ?Tag $tag;
+
     //getters and setters
     public function getId(): ?int
     {
@@ -254,7 +259,7 @@ class Post
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setAuthor($this);
+            $comment->setPost($this);
         }
 
         return $this;
@@ -265,8 +270,8 @@ class Post
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getAuthor() === $this) {
-                $comment->setAuthor(null);
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
             }
         }
 
@@ -300,6 +305,18 @@ class Post
                 $favorite->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTag(): ?Tag
+    {
+        return $this->tag;
+    }
+
+    public function setTag(?Tag $tag): self
+    {
+        $this->tag = $tag;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TagRepository;
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -36,6 +37,16 @@ class Tag
      * @ORM\Column(type="text")
      */
     protected ?string $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="Tag")
+     */
+    private $posts;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Stats", inversedBy="tag", cascade={"persist", "remove"})
+     */
+    protected ?Stats $stats;
 
     //getters and setters
     public function getId(): ?int
@@ -75,6 +86,49 @@ class Tag
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): Post
+    {
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            // set the owning side to null (unless already changed)
+            if ($post->getTag() === $this) {
+                $post->setTag(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStats(): ?Stats
+    {
+        return $this->stats;
+    }
+
+    public function setStats(?Stats $stats): self
+    {
+        $this->stats = $stats;
 
         return $this;
     }
