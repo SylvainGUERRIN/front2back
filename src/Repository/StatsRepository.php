@@ -20,5 +20,4 @@ class StatsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Stats::class);
     }
-
 }

@@ -6,7 +6,6 @@ use App\Repository\TagRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Tag.
@@ -134,12 +133,10 @@ class Tag
     }
 
     /**
-     * To initialize slug on persist or update
+     * To initialize slug on persist or update.
      *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
-     *
-     * @return void
      */
     public function initializeSlug(): void
     {

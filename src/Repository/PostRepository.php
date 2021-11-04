@@ -24,12 +24,11 @@ class PostRepository extends ServiceEntityRepository
 
     /**
      * @method Post[]
-     * @return Query
+     *
      * @throws \Exception
      */
     public function findAllRecent(): Query
     {
-
         return $this->createQueryBuilder('p')
             ->where('p.post_created_at <= :date')
             ->setParameter('date', new \DateTime(date('Y-m-d H:i:s')))

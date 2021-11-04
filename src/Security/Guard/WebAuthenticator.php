@@ -123,9 +123,10 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
         //to redirect on good page with url param
         $pathKey = explode('/', $request->getPathInfo());
-        if ($pathKey[2] === 'home') {
+        if ('home' === $pathKey[2]) {
             return new RedirectResponse($this->urlGenerator->generate('home'));
         }
+
         return new RedirectResponse($this->urlGenerator->generate('account_profile'));
     }
 

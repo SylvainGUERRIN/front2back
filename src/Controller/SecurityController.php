@@ -27,9 +27,8 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/login/{!slug}", name="security_login")
+     *
      * @param string $slug
-     * @param AuthenticationUtils $authenticationUtils
-     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils, $slug = 'profile'): Response
     {
@@ -45,15 +44,12 @@ class SecurityController extends AbstractController
         return $this->render('user/security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
-            'slug' => $slug
+            'slug' => $slug,
         ]);
     }
 
     /**
      * @Route ("/register", name="security_register")
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @return Response
      */
     public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
     {
