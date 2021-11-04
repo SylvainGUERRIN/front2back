@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -60,13 +58,11 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="boolean")
-     * @var bool
      */
     private bool $activate;
 
     /**
      * @ORM\Column(type="boolean")
-     * @var bool
      */
     private bool $mailAlert;
 
@@ -204,42 +200,29 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isActivate(): bool
     {
         return $this->activate;
     }
 
-    /**
-     * @param bool $activate
-     * @return User
-     */
     public function setActivate(bool $activate): User
     {
         $this->activate = $activate;
+
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isMailAlert(): bool
     {
         return $this->mailAlert;
     }
 
-    /**
-     * @param bool $mailAlert
-     * @return User
-     */
     public function setMailAlert(bool $mailAlert): User
     {
         $this->mailAlert = $mailAlert;
+
         return $this;
     }
-
 
     public function getAvatar(): ?Avatar
     {

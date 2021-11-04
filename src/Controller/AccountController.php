@@ -54,7 +54,6 @@ class AccountController extends AbstractController
      */
     public function editPassword(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
     {
-
         $form = $this->createForm(EditPasswordType::class)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

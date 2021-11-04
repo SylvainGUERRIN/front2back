@@ -9,7 +9,6 @@ use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +31,7 @@ class PostController extends AbstractController
 
     /**
      * @Route ("/dashboard", name="admin_posts_dashboard")
+     *
      * @throws \Exception
      */
     public function dashboard(PaginatorInterface $paginator, PostRepository $postRepository): Response
@@ -86,7 +86,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var User $user */
+            /* @var User $user */
             //$user = $this->getUser();
 
             //$post->setPostCreatedAt(new \DateTime('now'));
@@ -121,6 +121,7 @@ class PostController extends AbstractController
             'success',
             "La veille <strong>{$post->getTitle()}</strong> a  bien été supprimée !"
         );
+
         return $this->redirectToRoute('admin_posts_dashboard');
     }
 }

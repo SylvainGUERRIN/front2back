@@ -10,7 +10,6 @@ class SiteController extends AbstractController
 {
     /**
      * @Route ("/", name="home")
-     * @return Response
      */
     public function home(): Response
     {

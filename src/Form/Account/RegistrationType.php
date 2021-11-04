@@ -62,7 +62,7 @@ class RegistrationType extends AbstractType
                     'attr' => [
                         'placeholder' => 'Mot de passe',
                         'class' => 'form-control mb-3',
-                    ]
+                    ],
                 ],
                 'second_options' => [
                     'label' => 'Confirmez votre mot de passe',
@@ -72,7 +72,7 @@ class RegistrationType extends AbstractType
                     'attr' => [
                         'placeholder' => 'Confirmer le mot de passe',
                         'class' => 'form-control',
-                        ]
+                        ],
                 ],
                 'constraints' => [
                     new NotBlank(),

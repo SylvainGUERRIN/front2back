@@ -12,14 +12,8 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class ImageCacheSubscriber implements EventSubscriber
 {
-    /**
-     * @var CacheManager
-     */
     private CacheManager $cacheManager;
 
-    /**
-     * @var UploaderHelper
-     */
     private UploaderHelper $uploaderHelper;
 
     public function __construct(CacheManager $cacheManager, UploaderHelper $uploaderHelper)

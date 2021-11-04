@@ -18,12 +18,12 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => "Titre de la veille",
+                'label' => 'Titre de la veille',
                 'label_attr' => [
                     'class' => 'form-label',
                 ],
                 'attr' => [
-                    'placeholder' => "Mettez le titre de la veille",
+                    'placeholder' => 'Mettez le titre de la veille',
                     'class' => 'form-control',
                 ],
             ])
@@ -36,7 +36,7 @@ class PostType extends AbstractType
                     'placeholder' => "Ce champ n'est pas obligatoire. L'url se met automatiquement sauf si vous voulez la personalisée",
                     'class' => 'form-control',
                 ],
-                'required' => false
+                'required' => false,
             ])
             ->add('imageFile', FileType::class, [
                 'label' => 'Téléchargez une image pour votre veille',
@@ -51,29 +51,29 @@ class PostType extends AbstractType
                     new Image([
                         'maxSize' => '3M',
                         'mimeTypes' => [
-                            'image/jpg', 'image/jpeg', 'image/png', 'image/bmp'
-                        ]
-                    ])
-                ]
+                            'image/jpg', 'image/jpeg', 'image/png', 'image/bmp',
+                        ],
+                    ]),
+                ],
             ])
             ->add('refDescription', TextareaType::class, [
-                'label' => "Le texte pour référencer la veille",
+                'label' => 'Le texte pour référencer la veille',
                 'attr' => [
-                    'placeholder' => "Mettez le texte pour le référencement",
+                    'placeholder' => 'Mettez le texte pour le référencement',
                     'class' => 'form-control',
-                ]
+                ],
             ])
             ->add('excerpt', TextType::class, [
                 'label' => "Contenu pour l'extrait",
                 'attr' => [
                     'placeholder' => "Mettez l'extrait",
-                    'class' => 'form-control',]
+                    'class' => 'form-control', ],
             ])
             ->add('content', TextareaType::class, [
-                'label' => "Contenu de la veille",
+                'label' => 'Contenu de la veille',
                 'attr' => [
-                    'placeholder' => "Mettez le texte de la veille",
-                    'class' => 'form-control',]
+                    'placeholder' => 'Mettez le texte de la veille',
+                    'class' => 'form-control', ],
             ])
             //->add('author')
             //->add('article_created_at') put datetime at the moment
