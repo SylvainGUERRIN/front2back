@@ -38,7 +38,7 @@ class Tag
     protected ?string $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="Tag")
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="tag")
      */
     private $posts;
 
