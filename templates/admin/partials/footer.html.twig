@@ -5,19 +5,19 @@
             <div class="col-sm-12 col-md-4 sitemap">
                 <h4>Plan du site</h4>
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('admin_dashboard') }}">Accueil</a>
+                    <li class="nav-item {% if current == 'admin_dashboard' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('admin_dashboard') }}">Accueil </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                    <li class="nav-item {% if current == 'admin_posts_dashboard' or current == 'admin_posts_create' or current == 'admin_posts_edit' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('admin_posts_dashboard') }}">Veilles </a>
                     </li>
-                    <li class="nav-item">
-                        {#                        <a class="nav-link" href="{{ path('contact') }}">Contact</a>#}
+                    <li class="nav-item {% if current == 'admin_tags_dashboard' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('admin_tags_dashboard') }}">Tags </a>
                     </li>
                 </ul>
             </div>
             <div class="col-sm-12 col-md-4">
-                <a class="logo-footer" href="{{ path('home') }}"><img src="{{ asset('build/content/logo/logo-admin-256px.jpg') }}" alt="logo front2back"></a>
+                <a class="logo-footer" href="{{ path('admin_dashboard') }}"><img src="{{ asset('build/content/logo/logo-admin-256px.jpg') }}" alt="logo front2back"></a>
                 <p>2018-2021</p>
                 {#                <a href="{{ path('conditions-generales') }}"><h5>Conditions générales</h5></a>#}
             </div>
