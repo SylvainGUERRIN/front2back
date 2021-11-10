@@ -20,6 +20,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     fields={"title"},
  *     message="Une autre veille posséde déjà ce titre, merci de le modifier"
  * )
+ * @UniqueEntity(
+ *     fields={"slug"},
+ *     message="Ce slug est déjà utilisé pour une autre veille."
+ * )
  * @Vich\Uploadable()
  */
 class Post
@@ -32,12 +36,12 @@ class Post
     protected ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     protected ?string $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     protected ?string $slug;
 

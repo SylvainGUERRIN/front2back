@@ -6,12 +6,14 @@ use App\Repository\TagRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Tag.
  *
  * @ORM\Entity(repositoryClass=TagRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(fields={"slug"}, message="Ce slug est déjà utilisé pour un autre tag.")
  */
 class Tag
 {
@@ -28,7 +30,7 @@ class Tag
     protected ?string $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     protected ?string $slug;
 

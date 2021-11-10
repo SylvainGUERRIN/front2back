@@ -1,10 +1,10 @@
 {% extends 'admin/partials/base.html.twig' %}
 
-{% block title %}Créer un nouveau tag{% endblock %}
+{% block title %}Editer le tag{% endblock %}
 
 {% block body %}
     <div class="container frame mb-3">
-        <h1>Créer un nouveau tag</h1>
+        <h1>Editer le tag</h1>
     </div>
     <div class="container frame">
         {{ form_start(form) }}
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-primary" type="submit">Créer le tag</button>
+            <button class="btn btn-primary" type="submit">Enregistrer les modifications</button>
         </div>
         {{ form_end(form) }}
     </div>
