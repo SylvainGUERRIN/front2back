@@ -49,6 +49,11 @@ class TagController extends AbstractController
             $this->doctrine->getManager()->persist($tag);
             $this->doctrine->getManager()->flush();
 
+            $this->addFlash(
+                'success',
+                "Le tag <strong>{$tag->getName()}</strong> a bien été créé !"
+            );
+
             return $this->redirectToRoute('admin_tags_dashboard');
         }
 
@@ -58,7 +63,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="admin_tags_edit")
+     * @Route("/edit/{slug}", name="admin_tags_edit")
      */
     public function edit(Tag $tag): Response
     {
@@ -77,12 +82,17 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="admin_tags_delete")
+     * @Route("/delete/{slug}", name="admin_tags_delete")
      */
     public function delete(Tag $tag): Response
     {
         $this->doctrine->getManager()->remove($tag);
         $this->doctrine->getManager()->flush();
+
+        $this->addFlash(
+            'success',
+            "Le tag <strong>{$tag->getName()}</strong> a  bien été supprimée !"
+        );
 
         return $this->redirectToRoute('admin_tags_dashboard');
     }
