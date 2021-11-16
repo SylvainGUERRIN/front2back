@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,5 +20,19 @@ class CommentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);
+    }
+
+    /**
+     * @method Comment[]
+     *
+     * @throws \Exception
+     */
+    public function findAllRecent(): Query
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.commented_at <= :date')
+            ->setParameter('date', new \DateTime(date('Y-m-d H:i:s')))
+            ->orderBy('c.commented_at', 'DESC')
+            ->getQuery();
     }
 }

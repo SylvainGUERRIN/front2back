@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Comment;
+use App\Repository\CommentRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,11 +29,19 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/dashboard", name="admin_comments_dashboard")
+     * @throws \Exception
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, CommentRepository $commentRepository): Response
     {
+        $comments = $paginator->paginate(
+            $commentRepository->findAllRecent(),
+            $this->request->getCurrentRequest()->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('admin/comments/dashboard.html.twig', [
-            'comments' => $this->doctrine->getRepository(Comment::class)->findAll(),
+            'comments' => $comments,
+//            'comments' => $this->doctrine->getRepository(Comment::class)->findAll(),
         ]);
     }
 
