@@ -1,0 +1,69 @@
+<header>
+    <div class="header-background text-center">
+        <a href="{{ path('contributor_dashboard') }}"><img src="{{ asset('build/content/logo/logo-admin-512px.jpg') }}" alt="logo front2back" class="logo"></a>
+        <div class="form-top"></div>
+    </div>
+
+    {% if app.user is not null %}
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky">
+        <div class="container">
+            {#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">#}
+            {#                <span class="navbar-toggler-icon"></span>#}
+            {#            </button>#}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01" >
+                <div class="container">
+                    <ul class="navbar-nav">
+                        <li class="nav-item {% if current == 'admin_dashboard' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('contributor_dashboard') }}">Accueil </a>
+                        </li>
+                        <li class="nav-item {% if current == 'admin_posts_dashboard' or current == 'admin_posts_create' or current == 'admin_posts_edit' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('contributor_posts_dashboard') }}">Veilles </a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{% if app.user.avatar is null %}{{ asset('build/content/profil/user-blue-default-64px.png') }}
+                        {% else %}{{ asset('images/avatars/' ~ app.user.avatar.url) }}{% endif %}" alt="Avatar de {{ app.user.firstname }}" class="menu-avatar">
+                            {{ app.user.firstname }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                            <li>
+                                <a href="{{ path('account_profile') }}" class="dropdown-item">Modifier mon profil</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('account_edit_password') }}" class="dropdown-item">Modifier mon mot de passe</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a href="{{ path('security_logout') }}" class="dropdown-item">Se déconnecter</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% else %}
+        <h1 class="text-center title-color">Connexion à l'administration du site</h1>
+    {% endif %}
+</header>
+{#change form-bottom with clip-path#}
+<div class="form-bottom"></div>
+
+{% for label, messages in app.flashes %}
+    <div class="container text-center mt-3">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
