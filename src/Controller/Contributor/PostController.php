@@ -36,8 +36,10 @@ class PostController extends AbstractController
      */
     public function dashboard(PaginatorInterface $paginator, PostRepository $postRepository): Response
     {
+        $contributor = $this->getUser();
+
         $posts = $paginator->paginate(
-            $postRepository->findAllRecent(),
+            $postRepository->findAllRecentByContributor(),
             $this->request->getCurrentRequest()->query->getInt('page', 1),
             10
         );
@@ -47,36 +49,36 @@ class PostController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route ("/create", name="admin_posts_create")
-//     */
-//    public function create(): Response
-//    {
-//        $post = new Post();
-//        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            /** @var User $user */
-//            $user = $this->getUser();
-//
-//            $post->setPostCreatedAt(new \DateTime('now'));
-//            $post->setAuthor($user);
-//            $post->setValidatedAt(true);
-//            $this->doctrine->getManager()->persist($post);
-//            $this->doctrine->getManager()->flush();
-//
-//            $this->addFlash(
-//                'success',
-//                "L'article <strong>{$post->getTitle()}</strong> a bien été crée !"
-//            );
-//
-//            return $this->redirectToRoute('admin_posts_dashboard');
-//        }
-//
-//        return $this->render('admin/posts/create.html.twig', [
-//            'form' => $form->createView(),
-//        ]);
-//    }
+    /**
+     * @Route ("/create", name="contributor_posts_create")
+     */
+    public function create(): Response
+    {
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+
+            $post->setPostCreatedAt(new \DateTime('now'));
+            $post->setAuthor($user);
+            $post->setValidatedAt(true);
+            $this->doctrine->getManager()->persist($post);
+            $this->doctrine->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                "L'article <strong>{$post->getTitle()}</strong> a bien été crée !"
+            );
+
+            return $this->redirectToRoute('contributor_posts_dashboard');
+        }
+
+        return $this->render('contributor/posts/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 //
 //    /**
 //     * @Route ("/edit/{slug}", name="admin_posts_edit")
