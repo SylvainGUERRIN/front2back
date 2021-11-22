@@ -35,4 +35,18 @@ class PostRepository extends ServiceEntityRepository
             ->orderBy('p.post_created_at', 'DESC')
             ->getQuery();
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function findAllRecentByContributor($contributor): Query
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.post_created_at <= :date')
+            ->setParameter('date', new \DateTime(date('Y-m-d H:i:s')))
+            ->andWhere('p.contributor = :contributor')
+            ->setParameter('contributor', $contributor)
+            ->orderBy('p.post_created_at', 'DESC')
+            ->getQuery();
+    }
 }
