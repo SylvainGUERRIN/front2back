@@ -79,37 +79,32 @@ class PostController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-//
-//    /**
-//     * @Route ("/edit/{slug}", name="admin_posts_edit")
-//     */
-//    public function edit(Post $post): Response
-//    {
-//        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            /* @var User $user */
-//            //$user = $this->getUser();
-//
-//            //$post->setPostCreatedAt(new \DateTime('now'));
-//            $post->setPostModifiedAt(new \DateTime('now'));
-//            //$post->setAuthor($user);
-//            $post->setValidatedAt(true);
-//            $this->doctrine->getManager()->flush();
-//
-//            $this->addFlash(
-//                'success',
-//                "L'article <strong>{$post->getTitle()}</strong> a bien été mis à jour !"
-//            );
-//
-//            return $this->redirectToRoute('admin_posts_dashboard');
-//        }
-//
-//        return $this->render('admin/posts/edit.html.twig', [
-//            'form' => $form->createView(),
-//            'post' => $post,
-//        ]);
-//    }
+
+    /**
+     * @Route ("/edit/{slug}", name="contributor_posts_edit")
+     */
+    public function edit(Post $post): Response
+    {
+        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post->setPostModifiedAt(new \DateTime('now'));
+            $post->setValidatedAt(true);
+            $this->doctrine->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                "L'article <strong>{$post->getTitle()}</strong> a bien été mis à jour !"
+            );
+
+            return $this->redirectToRoute('contributor_posts_dashboard');
+        }
+
+        return $this->render('admin/posts/edit.html.twig', [
+            'form' => $form->createView(),
+            'post' => $post,
+        ]);
+    }
 //
 //    /**
 //     * @Route ("/delete/{slug}", name="admin_posts_delete")
