@@ -105,20 +105,20 @@ class PostController extends AbstractController
             'post' => $post,
         ]);
     }
-//
-//    /**
-//     * @Route ("/delete/{slug}", name="admin_posts_delete")
-//     */
-//    public function delete(Post $post): Response
-//    {
-//        $this->doctrine->getManager()->remove($post);
-//        $this->doctrine->getManager()->flush();
-//
-//        $this->addFlash(
-//            'success',
-//            "La veille <strong>{$post->getTitle()}</strong> a  bien été supprimée !"
-//        );
-//
-//        return $this->redirectToRoute('admin_posts_dashboard');
-//    }
+
+    /**
+     * @Route ("/delete/{slug}", name="contributor_posts_delete")
+     */
+    public function delete(Post $post): Response
+    {
+        $this->doctrine->getManager()->remove($post);
+        $this->doctrine->getManager()->flush();
+
+        $this->addFlash(
+            'success',
+            "Votre veille <strong>{$post->getTitle()}</strong> a  bien été supprimée !"
+        );
+
+        return $this->redirectToRoute('admin_posts_dashboard');
+    }
 }
