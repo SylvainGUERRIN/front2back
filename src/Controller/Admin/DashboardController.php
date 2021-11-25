@@ -27,6 +27,7 @@ class DashboardController extends AbstractController
      */
     public function dashboard(Request $request): Response
     {
+
         return $this->render('admin/dashboard.html.twig', [
 //            'form' => $form->createView(),
 //            'avatar' => $avatar,

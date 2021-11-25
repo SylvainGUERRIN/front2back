@@ -11,6 +11,8 @@
 - Accès a ses préférences de veille (les technologies qu'il suit)
 - Gestion des commentaires (validation en amont)
 - Gestion des utilisateurs (bio, avatar, système de recherche des utilisateurs)
+- Gestion des demandes pour être contributeur, il faut faire la demande d'adhésion via le formulaire
+ensuite l'administrateur doit valider la demande
 - Gestion des articles postés par les contributeurs (validation avant la publication d'un article)
 - Gestion des articles de veille (créer, mettre à jour, supprimer, système de recherche et tri des articles)
 - Gestion du système de badges
@@ -29,6 +31,7 @@
 - Rôle lecteur:
 
 - Accès à son compte pour modifier ses données personnelles
+- Accès au formulaire de demande pour être contributeur
 - Accès au système de badge
 - Accès a ses préférences de veille (les technologies qu'il suit)
 - Accéde aux articles publiés sept jours avant un utilisateur qui n'est pas inscrit
