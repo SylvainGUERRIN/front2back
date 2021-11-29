@@ -67,6 +67,11 @@ class User implements UserInterface, \Serializable
     private bool $mailAlert;
 
     /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $requests = [];
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Avatar", inversedBy="user", cascade={"persist", "remove"})
      */
     protected ?Avatar $avatar;
@@ -220,6 +225,18 @@ class User implements UserInterface, \Serializable
     public function setMailAlert(bool $mailAlert): User
     {
         $this->mailAlert = $mailAlert;
+
+        return $this;
+    }
+
+    public function getRequests(): ?array
+    {
+        return $this->requests;
+    }
+
+    public function setRequests(?array $requests): self
+    {
+        $this->requests = $requests;
 
         return $this;
     }

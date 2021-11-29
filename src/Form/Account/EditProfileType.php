@@ -5,6 +5,8 @@ namespace App\Form\Account;
 use App\Entity\User;
 use App\Form\AvatarType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -52,8 +54,13 @@ class EditProfileType extends AbstractType
             ])
             ->add('avatar', AvatarType::class, [
                 'label' => ' ',
-                'required' => true,
+                'required' => false,
                 'mapped' => true,
+            ])
+            ->add('requests', CheckboxType::class, [
+                'label' => "Devenir contributeur ?",
+                'required' => false,
+                'mapped' => false,
             ])
         ;
     }
