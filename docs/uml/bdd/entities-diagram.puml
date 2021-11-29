@@ -14,6 +14,7 @@ package "Entities" #FFF {
         {field} favorites: relation
         {field} post: relation
         {field} activate: boolean
+        {field} requests: array json
     }
 
     class Comment {

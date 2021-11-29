@@ -33,6 +33,24 @@ class AccountController extends AbstractController
         $form = $this->createForm(EditProfileType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $userRequests = $user->getRequests();
+            if ($form->get('requests')->getData() !== false) {
+                //$requests = $form->get('requests')->getData();
+                //dump($requests);
+                if ($userRequests === null || !array_key_exists('contributor', $userRequests)) {
+                    $user->setRequests(['contributor' => 'requesting']);
+                    dump($user->getRequests());
+                }
+                die();
+            } else {
+                dump($userRequests);
+                if (array_key_exists('contributor', $userRequests)) {
+                } else {
+                    $user->setRequests(null);
+                }
+                die();
+            }
+
             $this->doctrine->getManager()->flush();
 
             $this->addFlash(
