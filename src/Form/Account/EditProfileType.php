@@ -46,7 +46,6 @@ class EditProfileType extends AbstractType
                     'class' => 'form-control',
                 ],
                 'empty_data' => '',
-//                'attr' => ['placeholder' => 'Veuillez mettre votre email'],
                 'constraints' => [
                     new NotBlank(),
                     new Email([], 'Cet email n\'est pas valide.'),
@@ -59,6 +58,9 @@ class EditProfileType extends AbstractType
             ])
             ->add('requests', CheckboxType::class, [
                 'label' => "Devenir contributeur ?",
+                'label_attr' => [
+                    'class' => 'form-label mt-3',
+                ],
                 'required' => false,
                 'mapped' => false,
             ])

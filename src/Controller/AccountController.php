@@ -31,25 +31,24 @@ class AccountController extends AbstractController
         $avatar = $user->getAvatar();
 
         $form = $this->createForm(EditProfileType::class, $user)->handleRequest($request);
+//        dump($this->createForm(EditProfileType::class, $user));
+//        die();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //manage contributor request
             $userRequests = $user->getRequests();
-            if ($form->get('requests')->getData() !== false) {
-                //$requests = $form->get('requests')->getData();
-                //dump($requests);
+            if ($form->get('requests')->getData() === true) {
                 if ($userRequests === null || !array_key_exists('contributor', $userRequests)) {
                     $user->setRequests(['contributor' => 'requesting']);
-                    dump($user->getRequests());
-                }
-                die();
-            } else {
-                dump($userRequests);
-                if (array_key_exists('contributor', $userRequests)) {
                 } else {
-                    $user->setRequests(null);
+                    $userRequests['contributor'] = 'requesting';
                 }
-                die();
+            } else {
+                if (array_key_exists('contributor', $userRequests)) {
+                    $userRequests['contributor'] = 'denied';
+                }
             }
+            $user->setRequests($userRequests);
 
             $this->doctrine->getManager()->flush();
 
@@ -64,6 +63,7 @@ class AccountController extends AbstractController
         return $this->render('user/profile.html.twig', [
             'form' => $form->createView(),
             'avatar' => $avatar,
+            'user' => $user,
         ]);
     }
 
