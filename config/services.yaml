@@ -32,3 +32,8 @@ services:
     App\Subscriber\ImageCacheSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
+
+#    edit_profile_form:
+#        class: App\Form\Account\EditProfileType
+#        public: true
+#        arguments: ['@security.token_storage']

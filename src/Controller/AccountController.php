@@ -7,6 +7,7 @@ use App\Form\Account\EditPasswordType;
 use App\Form\Account\EditProfileType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+//use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -88,5 +89,28 @@ class AccountController extends AbstractController
         return $this->render('user/edit-password.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route ("/ajax/check/contributing", name="account_ajax_check_contributing")
+     * @throws \JsonException
+     */
+    public function checkIfUserIsAlreadyRequestingContributing(Request $request): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $requestingContributing = '';
+        $response = new Response();
+
+        //change condition to check if user is already requesting contributor
+        if ($request->isXmlHttpRequest()) {
+            //do a another response
+            $requestingContributing = 'working';
+        }
+
+        $response->setContent(json_encode([$requestingContributing], JSON_THROW_ON_ERROR));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');//set all origins but only for test
+        return $response;
     }
 }
