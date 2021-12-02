@@ -1,8 +1,11 @@
-
 const response = fetch('/ajax/check/contributing')
     .then(async result => {
         const data = await result.json();
         console.log(data);
+        if (data[0] === true) {
+            const checkbox = document.getElementById('edit_profile_requests');
+            checkbox.checked = true;
+        }
     }).catch(error => {
         console.log(error);
     });

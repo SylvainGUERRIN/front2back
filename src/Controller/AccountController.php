@@ -99,13 +99,15 @@ class AccountController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $requestingContributing = '';
+        $userRequests = $user->getRequests();
+        $requestingContributing = false;
         $response = new Response();
 
         //change condition to check if user is already requesting contributor
-        if ($request->isXmlHttpRequest()) {
+        if (($userRequests !== null && array_key_exists('contributor', $userRequests))
+            || $userRequests['contributor'] === 'requesting' || $userRequests['contributor'] === 'done') {
             //do a another response
-            $requestingContributing = 'working';
+            $requestingContributing = true;
         }
 
         $response->setContent(json_encode([$requestingContributing], JSON_THROW_ON_ERROR));
