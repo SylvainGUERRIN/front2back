@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -32,10 +33,11 @@ class ContributorsController extends AbstractController
         //pour être contributeur, il faut faire la demande d'adhésion via le formulaire
         //ensuite l'administrateur doit valider la demande
 
-        //$contributors = $this->doctrine->getRepository(Contributor::class)->findAll();
+        //change function to get contributors
+        $contributors = $this->doctrine->getRepository(User::class)->findAll();
 
         return $this->render('admin/contributors/index.html.twig', [
-            //'contributors' => $contributors,
+            'contributors' => $contributors,
         ]);
     }
 }

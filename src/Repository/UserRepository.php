@@ -42,6 +42,27 @@ class UserRepository extends ServiceEntityRepository
 //        $this->em->getManager()->flush();
 //    }
 
+    /**
+    * @return User[] Returns an array of User objects
+    */
+    public function findUserByRequestContributingOnRequesting(): array
+    {
+//        $rsm = $this->createResultSetMappingBuilder('u');
+//        $rsm->addRootEntityFromClassMetadata(User::class, 'u');
+//        $rawQuery = sprintf(
+//            'SELECT %s FROM User u WHERE JSON_EXTRACT(current_state, \'$.processing\')',
+//            $rsm->generateSelectClause()
+//        );
+//        $query = $this->_em->createNativeQuery($rawQuery, $rsm);
+//        return $query->getResult();
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.requests = :val')
+            ->setParameter('val', 'contributor')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
