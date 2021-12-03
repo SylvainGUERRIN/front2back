@@ -1,0 +1,62 @@
+{% extends 'admin/partials/base.html.twig' %}
+
+{% block title %}Gestion des veilles {% endblock %}
+
+{% block body %}
+    <div class="container frame">
+        <div class="row">
+            <div class="col-md-12 col-lg-9">
+                <h1>Les dernières veilles </h1>
+            </div>
+            <div class="col-md-12 col-lg-3 cta-align">
+                <a href="{{ path('admin_posts_create') }}" class="btn btn-primary">Créer une nouvelle veille</a>
+            </div>
+        </div>
+    </div>
+    <div class="container frame mt-5">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-borderless table-responsive">
+                    <thead>
+                    <tr class="table-light">
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Requete</th>
+                        <th>Valider sa requete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for contributor in contributors %}
+                        <tr>
+                            <td>
+                                {{ contributor.firstname }}
+                            </td>
+                            <td>
+                                {{ contributor.email }}
+                            </td>
+                            <td>
+                                {{ contributor.requests }}
+                            </td>
+                            <td>
+                                <p>mettre formulaire avec un bouton de validation</p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    {% if contributors.items|length > 10 %}
+                        <tfoot>
+                        <tr>
+                            <td>
+                                <div class="nav-pagination">
+                                    {{ knp_pagination_render(posts) }}
+                                </div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
