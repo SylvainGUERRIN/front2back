@@ -40,4 +40,22 @@ class ContributorsController extends AbstractController
             'contributors' => $contributors,
         ]);
     }
+
+    /**
+     * @param $id
+     * @param User $user
+     * @return Response
+     * @Route ("/{id}/accept", name="admin_accept_new_contributor")
+     */
+    public function validateUserContributingRequest($id, User $user): Response
+    {
+        //change function to get contributors
+        $userWhoRequestForContributing = $this->doctrine->getRepository(User::class)->findBy(['id' => $id]);
+
+        //change requesting array to done
+
+        return $this->render('admin/contributors/index.html.twig', [
+//            'contributors' => $contributors,
+        ]);
+    }
 }
