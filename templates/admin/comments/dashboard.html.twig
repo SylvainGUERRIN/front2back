@@ -53,12 +53,12 @@
                         </tr>
                     {% endfor %}
                     </tbody>
-                    {% if posts.items|length > 10 %}
+                    {% if comments.items|length > 10 %}
                         <tfoot>
                         <tr>
                             <td>
                                 <div class="nav-pagination">
-                                    {{ knp_pagination_render(posts) }}
+                                    {{ knp_pagination_render(comments) }}
                                 </div>
                             </td>
                         </tr>

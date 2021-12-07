@@ -26,7 +26,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route ("/", name="admin_contributors_index")
+     * @Route ("/", name="admin_users_index")
      */
     public function index(): Response
     {
