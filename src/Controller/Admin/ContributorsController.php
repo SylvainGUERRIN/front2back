@@ -50,12 +50,47 @@ class ContributorsController extends AbstractController
     public function validateUserContributingRequest($id, User $user): Response
     {
         //change function to get contributors
-        $userWhoRequestForContributing = $this->doctrine->getRepository(User::class)->findBy(['id' => $id]);
+        $userWhoRequestForContributing = $this->doctrine->getRepository(User::class)->findBy(['id' => $id])[0];
 
         //change requesting array to done
+        $requestsForContributing = $userWhoRequestForContributing->getRequests();
+        $requestsForContributing['contributor'] = "Cet utilisateur contribue depuis le ". date('d/m/Y');
+        $userWhoRequestForContributing->setRequests($requestsForContributing);
+        $userWhoRequestForContributing->setRoles(['ROLE_CONTRIBUTOR']);
+        $this->doctrine->getManager()->flush();
 
-        return $this->render('admin/contributors/index.html.twig', [
-//            'contributors' => $contributors,
-        ]);
+        $this->addFlash(
+            'success',
+            "La contribution de <strong>{$userWhoRequestForContributing->getFirstname()}</strong>
+                    a bien été prise en compte !"
+        );
+
+        return $this->redirectToRoute('admin_contributors_index');
+    }
+
+    /**
+     * @param $id
+     * @param User $user
+     * @return Response
+     * @Route ("/{id}/decline", name="admin_decline_new_contributor")
+     */
+    public function declineUserContributingRequest($id, User $user): Response
+    {
+        //change function to get contributors
+        $userWhoRequestForContributing = $this->doctrine->getRepository(User::class)->findBy(['id' => $id])[0];
+
+        //change requesting array to done
+        $requestsForContributing = $userWhoRequestForContributing->getRequests();
+        $requestsForContributing['contributor'] = "Cet utilisateur a arrêté de contribuer depuis le ". date('d/m/Y');
+        $userWhoRequestForContributing->setRequests($requestsForContributing);
+        $userWhoRequestForContributing->setRoles(['ROLE_USER']);
+        $this->doctrine->getManager()->flush();
+
+        $this->addFlash(
+            'success',
+            "La contribution de <strong>{$userWhoRequestForContributing->getFirstname()}</strong> a bien été suprimée !"
+        );
+
+        return $this->redirectToRoute('admin_contributors_index');
     }
 }

@@ -32,19 +32,49 @@
                                 {{ contributor.email }}
                             </td>
                             <td>
-{#                                {{ contributor.requests }}#}
+                                {% if contributor.requests.contributor == 'requesting' %}
+                                    <p>Cet utilisateur souhaite devenir un contributeur.</p>
+                                {% else %}
+                                    <p>Cet utilisateur n'a fait aucunes demandes de contribution</p>
+                                    <p>{{ contributor.requests.contributor }}</p>
+                                {% endif %}
                             </td>
                             <td>
-                            {#  change icon   #}
-                                <form class="text-center" action="{{ path('admin_accept_new_contributor', {'id': contributor.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir valider ce nouveau contributeur ?')">
-                                    <button class="btn btn-success">
-                                        <svg width="32px" height="32px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-                                            <g transform="matrix(0.1,0,0,-0.1,0,512)">
-                                                <path d="M2365,5114C2002,5077 1732,5001 1435,4856C1022,4652 687,4358 425,3970C263,3730 114,3372 56,3090C13,2878 5,2795 5,2560C5,2249 39,2035 131,1755C258,1371 486,1011 786,720C983,529 1186,387 1435,265C1623,173 1744,128 1935,80C2428,-44 2924,-22 3410,145C3550,193 3830,332 3960,419C4262,619 4537,900 4734,1210C4806,1323 4922,1563 4969,1696C5206,2362 5163,3069 4849,3699C4715,3968 4555,4186 4333,4400C4123,4604 3948,4726 3675,4861C3437,4978 3185,5056 2916,5096C2819,5110 2448,5122 2365,5114ZM3932,3633C4064,3502 4178,3383 4186,3368C4206,3330 4203,3271 4180,3233C4155,3191 2243,1272 2210,1255C2184,1241 2155,1237 2105,1239C2080,1240 1994,1321 1512,1802C1189,2125 942,2379 934,2397C916,2439 916,2474 936,2513C955,2551 1393,2995 1432,3016C1467,3034 1533,3034 1568,3016C1583,3008 1716,2880 1865,2731L2135,2460L2840,3164C3370,3694 3552,3870 3575,3875C3592,3879 3610,3883 3615,3884C3621,3886 3640,3883 3659,3879C3686,3873 3745,3820 3932,3633Z" style="fill-rule:nonzero;"/>
-                                            </g>
-                                        </svg>
-                                    </button>
-                                </form>
+                                {% if contributor.requests.contributor == 'requesting' %}
+                                    <p class="text-center">Valider sa requête ?</p>
+                                    <form class="text-center" action="{{ path('admin_accept_new_contributor', {'id': contributor.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir valider ce nouveau contributeur ?')">
+                                        <button class="btn btn-success">
+                                            <svg width="32px" height="32px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                                <g transform="matrix(0.1,0,0,-0.1,0,512)">
+                                                    <path d="M2365,5114C2002,5077 1732,5001 1435,4856C1022,4652 687,4358 425,3970C263,3730 114,3372 56,3090C13,2878 5,2795 5,2560C5,2249 39,2035 131,1755C258,1371 486,1011 786,720C983,529 1186,387 1435,265C1623,173 1744,128 1935,80C2428,-44 2924,-22 3410,145C3550,193 3830,332 3960,419C4262,619 4537,900 4734,1210C4806,1323 4922,1563 4969,1696C5206,2362 5163,3069 4849,3699C4715,3968 4555,4186 4333,4400C4123,4604 3948,4726 3675,4861C3437,4978 3185,5056 2916,5096C2819,5110 2448,5122 2365,5114ZM3932,3633C4064,3502 4178,3383 4186,3368C4206,3330 4203,3271 4180,3233C4155,3191 2243,1272 2210,1255C2184,1241 2155,1237 2105,1239C2080,1240 1994,1321 1512,1802C1189,2125 942,2379 934,2397C916,2439 916,2474 936,2513C955,2551 1393,2995 1432,3016C1467,3034 1533,3034 1568,3016C1583,3008 1716,2880 1865,2731L2135,2460L2840,3164C3370,3694 3552,3870 3575,3875C3592,3879 3610,3883 3615,3884C3621,3886 3640,3883 3659,3879C3686,3873 3745,3820 3932,3633Z" style="fill-rule:nonzero;"/>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <p class="text-center">Arrêter la contribution de cet utilisateur ?</p>
+                                    <form class="text-center" action="{{ path('admin_decline_new_contributor', {'id': contributor.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir arrêter la contribution de cet utilisateur ?')">
+                                        <button class="btn btn-danger">
+                                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                                 width="32px" height="32px" viewBox="0 0 512.000000 512.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+
+                                                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
+                                                        -576 -384 -432 -602 -931 -655 -1499 -41 -446 55 -949 260 -1355 138 -273 356
+                                                        -559 576 -755 432 -384 931 -602 1499 -655 446 -41 949 55 1355 260 273 138
+                                                        559 356 755 576 384 432 602 931 655 1499 41 446 -55 949 -260 1355 -138 273
+                                                        -356 559 -576 755 -432 384 -931 602 -1499 655 -125 11 -320 11 -445 -1z
+                                                        m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
+                                                        425 -425 425 -425 -213 -212 -212 -213 -425 425 -425 425 -425 -425 -425 -425
+                                                        -212 213 -213 212 425 425 425 425 -425 425 -425 425 210 210 c115 115 212
+                                                        210 215 210 3 0 195 -190 427 -422z"/>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
