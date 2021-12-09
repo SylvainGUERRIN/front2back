@@ -43,10 +43,22 @@ class UserRepository extends ServiceEntityRepository
 //    }
 
     /**
-    * @return User[] Returns an array of User objects
-    */
-    public function findUserByRequestContributingOnRequesting(): array
+     * @return array
+     */
+    public function findUserWithRequests(): array
     {
+        return $this->createQueryBuilder('u')
+            ->where('u.requests IS NOT NULL')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+//    /**
+//    * @return User[] Returns an array of User objects
+//    */
+//    public function findUserByRequestContributingOnRequesting($request): array
+//    {
 //        $rsm = $this->createResultSetMappingBuilder('u');
 //        $rsm->addRootEntityFromClassMetadata(User::class, 'u');
 //        $rawQuery = sprintf(
@@ -55,13 +67,37 @@ class UserRepository extends ServiceEntityRepository
 //        );
 //        $query = $this->_em->createNativeQuery($rawQuery, $rsm);
 //        return $query->getResult();
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.requests = :val')
-            ->setParameter('val', 'contributor')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+//        return $this->createQueryBuilder('u')
+//            ->andWhere('u.requests = :val')
+//            ->setParameter('val', 'contributor')
+//            ->getQuery()
+//            ->getResult()
+//        ;
+
+        // The ResultSetMapping maps the SQL result to entities
+        //$rsm = $this->createResultSetMappingBuilder('u');
+
+//        $rawQuery = sprintf(
+//            'SELECT %s
+//        FROM user u
+//        WHERE JSON_CONTAINS(u.requests, :request, "$")',
+//            $rsm->generateSelectClause()
+//        );
+//        $rawQuery = 'SELECT '. $rsm->generateSelectClause() .' FROM User u WHERE JSON_OVERLAPS(u.requests, :request, "$")';
+////        $rawQuery = 'SELECT '. $rsm->generateSelectClause() .' FROM User u WHERE JSON_CONTAINS(u.requests, :request, "$")';
+////        $rawQuery = 'SELECT '. $rsm->generateSelectClause() .' FROM User u WHERE JSON_SEARCH(u.requests, "all", :request)';
+//
+//        $query = $this->getEntityManager()->createNativeQuery($rawQuery, $rsm);
+//
+////        $query->setParameter('request', $request);
+//        $query->setParameter('request', sprintf('"%s"', $request));
+//        dump($query);
+//        dump($query->getSQL());
+//        dump($query->getResult());
+//        die();
+////        $query->setParameter('request', $request);
+//        return $query->getResult();
+//    }
 
     // /**
     //  * @return User[] Returns an array of User objects
