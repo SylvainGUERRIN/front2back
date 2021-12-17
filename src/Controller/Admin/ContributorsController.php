@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class ContributorsController extends AbstractController
     /**
      * @Route ("/", name="admin_contributors_index")
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator): Response
     {
         //pour être contributeur, il faut faire la demande d'adhésion via le formulaire
         //ensuite l'administrateur doit valider la demande
@@ -43,11 +44,17 @@ class ContributorsController extends AbstractController
             }
         }
 
+        $paginateContributors = $paginator->paginate(
+            $contributors,
+            $this->request->getCurrentRequest()->query->getInt('page', 1),
+            10
+        );
+
         //change function to get contributors
         //$contributors = $this->doctrine->getRepository(User::class)->findAll();
 
         return $this->render('admin/contributors/index.html.twig', [
-            'contributors' => $contributors,
+            'contributors' => $paginateContributors,
         ]);
     }
 

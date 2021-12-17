@@ -2,8 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,12 +28,17 @@ class UsersController extends AbstractController
 
     /**
      * @Route ("/", name="admin_users_index")
+     * @throws \Exception
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, UserRepository $userRepository): Response
     {
-        //gestion des bio des utilisateurs
+        $users = $paginator->paginate(
+            $userRepository->findAllUsersWithoutAdminRole(),
+            $this->request->getCurrentRequest()->query->getInt('page', 1),
+            10
+        );
 
-        $users = $this->doctrine->getRepository(User::class)->findAll();
+        //$users = $this->doctrine->getRepository(User::class)->findAllUsersWithoutAdminRole();
 
         return $this->render('admin/users/index.html.twig', [
             'users' => $users,
