@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -51,6 +52,16 @@ class UserRepository extends ServiceEntityRepository
             ->where('u.requests IS NOT NULL')
             ->getQuery()
             ->getResult()
+            ;
+    }
+
+    public function findAllUsersWithoutAdminRole(): Query
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.roles NOT LIKE :role')
+            ->setParameter('role', '%ROLE_ADMIN%')
+            ->getQuery()
+            //->getResult()
             ;
     }
 

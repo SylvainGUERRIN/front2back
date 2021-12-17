@@ -38,7 +38,7 @@
                                     <p>Voici les demandes de cet utilisateur:</p>
                                     {% for request in user.requests %}
                                         <p>{{ request }}</p>
-                                    {% endfor %} %}
+                                    {% endfor %}
                                 {% else %}
                                     <p>Cet utilisateur n'a fait aucunes demandes</p>
                                 {% endif %}
@@ -50,7 +50,7 @@
                                 {% else %}
                                     <p>Cet utilisateur est activé</p>
 {#                                    <a href="{{ path('admin_users_desactivate', {'id': user.id}) }}" class="btn btn-danger">Désactiver</a>#}
-                                {% endif %} %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if user.mailAlert == false %}
