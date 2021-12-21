@@ -74,10 +74,10 @@ class AccountController extends AbstractController
     public function editPassword(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
     {
         $form = $this->createForm(EditPasswordType::class)->handleRequest($request);
+        /** @var User $user */
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var User $user */
-            $user = $this->getUser();
             $user->setPassword($userPasswordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
             $this->doctrine->getManager()->flush();
 
@@ -88,6 +88,7 @@ class AccountController extends AbstractController
 
         return $this->render('user/edit-password.html.twig', [
             'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 

@@ -29,6 +29,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% if posts.items|length > 10 %}
                         {% for post in posts %}
                             <tr>
                                 <td>
@@ -75,6 +76,11 @@
                                 </td>
                             </tr>
                         {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td class="text-center" colspan="6">Vous n'avez pas encore créer d'articles</td>
+                        </tr>
+                    {% endif %}
                     </tbody>
                     {% if posts.items|length > 10 %}
                         <tfoot>

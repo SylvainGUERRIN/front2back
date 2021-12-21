@@ -44,8 +44,8 @@ class PostRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->where('p.post_created_at <= :date')
             ->setParameter('date', new \DateTime(date('Y-m-d H:i:s')))
-            ->andWhere('p.contributor = :contributor')
-            ->setParameter('contributor', $contributor)
+            ->andWhere('p.author = :user')
+            ->setParameter('user', $contributor)
             ->orderBy('p.post_created_at', 'DESC')
             ->getQuery();
     }

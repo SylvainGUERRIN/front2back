@@ -39,7 +39,7 @@ class PostController extends AbstractController
         $contributor = $this->getUser();
 
         $posts = $paginator->paginate(
-            $postRepository->findAllRecentByContributor(),
+            $postRepository->findAllRecentByContributor($contributor),
             $this->request->getCurrentRequest()->query->getInt('page', 1),
             10
         );
