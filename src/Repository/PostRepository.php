@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -48,5 +50,18 @@ class PostRepository extends ServiceEntityRepository
             ->setParameter('user', $contributor)
             ->orderBy('p.post_created_at', 'DESC')
             ->getQuery();
+    }
+
+    public function getAuthorFromPost($post)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p')
+//            ->select('p.author')
+            //->from(Post::class, 'p')
+            ->where('p.id = :id')
+            ->setParameter('id', $post)
+            ->getQuery()
+            ->getResult();
+//            ->getSingleScalarResult();
     }
 }

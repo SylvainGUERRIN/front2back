@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use App\Entity\Tag;
 
 class PostType extends AbstractType
 {
@@ -74,6 +75,19 @@ class PostType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Mettez le texte de la veille',
                     'class' => 'form-control', ],
+            ])
+            ->add('tag', EntityType::class, [
+                'class' => Tag::class,
+//                'choices' => [
+//                    'Choisissez un tag' => null,
+//                ],
+                'choice_label' => 'name',
+                'label' => 'Tag pour la veille',
+                'attr' => [
+                    'placeholder' => 'Choisissez les tags pour cette veille',
+                    'class' => 'form-control',
+                    ],
+//                'empty_data' => 'Choissisez un tag',
             ])
             //->add('author')
             //->add('article_created_at') put datetime at the moment
