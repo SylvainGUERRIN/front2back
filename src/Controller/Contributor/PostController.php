@@ -100,7 +100,7 @@ class PostController extends AbstractController
             return $this->redirectToRoute('contributor_posts_dashboard');
         }
 
-        return $this->render('admin/posts/edit.html.twig', [
+        return $this->render('contributor/posts/edit.html.twig', [
             'form' => $form->createView(),
             'post' => $post,
         ]);
@@ -109,16 +109,23 @@ class PostController extends AbstractController
     /**
      * @Route ("/delete/{slug}", name="contributor_posts_delete")
      */
-    public function delete(Post $post): Response
+    public function delete(Post $post, PostRepository $postRepository): Response
     {
-        $this->doctrine->getManager()->remove($post);
-        $this->doctrine->getManager()->flush();
+        if ($post->getAuthor()->getId() === $this->getUser()->getId()) {
+            $this->doctrine->getManager()->remove($post);
+            $this->doctrine->getManager()->flush();
 
-        $this->addFlash(
-            'success',
-            "Votre veille <strong>{$post->getTitle()}</strong> a  bien été supprimée !"
-        );
+            $this->addFlash(
+                'success',
+                "L'article <strong>{$post->getTitle()}</strong> a bien été supprimé !"
+            );
+        } else {
+            $this->addFlash(
+                'danger',
+                "Vous n'êtes pas autorisé à supprimer cet article !"
+            );
+        }
 
-        return $this->redirectToRoute('admin_posts_dashboard');
+        return $this->redirectToRoute('contributor_posts_dashboard');
     }
 }

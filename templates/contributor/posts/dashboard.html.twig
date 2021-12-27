@@ -25,11 +25,11 @@
                             <th>Créé le</th>
                             <th>Modifié le</th>
                             <th>Editer</th>
-{#                            <th>Supprimer</th>#}
+                            <th>Supprimer</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% if posts.items|length > 10 %}
+                    {% if posts.items|length > 0 %}
                         {% for post in posts %}
                             <tr>
                                 <td>

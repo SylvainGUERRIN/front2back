@@ -119,7 +119,7 @@ class PostController extends AbstractController
 
         $this->addFlash(
             'success',
-            "La veille <strong>{$post->getTitle()}</strong> a  bien été supprimée !"
+            "La veille <strong>{$post->getTitle()}</strong> a bien été supprimée !"
         );
 
         return $this->redirectToRoute('admin_posts_dashboard');
