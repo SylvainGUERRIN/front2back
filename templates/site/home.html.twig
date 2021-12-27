@@ -4,6 +4,43 @@
 
 {% block body %}
 
-    <h1>Hello</h1>
+    <section class="presentation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Bienvenue sur Front2Back</h1>
+                    <p>
+                        Front2Back est un site de gestion de projet de développement web.
+                        Vous pouvez y créer vos projets, les gérer, les partager, les commenter, les liker, les suivre, etc.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="news container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Dernières news</h2>
+            </div>
+        </div>
+        {% for new in news %}
+        <div class="row">
+            <div class="col-sm-12 col-md-4 news-item-image">
+                {% if new.urlImage is not null %}
+                    <img class="img-fluid" src="{{ vich_uploader_asset(new, 'imageFile')}}" alt="image de la veille" width="150px" height="150px">
+                {% else %}
+                    Cet article n'a pas encore d'image
+                {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-8 news-item-content">
+                <h3>{{ new.name }}</h3>
+                <p>
+                    {{ new.description }}
+                </p>
+                <a href="#">Lire la suite</a>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
 
 {% endblock %}

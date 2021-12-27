@@ -39,6 +39,23 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
+     * @method Post[]
+     *
+     * @throws \Exception
+     */
+    public function findLatestWithLimit($limit): Query
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.post_created_at <= :date')
+            ->setParameter('date', new \DateTime(date('Y-m-d H:i:s')))
+            ->orderBy('p.post_created_at', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
      * @throws \Exception
      */
     public function findAllRecentByContributor($contributor): Query
