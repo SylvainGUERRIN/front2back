@@ -43,7 +43,7 @@ class PostRepository extends ServiceEntityRepository
      *
      * @throws \Exception
      */
-    public function findLatestWithLimit($limit): Query
+    public function findLatestWithLimit($limit)
     {
         return $this->createQueryBuilder('p')
             ->where('p.post_created_at <= :date')
