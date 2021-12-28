@@ -24,22 +24,22 @@
             </div>
         </div>
         {% for new in news %}
-        <div class="row">
-            <div class="col-sm-12 col-md-4 news-item-image">
-                {% if new.urlImage is not null %}
-                    <img class="img-fluid" src="{{ vich_uploader_asset(new, 'imageFile')}}" alt="image de la veille" width="150px" height="150px">
-                {% else %}
-                    Cet article n'a pas encore d'image
-                {% endif %}
+            <div class="row mt-5 mb-5 horizontal-card">
+                <div class="col-sm-12 col-md-4 card-image">
+                    {% if new.urlImage is not null %}
+                        <img src="{{ vich_uploader_asset(new, 'imageFile')}}" alt="image de la veille" width="150px" height="150px">
+                    {% else %}
+                        Cet article n'a pas encore d'image
+                    {% endif %}
+                </div>
+                <div class="col-sm-12 col-md-8 card-content">
+                    <h3>{{ new.title }}</h3>
+                    <p>
+                        {{ new.excerpt }}
+                    </p>
+                    <a class="btn btn-primary" href="#">Lire la suite</a>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-8 news-item-content">
-                <h3>{{ new.name }}</h3>
-                <p>
-                    {{ new.description }}
-                </p>
-                <a href="#">Lire la suite</a>
-            </div>
-        </div>
         {% endfor %}
     </section>
 
