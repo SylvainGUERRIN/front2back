@@ -11,18 +11,43 @@
     -webkit-backdrop-filter: blur( 4px );
   }
   .card-image{
-    padding: 1%;
+    padding: 0;
     img{
       width: 100%;
-      height: 250px;
-      object-fit: contain;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 5px 0 0 5px;
     }
   }
   .card-content{
-    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    h3{
+      color: $dark-blue;
+    }
+    p{
+      color: white;
+    }
+  }
+}
+
+@media screen and (max-width: 767px){
+  .horizontal-card{
+    .card-image{
+      img{
+        border-radius: 5px 5px 0 0;
+      }
+    }
+    .card-content{
+      padding-bottom: 3%;
+    }
+  }
+}
+
+@media screen and (max-width: 575px){
+  .horizontal-card{
+    margin: 1%;
   }
 }
