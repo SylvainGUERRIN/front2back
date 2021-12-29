@@ -19,15 +19,15 @@
     </section>
     <section class="news container">
         <div class="row">
-            <div class="col-md-12">
-                <h2>Dernières news</h2>
+            <div class="col-md-12 text-center">
+                <h2>Les dernières news</h2>
             </div>
         </div>
         {% for new in news %}
             <div class="row mt-5 mb-5 horizontal-card">
                 <div class="col-sm-12 col-md-4 card-image">
                     {% if new.urlImage is not null %}
-                        <img src="{{ vich_uploader_asset(new, 'imageFile')}}" alt="image de la veille" width="150px" height="150px">
+                        <img src="{{ vich_uploader_asset(new, 'imageFile')}}" alt="image de la veille">
                     {% else %}
                         Cet article n'a pas encore d'image
                     {% endif %}
@@ -37,7 +37,7 @@
                     <p>
                         {{ new.excerpt }}
                     </p>
-                    <a class="btn btn-primary" href="#">Lire la suite</a>
+                    <a class="btn btn-primary" href="{{ path('veilles_show', {'slug': new.slug}) }}">Lire la suite</a>
                 </div>
             </div>
         {% endfor %}
