@@ -3,5 +3,17 @@
 {% block title %}{{ post.title}} - Front2Back{% endblock %}
 
 {% block body %}
-    <h1>{{ post.title }}</h1>
+    <div class="container glass-frame mb-5">
+        {% if post.urlImage is not null %}
+            <img class="img-post" src="{{ vich_uploader_asset(post, 'imageFile')}}" alt="image de la veille">
+        {% else %}
+            Cet article n'a pas encore d'image
+        {% endif %}
+    </div>
+    <div class="container glass-frame">
+        <h1>{{ post.title }}</h1>
+        <p>Auteur de la veille: {{ post.author.firstname }}</p>
+        <p>Veille posté le {{ post.postCreatedAt | date("d/m/Y H:i:s") }}</p>
+        <p>{{ post.content }}</p>
+    </div>
 {% endblock %}
