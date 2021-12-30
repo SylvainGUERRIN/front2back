@@ -1,7 +1,7 @@
 /* general */
-body{
-  //font-family: 'IBM Plex Sans', sans-serif;
-  //position: relative;
+body {
+  background-color: rgba(133, 144, 156, 0.4);
+  background-image: url("../../../content/textures/low-contrast-linen.png");
 }
 h1, h2, h3{
   font-family: 'Bungee Shade', serif;
@@ -18,11 +18,28 @@ h1{
 }
 
 p, a{
-  font-family: 'Roboto Light', serif;
+  font-family: 'Roboto', serif;
   font-size: 20px;
 }
 a:hover{
   text-decoration: none;
+}
+
+//frames with glassmorphism for post content
+.glass-frame{
+  padding: 2%;
+  background: $light-blue-rgba-low;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 3px );
+  -webkit-backdrop-filter: blur( 3px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  h1, h2, h3, p{
+    color: white;
+  }
+  p{
+    font-weight: bold;
+  }
 }
 
 //a{

@@ -1,5 +1,6 @@
 .horizontal-card{
-  background: rgba( 31, 38, 135, 0.25 );
+  background: $light-blue-rgba-low;
+  //background: $dark-blue-rgba-low;
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
@@ -25,7 +26,8 @@
     justify-content: center;
     align-items: center;
     h3{
-      color: $dark-blue;
+      color: white;
+      //color: $dark-blue;
     }
     p{
       color: white;
