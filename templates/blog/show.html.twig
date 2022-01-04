@@ -10,10 +10,44 @@
             Cet article n'a pas encore d'image
         {% endif %}
     </div>
+
     <div class="container glass-frame">
         <h1>{{ post.title }}</h1>
         <p>Auteur de la veille: {{ post.author.firstname }}</p>
         <p>Veille posté le {{ post.postCreatedAt | date("d/m/Y H:i:s") }}</p>
         <p>{{ post.content }}</p>
+    </div>
+
+    <div class="container glass-frame mt-5">
+        <h2 class="text-center">Poster un commentaire</h2>
+        {{ form_start(form) }}
+        {% if app.user is null %}
+{#            {{ dump(app.user) }}#}
+{#            {{ form_row(form.email) }}#}
+            {{ form_errors(form.email) }}
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+        {% endif %}
+{#            {{ form_row(form.content) }}#}
+            {{ form_errors(form.content) }}
+            {{ form_label(form.content) }}
+            {{ form_widget(form.content) }}
+        {{ form_end(form) }}
+    </div>
+
+    <div class="container glass-frame mt-5">
+        <h2 class="text-center">Commentaires</h2>
+        {% if comments is empty %}
+            <p class="text-center">Aucuns commentaires pour l'instant sur cet article</p>
+        {% else %}
+            {% for comment in comments %}
+                {% if comment.approval == true %}
+                    <div class="container glass-frame">
+                        <p>Commentaire posté le {{ comment.commentedAt | date("d/m/Y H:i:s") }}</p>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
