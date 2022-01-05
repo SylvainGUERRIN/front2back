@@ -24,14 +24,22 @@
         {% if app.user is null %}
 {#            {{ dump(app.user) }}#}
 {#            {{ form_row(form.email) }}#}
-            {{ form_errors(form.email) }}
-            {{ form_label(form.email) }}
-            {{ form_widget(form.email) }}
+            <div class="row">
+                <div class="col-12">
+                {{ form_errors(form.email) }}
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                </div>
+            </div>
         {% endif %}
-{#            {{ form_row(form.content) }}#}
-            {{ form_errors(form.content) }}
-            {{ form_label(form.content) }}
-            {{ form_widget(form.content) }}
+        <div class="row mt-3">
+            <div class="col-12">
+                {{ form_errors(form.content) }}
+                {{ form_label(form.content) }}
+                {{ form_widget(form.content) }}
+            </div>
+        </div>
+        <button class="btn btn-primary mt-3" type="submit">Commenter</button>
         {{ form_end(form) }}
     </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\Comments\CreateCommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,10 +35,39 @@ class BlogController extends AbstractController
             ->getRepository(Post::class)
             ->findBy(['slug' => $slug]);
 
-        $comments = $post[0]->getComments();
+        $comments = $post[0]->getComments()->toArray();
+        //dd($comments);
 
         $form = $this->createForm(CreateCommentType::class);
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$commentFromForm = $form->getData();
+            $comment = new Comment();
+            //dd($comment);
+            if ($this->getUser()) {
+                $comment->setAuthor($this->getUser());
+                $comment->setEmail($this->getUser()->getEmail());
+            } else {
+                $comment->setAuthor(null);
+                $comment->setEmail($form->get('email')->getData());
+            }
+            $comment->setPost($post[0]);
+            $comment->setCommentedAt(new \DateTime());
+            $comment->setApproval(false);
+            $comment->setContent($form->get('content')->getData());
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                "Votre commentaire a bien été pris en compte !"
+            );
+
+            return $this->redirectToRoute('veilles_show', ['slug' => $slug]);
+        }
 
         return $this->render('blog/show.html.twig', [
             'post' => $post[0],

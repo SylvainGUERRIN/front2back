@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CreateCommentType extends AbstractType
 {
-    private $security;
+    private Security $security;
 
     public function __construct(Security $security)
     {
@@ -34,7 +34,7 @@ class CreateCommentType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['min' => 150]),
+                    new Length(['min' => 50]),
                 ],
             ])
         ;
