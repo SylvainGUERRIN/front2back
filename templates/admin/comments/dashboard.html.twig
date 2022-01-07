@@ -17,6 +17,7 @@
                     <thead>
                     <tr class="table-light">
                         <th>Auteur</th>
+                        <th>Email de l'auteur</th>
                         <th>Commentaire</th>
                         <th>Date du commentaire</th>
                         <th>validation</th>
@@ -27,7 +28,18 @@
                     {% for comment in comments %}
                         <tr>
                             <td>
-                                {{ comment.author.firstname }}
+                                {% if comment.author is not null %}
+                                    {{ comment.author.firstname }}
+                                {% else %}
+                                    Cet utilisateur n'a pas de compte sur le site
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if comment.author is not null %}
+                                    {{ comment.author.email }}
+                                {% else %}
+                                    {{ comment.email }}
+                                {% endif %}
                             </td>
                             <td>
                                 {{ comment.content }}
@@ -36,7 +48,13 @@
                                 {{ comment.commentedAt|date('d/m/Y') }}
                             </td>
                             <td>
-                                {{ comment.approval }}
+                                <button id="{{ comment.id }}" class="btn btn-color {% if comment.approval == true %}unvalid-comment-button{% else %}valid-comment-button{% endif %}">
+                                    {% if comment.approval == true %}
+                                        Retirer le commentaire
+                                    {% else %}
+                                        Valider le commentaire
+                                    {% endif %}
+                                </button>
                             </td>
                             <td>
                                 <form action="{{ path('admin_comments_delete', {'id': comment.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer cet article ?')">
@@ -68,4 +86,10 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin') }}
+{#    {{ encore_entry_script_tags('sweet-alerts') }}#}
+    {{ encore_entry_script_tags('admin-comments') }}
 {% endblock %}

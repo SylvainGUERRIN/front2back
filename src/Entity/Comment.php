@@ -99,7 +99,7 @@ class Comment
         return $this;
     }
 
-    public function isApproval(): ?bool
+    public function getApproval(): ?bool
     {
         return $this->approval;
     }

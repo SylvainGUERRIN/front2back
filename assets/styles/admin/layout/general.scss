@@ -36,6 +36,32 @@ a:hover{
   opacity: 0.8;
 }
 
+.unvalid-comment-button, .valid-comment-button{
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: #fff;
+}
+
+.unvalid-comment-button{
+  background-color: $red-color;
+  border-color: $red-color;
+}
+
+.valid-comment-button{
+  background-color: $dark-blue;
+  border-color: $dark-blue;
+}
+
 //tables
 table{
   //border: 1px solid black !important;
