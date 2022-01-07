@@ -37,6 +37,8 @@ Encore
     .addEntry('site', './assets/site.js')
     .addEntry('profile', './assets/profile.js')
     .addEntry('admin', './assets/admin.js')
+    .addEntry('sweet-alerts', './assets/sweetalert2.all.min.js')
+    .addEntry('admin-comments', './assets/comments.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
