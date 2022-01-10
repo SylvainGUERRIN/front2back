@@ -60,9 +60,7 @@ class CommentController extends AbstractController
         $response = new Response();
         $action = [ null, "Le commentaire a déjà été validé."];
 
-        if ($request->isXMLHttpRequest()) {//works
-            //$json = json_decode($request->getContent(), true);
-            //$jsonContent = json_decode($request->getContent());
+        if ($request->isXMLHttpRequest()) {
             $id = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
             $comment = $commentRepository->find($id['id']);
 
@@ -72,40 +70,9 @@ class CommentController extends AbstractController
                 $action[0] = $id['id'];
                 $action[1] = "Le commentaire vient d'être validé.";
             }
-
-            $response->setContent(
-                json_encode(
-                    [
-                        $action,
-                    ],
-                    JSON_THROW_ON_ERROR
-                )
-            );
-            $response->headers->set('Content-Type', 'application/json');
-            $response->headers->set('Access-Control-Allow-Origin', '*');//set all origins but only for test
-            return $response;
         }
-        //$id = json_decode($request->getContent());
-        //$id = $request->get('value');
-        /*dump($request);
-        dump($_POST);
-        dump($id);
-        dd($request->request->all());
-        dd($request->request->get('value'));*/
-        /*$comment = $commentRepository->find($id);
 
-        if ($comment !== null && $comment->getApproval() === false) {
-            $comment->setApproval(true);
-            $this->doctrine->getManager()->flush();
-            $action[0] = $id;
-            $action[1] = "Le commentaire vient d'être validé.";
-        }*/
-
-//        $response->setContent(json_encode($comment, JSON_THROW_ON_ERROR));
-//        $response->setContent(json_encode([$action], JSON_THROW_ON_ERROR));
-//        $response->setContent(json_encode($request->isXMLHttpRequest(), JSON_THROW_ON_ERROR));
         $response->setContent(json_encode($action, JSON_THROW_ON_ERROR));
-//        $response->setContent(json_encode(["response-ok"], JSON_THROW_ON_ERROR));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');//set all origins but only for test
         return $response;
@@ -115,24 +82,30 @@ class CommentController extends AbstractController
      * @Route("/ajax/unvalid-comment", name="unvalid-comment")
      * @param Request $request
      * @param CommentRepository $commentRepository
-     * @return JsonResponse|RedirectResponse
+     * @return Response
+     * @throws \JsonException
      */
-    public function unvalidComment(Request $request, CommentRepository $commentRepository)
+    public function unvalidComment(Request $request, CommentRepository $commentRepository): Response
     {
+        $response = new Response();
+        $action = [ null, "Le commentaire a déjà été retiré."];
+
         if ($request->isXmlHttpRequest()) {
-            $data = '';
-            $id = $request->get('value');
-            $comment = $commentRepository->find($id);
+            $id = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            $comment = $commentRepository->find($id['id']);
 
             if ($comment !== null && $comment->getApproval() === true) {
                 $comment->setApproval(false);
-                $this->em->flush();
-                return new JsonResponse($data = $id, JsonResponse::HTTP_OK);
+                $this->doctrine->getManager()->flush();
+                $action[0] = $id['id'];
+                $action[1] = "Le commentaire vient d'être retiré.";
             }
-
-            return new JsonResponse($data = 'Le commentaire a déjà été retiré', JsonResponse::HTTP_OK);
         }
-        return $this->redirectToRoute('admin_comments_dashboard');
+
+        $response->setContent(json_encode([$action,], JSON_THROW_ON_ERROR));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');//set all origins but only for test
+        return $response;
     }
 
     /**
@@ -140,12 +113,17 @@ class CommentController extends AbstractController
      */
     public function delete(Comment $comment): Response
     {
+        if ($comment->getAuthor() === null) {
+            $message = "Le commentaire a été supprimé.";
+        } else {
+            $message = "Le commentaire de " . $comment->getAuthor()->getFirstname() . " a bien été supprimé.";
+        }
         $this->doctrine->getManager()->remove($comment);
         $this->doctrine->getManager()->flush();
 
         $this->addFlash(
             'success',
-            "Le commentaire de <strong>{$comment->getAuthor()->getFirstname()}</strong> a bien été supprimé !"
+            $message
         );
 
         return $this->redirectToRoute('admin_comments_dashboard');
