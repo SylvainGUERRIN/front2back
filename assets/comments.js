@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         method: "post",
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
-                            'Accept': 'application/json text/plain, */*',
+                            'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
                         //body: sendData
@@ -145,33 +145,63 @@ document.addEventListener("DOMContentLoaded", function () {
                     }).catch(error => {
                         console.log(error);
                     });
-                    /*$.ajax({
-                        url: '/sloune-admin/administration/commentaires/ajax/valid-comment',
-                        type: 'POST',
-                        data: {value: val},
-                        dataType: 'json',
-                        async: true,
-
-                        success: function (data, response) {
-                            Swal.fire(
-                                'Le commentaire a bien été validé!',
-                                'Il est désormais affiché sur le site.',
-                                'success'
-                            )
-
-                            if (data !== 'Le commentaire a déjà été validé') {
-                                let button = document.getElementById(data)
-                                button.classList.remove("valid-comment-button")
-                                button.classList.add("unvalid-comment-button")
-                                button.innerHTML = "Retirer le commentaire"
-                            }
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            // alert('La requête ajax a échoué.');
-                        }
-                    });*/
                 }
             })
         })
     })
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+        [].forEach.call(document.querySelectorAll('.unvalid-comment-button'), function (el) {
+            el.addEventListener('click', function (e) {
+                e.preventDefault()
+                let val = el.getAttribute("id")
+                console.log(val)
+                Swal.fire({
+                    title: 'Etes-vous sûrs de vouloir supprimer ce commentaire ?',
+                    text: "Une fois supprimé, il ne sera pas visible pour tous les visiteurs du site.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, je veux supprimer ce commentaire !',
+                    cancelButtonText: 'annuler',
+                }).then((result) => {
+                    if (result.value) {
+                        console.log(result.value) //return true
+
+                        fetch('/admin/comments/ajax/unvalid-comment', {
+                            method: "post",
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id: val
+                            })
+                        }).then(async result => {
+                            const data = await result.json();
+                            console.log(data[0]);
+                            //console.log(data[1]);
+                            Swal.fire(
+                                'Le commentaire a bien été supprimé!',
+                                'Il n\'est désormais plus visible sur le site.',
+                                'success'
+                            )
+
+                        if (data[0][1] !== 'Le commentaire a déjà été retiré.' && data[0][0] !== null) {
+                            let button = document.getElementById(data[0][0])
+                            button.classList.remove("unvalid-comment-button")
+                            button.classList.add("valid-comment-button")
+                            button.innerHTML = "Valider le commentaire"
+                        }
+
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                    }
+                })
+            })
+        })
 });

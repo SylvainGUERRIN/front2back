@@ -1,4 +1,9 @@
-const response = fetch('/ajax/check/contributing')
+const response = fetch('/ajax/check/contributing', {
+    headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+    }
+})
     .then(async result => {
         const data = await result.json();
         console.log(data);
