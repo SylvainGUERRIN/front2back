@@ -36,6 +36,7 @@ class BlogController extends AbstractController
             ->findBy(['slug' => $slug]);
 
         $comments = $post[0]->getComments()->toArray();
+
         //dd($comments);
 
         $form = $this->createForm(CreateCommentType::class);

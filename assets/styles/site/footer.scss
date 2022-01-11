@@ -11,8 +11,12 @@ footer{
   .sitemap{
     .nav-item{
       width: 25%;
-      @include menu-links(0);
+      @include menu-links(0,0);
       margin: 0 auto;
+      &.active a{
+        color: $light-blue!important;
+        @include menu-links-pseudo-elements(0);
+      }
       .nav-link{
         //display: inline-block;
         position: relative;

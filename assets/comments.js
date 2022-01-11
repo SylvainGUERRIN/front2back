@@ -135,12 +135,13 @@ document.addEventListener("DOMContentLoaded", function () {
                             'success'
                         )
 
-                    if (data[0][1] !== 'Le commentaire a déjà été validé.' && data[0][0] !== null) {
-                        let button = document.getElementById(data[0][0])
-                        button.classList.remove("valid-comment-button")
-                        button.classList.add("unvalid-comment-button")
-                        button.innerHTML = "Retirer le commentaire"
-                    }
+                        if (data[0][1] !== 'Le commentaire a déjà été validé.' && data[0][0] !== null) {
+                            let button = document.getElementById(data[0][0])
+                            button.classList.remove("valid-comment-button")
+                            button.classList.add("unvalid-comment-button")
+                            button.innerHTML = "Retirer le commentaire"
+                            window.location.reload()
+                        }
 
                     }).catch(error => {
                         console.log(error);
@@ -195,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             button.classList.remove("unvalid-comment-button")
                             button.classList.add("valid-comment-button")
                             button.innerHTML = "Valider le commentaire"
+                            window.location.reload()
                         }
 
                         }).catch(error => {

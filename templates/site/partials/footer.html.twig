@@ -1,4 +1,5 @@
 {#change form-footer with clip-path#}
+{% set current = app.request.attributes.get("_route") %}
 
 <div class="form-footer"></div>
 <footer class="py-5 text-center text-white footer-color">
@@ -7,11 +8,11 @@
             <div class="col-sm-12 col-md-4 sitemap">
                 <h4>Plan du site</h4>
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('home') }}">Accueil</a>
+                    <li class="nav-item {% if current == 'home' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('home') }}">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                    <li class="nav-item {% if current == 'veilles_index' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('veilles_index') }}">Veilles </a>
                     </li>
 {#                    {% for categorie in categories %}#}
 {#                        <li class="nav-item">#}
