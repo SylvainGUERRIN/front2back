@@ -20,6 +20,9 @@
                         <li class="nav-item {% if current == 'home' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('home') }}">Accueil </a>
                         </li>
+                        <li class="nav-item {% if current == 'veilles_index' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('veilles_index') }}">Veilles </a>
+                        </li>
 {#                        {% for categorie in categories %}#}
 {#                            <li class="nav-item {% if current == 'categories' %}active{% endif %}">#}
 {#                                <a class="nav-link" href="{{ path('categorie_show', {'slug': categorie.slug}) }}">{{ categorie.name }} </a>#}

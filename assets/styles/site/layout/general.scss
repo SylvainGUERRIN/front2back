@@ -58,10 +58,10 @@ a:hover{
 
 //utilities (if to big create utilities.scss to put it in
 //menu links
-@mixin menu-links($top){
+@mixin menu-links($padding, $top){
   position: relative;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: $padding;
+  padding-right: $padding;
   .nav-link{
     color: white;
     &:hover{
@@ -70,7 +70,7 @@ a:hover{
   }
 
   &:hover {
-    @include menu-links-pseudo-elements(20%);
+    @include menu-links-pseudo-elements($top);
   }
 }
 

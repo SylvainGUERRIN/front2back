@@ -15,7 +15,7 @@ header{
     .container{
 
       .nav-item{
-        @include menu-links(20%);
+        @include menu-links(15px,20%);
       }
       .nav-item.active a{
         color: $light-blue!important;
