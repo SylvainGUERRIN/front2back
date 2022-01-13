@@ -5,21 +5,42 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\Comments\CreateCommentType;
+use App\Repository\PostRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
+    private PostRepository $postRepository;
+    private RequestStack $request;
+
+    public function __construct(RequestStack $request, PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+        $this->request = $request;
+    }
+
     /**
+     * @param PaginatorInterface $paginator
      * @return Response
+     * @throws \Exception
      * @Route("/veilles", name="veilles_index")
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator): Response
     {
+        $posts = $paginator->paginate(
+            $this->postRepository->findAllRecent(),
+            $this->request->getCurrentRequest()->query->getInt('page', 1),
+            6
+        );
+
         return $this->render('blog/index.html.twig', [
-            'controller_name' => 'BlogController',
+            'posts' => $posts,
         ]);
     }
 
@@ -31,9 +52,7 @@ class BlogController extends AbstractController
      */
     public function show($slug, Request $request): Response
     {
-        $post = $this->getDoctrine()
-            ->getRepository(Post::class)
-            ->findBy(['slug' => $slug]);
+        $post = $this->postRepository->findBy(['slug' => $slug]);
 
         $comments = $post[0]->getComments()->toArray();
 

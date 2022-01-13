@@ -4,4 +4,37 @@
 
 {% block body %}
     <h1>Les veilles</h1>
+
+    <div class="container">
+        {% for post in posts %}
+            <div class="row mt-5 mb-5 horizontal-card">
+                <div class="col-sm-12 col-md-4 card-image">
+                    {% if post.urlImage is not null %}
+                        <img src="{{ vich_uploader_asset(post, 'imageFile')}}" alt="image de la veille">
+                    {% else %}
+                        Cet article n'a pas encore d'image
+                    {% endif %}
+                </div>
+                <div class="col-sm-12 col-md-8 card-content">
+                    <h3>{{ post.title }}</h3>
+                    <p>
+                        {{ post.excerpt }}
+                    </p>
+                    <a class="btn btn-primary" href="{{ path('veilles_show', {'slug': post.slug}) }}">Lire la suite</a>
+                </div>
+            </div>
+        {% endfor %}
+
+{#        changer cette condition, regarder dans le paginator#}
+        {% if posts.items|length > 5 %}
+            <div class="row mt-5 mb-5 horizontal-card">
+                <div class="col-12">
+                    <div class="nav-pagination">
+                        {{ knp_pagination_render(posts) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
 {% endblock %}
