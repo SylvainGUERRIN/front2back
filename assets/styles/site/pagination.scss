@@ -1,0 +1,41 @@
+.nav-pagination{
+  .pagination{
+    padding: 10px;
+  }
+}
+
+.current{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.5)!important;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: white;
+  border-radius: 10px;
+}
+
+.page, .first, .previous, .next, .last{
+  display: block;
+  background-color: rgba(0,0,0,0.5)!important;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  &:hover{
+    background-color: rgba(0,0,0,0.2)!important;
+  }
+}
+
+.page a, .first a, .previous a, .next a, .last a{
+  padding: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  color: white!important;
+  text-decoration: none;
+  //background-color: rgba(0,0,0,0.5)!important;
+}

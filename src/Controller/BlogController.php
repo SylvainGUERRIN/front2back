@@ -33,14 +33,17 @@ class BlogController extends AbstractController
      */
     public function index(PaginatorInterface $paginator): Response
     {
+        $elementPerPage = 6;
         $posts = $paginator->paginate(
             $this->postRepository->findAllRecent(),
             $this->request->getCurrentRequest()->query->getInt('page', 1),
-            6
+            $elementPerPage
         );
+        $pageCount = ceil($posts->getTotalItemCount() / $elementPerPage);
 
         return $this->render('blog/index.html.twig', [
             'posts' => $posts,
+            'pageCount' => $pageCount
         ]);
     }
 
