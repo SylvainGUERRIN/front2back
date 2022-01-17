@@ -8,7 +8,7 @@
 
 - Accès à son compte pour modifier ses données personnelles
 - Accès au système de badge
-- Accès a ses préférences de veille (les technologies qu'il suit)
+- Accès a ses préférences de tag sur les veilles (les technologies qu'il suit, ex:symfony)
 - Gestion des commentaires (validation en amont)
 - Gestion des utilisateurs (bio, avatar, système de recherche des utilisateurs)
 - Gestion des demandes pour être contributeur, il faut faire la demande d'adhésion via le formulaire
