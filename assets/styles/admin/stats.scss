@@ -1,0 +1,13 @@
+.number{
+  font-family: "Roboto bold", serif;
+  font-size: 2.5em;
+  font-weight: 900;
+  background-color: white;
+  color: $dark-blue;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
