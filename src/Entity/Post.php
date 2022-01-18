@@ -90,6 +90,11 @@ class Post
     protected bool $validatedAt;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected int $viewsCount = 0;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
      */
     protected ?User $author;
@@ -234,6 +239,18 @@ class Post
     public function setValidatedAt(bool $validatedAt): self
     {
         $this->validatedAt = $validatedAt;
+
+        return $this;
+    }
+
+    public function getViewsCount(): ?int
+    {
+        return $this->viewsCount;
+    }
+
+    public function setViewsCount(int $viewsCount): self
+    {
+        $this->viewsCount = $viewsCount;
 
         return $this;
     }

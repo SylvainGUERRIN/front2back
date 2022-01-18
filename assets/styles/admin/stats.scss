@@ -1,3 +1,15 @@
+a.card{
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.card-body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .number{
   font-family: "Roboto bold", serif;
   font-size: 2.5em;
