@@ -55,7 +55,12 @@ class BlogController extends AbstractController
      */
     public function show($slug, Request $request): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
+
         $post = $this->postRepository->findBy(['slug' => $slug]);
+        $modifyPost = $post[0];
+        $modifyPost->setViewsCount($modifyPost->getViewsCount() + 1);
+        $entityManager->flush();
 
         $comments = $post[0]->getComments()->toArray();
 
@@ -80,7 +85,6 @@ class BlogController extends AbstractController
             $comment->setApproval(false);
             $comment->setContent($form->get('content')->getData());
 
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
 
