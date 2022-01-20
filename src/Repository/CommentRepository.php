@@ -35,4 +35,19 @@ class CommentRepository extends ServiceEntityRepository
             ->orderBy('c.commented_at', 'DESC')
             ->getQuery();
     }
+
+    /**
+     * @method Comment[]
+     *
+     * @throws \Exception
+     */
+    public function findAllUnapproved()
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.approval = :approved')
+            ->setParameter('approved', false)
+            ->orderBy('c.commented_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }
