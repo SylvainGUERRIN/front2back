@@ -69,6 +69,22 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function findAllPostsFromContributor($contributor)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.author = :user')
+            ->setParameter('user', $contributor)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param $post
+     * @return float|int|mixed|string
+     */
     public function getAuthorFromPost($post)
     {
         return $this->createQueryBuilder('p')

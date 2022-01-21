@@ -14,7 +14,7 @@
                 <a href="#" class="card text-white bg-primary mb-3">
                     <div class="card-body text-center">
                         <h3 class="card-title">Vos articles</h3>
-                        <p class="number">8</p>
+                        <p class="number">{{ countVeilles }}</p>
                     </div>
                 </a>
             </div>
@@ -23,16 +23,26 @@
                 <a href="#" class="card text-white bg-primary mb-3">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les commentaires sur vos articles</h3>
-                        <p class="number">3</p>
+                        <p class="number">{{ countComments }}</p>
                     </div>
                 </a>
             </div>
 
             <div class="col-sm-12 col-md-4">
-                <a href="#" class="card text-white bg-primary mb-3">
+                <a href="#" class="card bg-primary mb-3">
                     <div class="card-body text-center">
-                        <h3 class="card-title">Popularité de vos articles</h3>
-                        <p class="number">3</p>
+                        <h3 class="card-title text-white">Vos articles les plus populaires</h3>
+                        {% if topRated is not empty %}
+                            {% for key,topRate in topRated %}
+                                <p class="frame">
+                                    {{ key }} : {{ topRate }} vues
+                                </p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="frame">
+                                Aucun article n'a été noté
+                            </p>
+                        {% endif %} %}
                     </div>
                 </a>
             </div>
