@@ -37,12 +37,17 @@ class DashboardController extends AbstractController
     ): Response {
         $veilles = $postRepository->findAll();
         $countUnvalidatedVeilles = 0;
+        $topRated = [];
         //dump($veilles);
         foreach ($veilles as $veille) {
             if ($veille->isValidatedAt() === false) {
                 $countUnvalidatedVeilles++;
             }
+            if ($veille->getViewsCount() > 0) {
+                $topRated[$veille->getTitle()] = $veille->getViewsCount();
+            }
         }
+        arsort($topRated, SORT_NUMERIC);
         $countUnaprovedComments = count($commentRepository->findAllUnapproved());
         $users = $userRepository->findAll();
         $unvalidatedUsers = 0;
@@ -69,6 +74,7 @@ class DashboardController extends AbstractController
             'countVeilles' => count($veilles),
             'countUnvalidatedVeilles' => $countUnvalidatedVeilles,
             'countUnaprovedComments' => $countUnaprovedComments,
+            'topRated' => $topRated,
             'countUsers' => count($users),
             'countUnvalidatedUsers' => $unvalidatedUsers,
             'countContributors' => $countContributors,
