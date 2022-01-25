@@ -10,8 +10,8 @@
                 <h1>Vos statistiques</h1>
             </div>
 
-            <div class="col-sm-12 col-md-4">
-                <a href="#" class="card text-white bg-primary mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
+                <a href="#" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Tous les articles</h3>
                         <p class="number">{{ countVeilles }}</p>
@@ -19,8 +19,8 @@
                 </a>
             </div>
 
-            <div class="col-sm-12 col-md-4">
-                <a href="#" class="card text-white bg-primary mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
+                <a href="#" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les articles à valider</h3>
                         <p class="number">{{ countUnvalidatedVeilles }}</p>
@@ -28,8 +28,8 @@
                 </a>
             </div>
 
-            <div class="col-sm-12 col-md-4">
-                <a href="#" class="card text-white bg-primary mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
+                <a href="#" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les commentaires à valider</h3>
                         <p class="number">{{ countUnaprovedComments }}</p>
@@ -38,8 +38,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12 col-md-4">
-                <a href="#" class="card text-white bg-primary mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
+                <a href="#" class="card text-white bg-primary">
                     <div class="card-body">
                         <h3 class="card-title">Les contributeurs</h3>
                         <p class="number">{{ countContributors }}</p>
@@ -47,8 +47,8 @@
                 </a>
             </div>
 
-            <div class="col-sm-12 col-md-4">
-                <a href="#" class="card text-white bg-primary mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
+                <a href="#" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les contributeurs à valider</h3>
                         <p class="number">{{ countUnvalidatedContributors }}</p>
@@ -56,11 +56,31 @@
                 </a>
             </div>
 
-            <div class="col-sm-12 col-md-4">
-                <a href="#" class="card text-white bg-primary mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
+                <a href="#" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les utilisateurs à valider</h3>
                         <p class="number">{{ countUnvalidatedUsers }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <a href="#" class="card bg-primary">
+                    <div class="card-body text-center">
+                        <h3 class="card-title text-white">Vos articles les plus populaires</h3>
+                        {% if topRated is not empty %}
+                            {% for key,topRate in topRated %}
+                                <p class="frame">
+                                    {{ key }} : {{ topRate }} vues
+                                </p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="frame">
+                                Aucun article n'a été comptabilisé
+                            </p>
+                        {% endif %} %}
                     </div>
                 </a>
             </div>
