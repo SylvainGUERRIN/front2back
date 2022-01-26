@@ -15,6 +15,8 @@ package "Entities" #FFF {
         {field} post: relation
         {field} activate: boolean
         {field} requests: array json
+        {field} badges: relation
+        {field} postsRead: array json
     }
 
     class Comment {
@@ -75,6 +77,30 @@ package "Entities" #FFF {
         {field} user: relation
     }
 
+    class PostImage {
+        {field} id: int
+        {field} url_post: varchar 255
+        {field} updated_at: dateTimeInterface
+        {field} post: relation
+    }
+
+    class BadgeImage {
+            {field} id: int
+            {field} url_badge: varchar 255
+            {field} updated_at: dateTimeInterface
+            {field} badge: relation
+        }
+
+    class Badge {
+        {field} id: int
+        {field} name: varchar 255
+        {field} url_image: varchar 255
+        {field} action_name: varchar 255
+        {field} action_delimiter: string
+        {field} user: relation
+    }
+
+
     User "One" --* "Many" Post : To
     User "One" --* "Many" Comment : To
     User "One" --* "Many" Favorite : To
@@ -83,6 +109,7 @@ package "Entities" #FFF {
     Favorite "Many" --* "One" Post : To
     Stats "One" --* "One" Tag : To
     Post "Many" --* "Many" Tag : To
+    User "Many" --* "Many" Badge : To
 
     Comment "Many" --* "One" Post : To
 }
