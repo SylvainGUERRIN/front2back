@@ -50,7 +50,7 @@ class Post
      * @Assert\Image(
      *     mimeTypes={"image/jpeg", "image/jpg", "image/png"}
      * )
-     * @Vich\UploadableField(mapping="avatar_image", fileNameProperty="url_image")
+     * @Vich\UploadableField(mapping="post_image", fileNameProperty="url_image")
      */
     private $imageFile;
 
