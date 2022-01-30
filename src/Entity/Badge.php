@@ -181,7 +181,6 @@ class Badge
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setBadges($this);
         }
 
         return $this;
@@ -191,10 +190,6 @@ class Badge
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getBadges() === $this) {
-                $user->setBadges(null);
-            }
         }
 
         return $this;

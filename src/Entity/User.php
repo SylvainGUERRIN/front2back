@@ -80,17 +80,17 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="author")
      */
-    private ArrayCollection $posts;
+    private Collection $posts;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author")
      */
-    private ArrayCollection $comments;
+    private Collection $comments;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Favorite", mappedBy="user")
      */
-    private ArrayCollection $favorites;
+    private Collection $favorites;
 
 //    /**
 //     * @ORM\ManyToOne(targetEntity="App\Entity\Badge", inversedBy="users")
@@ -100,7 +100,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Badge", inversedBy="users")
      */
-    private ArrayCollection $badges;
+    private Collection $badges;
 
     public function __construct()
     {

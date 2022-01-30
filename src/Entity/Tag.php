@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TagRepository;
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -39,15 +40,26 @@ class Tag
      */
     protected ?string $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="tag")
-     */
-    private $posts;
+//    /**
+//     * @ORM\ManyToMany(targetEntity="App\Entity\Post", mappedBy="tag")
+//     */
+//    private $posts;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Stats", inversedBy="tag", cascade={"persist", "remove"})
      */
     protected ?Stats $stats;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Post", mappedBy="tag")
+     */
+    protected ArrayCollection $posts;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
 
     //getters and setters
     public function getId(): ?int
@@ -103,20 +115,15 @@ class Tag
     {
         if (!$this->posts->contains($post)) {
             $this->posts[] = $post;
-            $post->setTag($this);
         }
 
         return $this;
     }
 
-    public function removePost(Post $post): Post
+    public function removePost(Post $post): self
     {
         if ($this->posts->contains($post)) {
             $this->posts->removeElement($post);
-            // set the owning side to null (unless already changed)
-            if ($post->getTag() === $this) {
-                $post->setTag(null);
-            }
         }
 
         return $this;

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -110,9 +111,14 @@ class Post
     private $favorites;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tag", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="posts")
      */
-    protected ?Tag $tag;
+    protected Collection $tag;
+
+    public function __construct()
+    {
+        $this->tag = new ArrayCollection();
+    }
 
     //getters and setters
     public function getId(): ?int
@@ -329,17 +335,45 @@ class Post
         return $this;
     }
 
-    public function getTag(): ?Tag
+    /**
+     * @return Collection|Post[]
+     */
+    public function getTag(): Collection
     {
         return $this->tag;
     }
 
-    public function setTag(?Tag $tag): self
+    public function addTag(Tag $tag): self
     {
-        $this->tag = $tag;
+        if (!$this->tag->contains($tag)) {
+            $this->tag[] = $tag;
+            $tag->addPost($this);
+        }
 
         return $this;
     }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tag->contains($tag)) {
+            $this->tag->removeElement($tag);
+            $tag->removePost($this);
+        }
+
+        return $this;
+    }
+
+//    public function getTag(): ?Tag
+//    {
+//        return $this->tag;
+//    }
+//
+//    public function setTag(?Tag $tag): self
+//    {
+//        $this->tag = $tag;
+//
+//        return $this;
+//    }
 
 //    public function getUser(): ?User
 //    {
