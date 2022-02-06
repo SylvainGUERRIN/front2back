@@ -1,0 +1,59 @@
+{% extends 'admin/partials/base.html.twig' %}
+
+{% block title %}Créer un nouveau badge{% endblock %}
+
+{% block body %}
+    <div class="container frame mb-3">
+        <h1>Créer un nouveau badge</h1>
+    </div>
+{#    <div class="container frame">#}
+{#        {{ form_start(form) }}#}
+{#        <div class="row">#}
+{#            <div class="col-md-12 col-lg-6 mb-3">#}
+{#                {{ form_errors(form.title) }}#}
+{#                {{ form_label(form.title) }}#}
+{#                {{ form_widget(form.title) }}#}
+{#            </div>#}
+{#            <div class="col-md-12 col-lg-6 mb-3">#}
+{#                {{ form_errors(form.slug) }}#}
+{#                {{ form_label(form.slug) }}#}
+{#                {{ form_widget(form.slug) }}#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="col-12 mb-3">#}
+{#                {{ form_errors(form.imageFile) }}#}
+{#                {{ form_label(form.imageFile) }}#}
+{#                {{ form_widget(form.imageFile) }}#}
+{#            </div>#}
+{#            <div class="col-12 mb-3">#}
+{#                {{ form_errors(form.refDescription) }}#}
+{#                {{ form_label(form.refDescription) }}#}
+{#                {{ form_widget(form.refDescription) }}#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="col-12 mb-3">#}
+{#                {{ form_errors(form.excerpt) }}#}
+{#                {{ form_label(form.excerpt) }}#}
+{#                {{ form_widget(form.excerpt) }}#}
+{#            </div>#}
+{#            <div class="col-12 mb-3">#}
+{#                {{ form_errors(form.content) }}#}
+{#                {{ form_label(form.content) }}#}
+{#                {{ form_widget(form.content) }}#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="col-12 mb-3">#}
+{#                {{ form_errors(form.tag) }}#}
+{#                {{ form_label(form.tag) }}#}
+{#                {{ form_widget(form.tag) }}#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <button class="btn btn-primary" type="submit">Créer la veille</button>#}
+{#        </div>#}
+{#        {{ form_end(form) }}#}
+{#    </div>#}
+{% endblock %}
