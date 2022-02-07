@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Badge;
+use App\Form\Badges\BadgeType;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,33 +51,30 @@ class BadgeController extends AbstractController
     }
 
     /**
-     * @Route ("/create", name="admin_posts_create")
+     * @Route ("/create", name="admin_badges_create")
      */
     public function create(): Response
     {
-        $post = new Badge();
-        //$form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
+        $badge = new Badge();
+        $form = $this->createForm(BadgeType::class, $badge)->handleRequest($this->request->getCurrentRequest());
 
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            /** @var User $user */
-            /*$user = $this->getUser();
-
-            $post->setPostCreatedAt(new \DateTime('now'));
-            $post->setAuthor($user);
-            $post->setValidatedAt(true);
-            $this->doctrine->getManager()->persist($post);
+        if ($form->isSubmitted() && $form->isValid()) {
+//            dump($form->getData());
+//            die();
+            $badge->setBadgeCreatedAt(new \DateTime('now'));
+            $this->doctrine->getManager()->persist($badge);
             $this->doctrine->getManager()->flush();
 
             $this->addFlash(
                 'success',
-                "L'article <strong>{$post->getTitle()}</strong> a bien été crée !"
+                "Le badge <strong>{$badge->getName()}</strong> a bien été crée !"
             );
 
-            return $this->redirectToRoute('admin_posts_dashboard');
-        }*/
+            return $this->redirectToRoute('admin_badges_index');
+        }
 
         return $this->render('admin/badges/create.html.twig', [
-//            'form' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 

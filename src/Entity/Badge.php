@@ -56,6 +56,16 @@ class Badge
      */
     protected string $action_delimiter;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private ?\DateTimeInterface $badge_created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTimeInterface $badge_modified_at;
+
 //    /**
 //     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="badges")
 //     */
@@ -64,7 +74,7 @@ class Badge
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="badges")
      */
-    private ArrayCollection $users;
+    private Collection $users;
 
     public function __construct()
     {
@@ -112,6 +122,9 @@ class Badge
     public function setImageFile(?File $imageFile): Badge
     {
         $this->imageFile = $imageFile;
+        if (null !== $imageFile) {
+            $this->badge_modified_at = new \DateTime('now');
+        }
         return $this;
     }
 
@@ -191,6 +204,30 @@ class Badge
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
         }
+
+        return $this;
+    }
+
+    public function getBadgeCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->badge_created_at;
+    }
+
+    public function setBadgeCreatedAt(\DateTimeInterface $badge_created_at): self
+    {
+        $this->badge_created_at = $badge_created_at;
+
+        return $this;
+    }
+
+    public function getBadgeModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->badge_modified_at;
+    }
+
+    public function setBadgeModifiedAt(?\DateTimeInterface $badge_modified_at): self
+    {
+        $this->badge_modified_at = $badge_modified_at;
 
         return $this;
     }
