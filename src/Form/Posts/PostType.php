@@ -34,7 +34,8 @@ class PostType extends AbstractType
                     'class' => 'form-label',
                 ],
                 'attr' => [
-                    'placeholder' => "Ce champ n'est pas obligatoire. L'url se met automatiquement sauf si vous voulez la personalisée",
+                    'placeholder' => "Ce champ n'est pas obligatoire. 
+                    L'url se met automatiquement sauf si vous voulez la personalisée",
                     'class' => 'form-control',
                 ],
                 'required' => false,

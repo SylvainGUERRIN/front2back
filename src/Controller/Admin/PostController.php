@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Post;
 use App\Entity\User;
-use App\Form\Posts\BadgeType;
+use App\Form\Posts\PostType;
 use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
@@ -53,7 +53,7 @@ class PostController extends AbstractController
     public function create(): Response
     {
         $post = new Post();
-        $form = $this->createForm(BadgeType::class, $post)->handleRequest($this->request->getCurrentRequest());
+        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
@@ -83,7 +83,7 @@ class PostController extends AbstractController
      */
     public function edit(Post $post): Response
     {
-        $form = $this->createForm(BadgeType::class, $post)->handleRequest($this->request->getCurrentRequest());
+        $form = $this->createForm(PostType::class, $post)->handleRequest($this->request->getCurrentRequest());
 
         if ($form->isSubmitted() && $form->isValid()) {
             /* @var User $user */
