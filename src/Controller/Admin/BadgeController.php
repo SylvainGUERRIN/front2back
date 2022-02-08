@@ -59,8 +59,8 @@ class BadgeController extends AbstractController
         $form = $this->createForm(BadgeType::class, $badge)->handleRequest($this->request->getCurrentRequest());
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            dump($form->getData());
-//            die();
+            dump($form->getData());
+            //die();
             $badge->setBadgeCreatedAt(new \DateTime('now'));
             $this->doctrine->getManager()->persist($badge);
             $this->doctrine->getManager()->flush();

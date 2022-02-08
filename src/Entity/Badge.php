@@ -17,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=BadgeRepository::class)
  * @ORM\Table(name="`badge`")
  * @UniqueEntity(fields={"name"}, message="Cette valeur est déjà utilisée.")
+ * @Vich\Uploadable()
  */
 class Badge
 {
@@ -42,7 +43,7 @@ class Badge
     private ?File $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected ?string $url_image;
 
@@ -230,5 +231,10 @@ class Badge
         $this->badge_modified_at = $badge_modified_at;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getUrlImage();
     }
 }
