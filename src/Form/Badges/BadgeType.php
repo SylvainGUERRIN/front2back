@@ -5,7 +5,9 @@ namespace App\Form\Badges;
 use App\Entity\Badge;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -45,24 +47,59 @@ class BadgeType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('actionName', TextType::class, [
-                'label' => 'Le nom du badge',
+            ->add('actionName', ChoiceType::class, [
+                'label' => 'L\'élément concerné par le badge',
                 'label_attr' => [
                     'class' => 'form-label',
                 ],
                 'attr' => [
                     'placeholder' => 'Mettez le nom du badge',
+                    'class' => 'form-control',
+                ],
+                'choices'  => [
+                    "Sur les veilles" => 'post',
+                    "Sur les commentaires" => 'comment',
+                    "Sur les utilisateurs" => 'user',
+                    "Sur les tags" => 'tag',
+                ],
+            ])
+            ->add('actionDelimiter', ChoiceType::class, [
+                'label' => 'L\'action a entreprendre',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'placeholder' => 'Mettez le nom du badge',
+                    'class' => 'form-control',
+                ],
+                'choices'  => [
+                    "Sur la creation" => 'create',
+                    "Sur le nombre" => 'number',
+                ],
+            ])
+            ->add('actionQuantity', NumberType::class, [
+                'label' => 'Mettre la quantité pour avoir le badge',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'placeholder' => 'Mettez une quantité',
                     'class' => 'form-control',
                 ],
             ])
-            ->add('actionDelimiter', TextType::class, [
-                'label' => 'Le nom du badge',
+            ->add('roleDelimiter', ChoiceType::class, [
+                'label' => 'L\'utilisateur concerné.',
                 'label_attr' => [
                     'class' => 'form-label',
                 ],
                 'attr' => [
-                    'placeholder' => 'Mettez le nom du badge',
+                    'placeholder' => 'Choissisez le type d\'utilisateur concerné par ce badge.',
                     'class' => 'form-control',
+                ],
+                'choices'  => [
+                    'Concernant les utilisateurs' => "user",
+                    'Concernant les contributeurs' => "contributor",
+                    'Concernant tous les utilisateurs' => "all",
                 ],
             ])
         ;

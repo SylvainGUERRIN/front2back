@@ -6,7 +6,7 @@ use App\Repository\StatsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Tag.
+ * Class Stats.
  *
  * @ORM\Entity(repositoryClass=StatsRepository::class)
  */

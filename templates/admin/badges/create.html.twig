@@ -33,15 +33,27 @@
 {#            </div>#}
         </div>
         <div class="row">
-            <div class="col-12 mb-3">
+            <div class="col-xs-12 col-md-6 mb-3">
                 {{ form_errors(form.actionName) }}
                 {{ form_label(form.actionName) }}
                 {{ form_widget(form.actionName) }}
             </div>
-            <div class="col-12 mb-3">
+            <div class="col-xs-12 col-md-6 mb-3">
                 {{ form_errors(form.actionDelimiter) }}
                 {{ form_label(form.actionDelimiter) }}
                 {{ form_widget(form.actionDelimiter) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 mb-3">
+                {{ form_errors(form.actionQuantity) }}
+                {{ form_label(form.actionQuantity) }}
+                {{ form_widget(form.actionQuantity) }}
+            </div>
+            <div class="col-xs-12 col-md-6 mb-3">
+                {{ form_errors(form.roleDelimiter) }}
+                {{ form_label(form.roleDelimiter) }}
+                {{ form_widget(form.roleDelimiter) }}
             </div>
         </div>
 {#        <div class="row">#}

@@ -58,6 +58,16 @@ class Badge
     protected string $action_delimiter;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected string $action_quantity;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected string $role_delimiter;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private ?\DateTimeInterface $badge_created_at;
@@ -180,6 +190,36 @@ class Badge
     public function setActionDelimiter(string $action_delimiter): Badge
     {
         $this->action_delimiter = $action_delimiter;
+        return $this;
+    }
+
+
+    public function getActionQuantity(): string
+    {
+        return $this->action_quantity;
+    }
+
+    public function setActionQuantity(string $action_quantity): Badge
+    {
+        $this->action_quantity = $action_quantity;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoleDelimiter(): string
+    {
+        return $this->role_delimiter;
+    }
+
+    /**
+     * @param string $role_delimiter
+     * @return Badge
+     */
+    public function setRoleDelimiter(string $role_delimiter): Badge
+    {
+        $this->role_delimiter = $role_delimiter;
         return $this;
     }
 
