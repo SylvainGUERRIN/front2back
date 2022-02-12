@@ -102,6 +102,11 @@ class User implements UserInterface, \Serializable
      */
     private Collection $badges;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\UserStats", inversedBy="user", cascade={"persist", "remove"})
+     */
+    protected ?UserStats $stats;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -389,6 +394,18 @@ class User implements UserInterface, \Serializable
             $this->badges->removeElement($badge);
             $badge->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getStats(): ?UserStats
+    {
+        return $this->stats;
+    }
+
+    public function setStats(?UserStats $stats): self
+    {
+        $this->stats = $stats;
 
         return $this;
     }
