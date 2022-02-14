@@ -3,10 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Entity\Post;
 use App\Form\Comments\CreateCommentType;
 use App\Repository\PostRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Services\UserStatsManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +17,16 @@ class BlogController extends AbstractController
 {
     private PostRepository $postRepository;
     private RequestStack $request;
+    private UserStatsManager $userStatsManager;
 
-    public function __construct(RequestStack $request, PostRepository $postRepository)
-    {
+    public function __construct(
+        RequestStack $request,
+        PostRepository $postRepository,
+        UserStatsManager $userStatsManager
+    ) {
         $this->postRepository = $postRepository;
         $this->request = $request;
+        $this->userStatsManager = $userStatsManager;
     }
 
     /**
@@ -61,6 +65,9 @@ class BlogController extends AbstractController
         $modifyPost = $post[0];
         $modifyPost->setViewsCount($modifyPost->getViewsCount() + 1);
         $entityManager->flush();
+
+        //use UserStatsManager to add user reading stats on tag
+        $this->userStatsManager->updateTagsCounter($this->getUser(), $post);
 
         $comments = $post[0]->getComments()->toArray();
 
