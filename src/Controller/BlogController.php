@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Form\Comments\CreateCommentType;
 use App\Repository\PostRepository;
 use App\Services\UserStatsManager;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,6 +57,7 @@ class BlogController extends AbstractController
      * @param Request $request
      * @return Response
      * @Route("/veilles/{slug}", name="veilles_show")
+     * @throws ORMException
      */
     public function show($slug, Request $request): Response
     {

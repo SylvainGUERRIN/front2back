@@ -19,7 +19,7 @@ class UserStats
      */
     protected ?int $id;
     /**
-     * @ORM\Column(type="date_immutable")
+     * @ORM\Column(type="date_immutable", nullable=true)
      */
     private $lastConnectionAt;
 
