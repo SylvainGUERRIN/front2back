@@ -54,6 +54,13 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-12 mb-3">
+                {{ form_errors(form.tag) }}
+                {{ form_label(form.tag) }}
+                {{ form_widget(form.tag) }}
+            </div>
+        </div>
+        <div class="row">
             <button class="btn btn-primary" type="submit">Enregistrer les modifications</button>
         </div>
         {{ form_end(form) }}

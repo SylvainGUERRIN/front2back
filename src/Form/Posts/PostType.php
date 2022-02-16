@@ -82,12 +82,15 @@ class PostType extends AbstractType
 //                'choices' => [
 //                    'Choisissez un tag' => null,
 //                ],
-                'choice_label' => 'name',
+                'choice_label' => function ($tag) {
+                    return $tag->getName();
+                },
                 'label' => 'Tag pour la veille',
                 'attr' => [
                     'placeholder' => 'Choisissez les tags pour cette veille',
                     'class' => 'form-control',
-                    ],
+                ],
+                'multiple' => true,
 //                'empty_data' => 'Choissisez un tag',
             ])
             //->add('author')
