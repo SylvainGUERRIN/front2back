@@ -53,7 +53,7 @@ class Tag
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Post", mappedBy="tag")
      */
-    protected ArrayCollection $posts;
+    protected Collection $posts;
 
     public function __construct()
     {
