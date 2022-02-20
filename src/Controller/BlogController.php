@@ -63,13 +63,18 @@ class BlogController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        //update post view count
         $post = $this->postRepository->findBy(['slug' => $slug]);
         $modifyPost = $post[0];
         $modifyPost->setViewsCount($modifyPost->getViewsCount() + 1);
         $entityManager->flush();
 
-        //use UserStatsManager to add user reading stats on tag
-        $this->userStatsManager->updateTagsCounter($this->getUser(), $post);
+        //update tag view count
+
+        //update user stats
+        if ($this->getUser() !== null) {
+            $this->userStatsManager->updateTagsCounter($this->getUser(), $post);
+        }
 
         $comments = $post[0]->getComments()->toArray();
 
