@@ -31,7 +31,7 @@ class UserStatsManager
 
     public function verifyIfUserHasStats($user): bool
     {
-        dump($user);
+        //dump($user);
         //$currentUser = $user->getStats();
 //        $currentUser = $this->userRepository->find($user->getId());
         //dd($currentUser);
@@ -44,9 +44,11 @@ class UserStatsManager
     public function createUserStats($user, $post): void
     {
         dump('create');
-        dump($post);
+//        dump($post);
+//        dump($post[0]->getTag()->toArray()[0]->getId());
         $userStats = new UserStats;
-        $userStats->setTagsCounter([$post[0]->getId() => 1]);
+        $userStats->setPostsCounter([$post[0]->getId() => 1]);
+        $userStats->setTagsCounter([$post[0]->getTag()->toArray()[0]->getId() => 1]);
         $userStats->setUser($user);
         $this->entityManager->persist($userStats);
         $this->entityManager->flush();
@@ -55,8 +57,18 @@ class UserStatsManager
     public function updateUserStats($user, $post): void
     {
         dump('update');
-        //lier des tags aux articles avant de continuer
-        dump($post[0]->getTag());
+        dump($post[0]);
+
+        //get user stats
+        $userStats = $user->getStats();
+        dump($userStats);
+
+        //update post view count
+        dump($userStats->getPostsCounter());
+
+        //update tag view count
+        dump($userStats->getTagsCounter());
+        dump($post[0]->getTag()->toArray());
     }
 
     /**
@@ -66,7 +78,7 @@ class UserStatsManager
     {
         //vérifier si l'utilisateur n'a pas de statistiques rattachées à lui
         $existenceOfUserStats = $this->verifyIfUserHasStats($user);
-        dump($existenceOfUserStats);
+        //dump($existenceOfUserStats);
         if ($existenceOfUserStats === false) {
             $this->createUserStats($user, $post);
         } else {

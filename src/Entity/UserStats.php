@@ -26,6 +26,11 @@ class UserStats
     /**
      * @ORM\Column(type="json", nullable=true)
      */
+    private array $postsCounter = [];
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
     private array $tagsCounter = [];
 
     /**
@@ -55,6 +60,18 @@ class UserStats
     public function setLastConnectionAt(\DateTimeInterface $lastConnectionAt): self
     {
         $this->lastConnectionAt = $lastConnectionAt;
+
+        return $this;
+    }
+
+    public function getPostsCounter(): ?array
+    {
+        return $this->postsCounter;
+    }
+
+    public function setPostsCounter(?array $postsCounter): self
+    {
+        $this->postsCounter = $postsCounter;
 
         return $this;
     }
