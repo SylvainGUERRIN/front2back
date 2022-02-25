@@ -61,14 +61,45 @@ class UserStatsManager
 
         //get user stats
         $userStats = $user->getStats();
-        dump($userStats);
+        //dump($userStats);
 
         //update post view count
         dump($userStats->getPostsCounter());
+        $userStatsOnPosts = $userStats->getPostsCounter();
+
+        //dump(array_key_exists($post[0]->getId(), $userStatsOnPosts));
+        //dump($post[0]->getId());
+        dump($userStatsOnPosts);
+
+        if (array_key_exists($post[0]->getId(), $userStatsOnPosts) === true) {
+            dump($post[0]->getId());
+            //update value on array
+            //$userStatsOnPosts[] = [$post[0]->getId() => 1];
+            $userStatsOnPosts[$post[0]->getId()]++;
+        } else {
+            $userStatsOnPosts[$post[0]->getId()] = 1;
+        }
+
+//        foreach ($userStatsOnPosts as $postStatsKey => $postStats) {
+//            dump($post[0]->getId());
+//            dump($postStatsKey);
+//            if ($postStatsKey === $post[0]->getId()) {
+//                dump($post[0]->getId());
+//            }
+////            }else{
+////                $userStatsOnPosts[] = [$post[0]->getId() => 1];
+////            }
+//        }
 
         //update tag view count
-        dump($userStats->getTagsCounter());
-        dump($post[0]->getTag()->toArray());
+//        dump($userStats->getTagsCounter());
+//        dump($post[0]->getTag()->toArray());
+
+        //update final
+        dump($userStatsOnPosts);
+        $userStats->setPostsCounter($userStatsOnPosts);
+        //$userStats->setTagsCounter();
+        $this->entityManager->flush();
     }
 
     /**
