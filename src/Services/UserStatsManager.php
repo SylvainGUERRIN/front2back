@@ -57,27 +57,26 @@ class UserStatsManager
     public function updateUserStats($user, $post): void
     {
         dump('update');
-        dump($post[0]);
+        //dump($post[0]);
 
         //get user stats
         $userStats = $user->getStats();
         //dump($userStats);
 
         //update post view count
-        dump($userStats->getPostsCounter());
+        //dump($userStats->getPostsCounter());
         $userStatsOnPosts = $userStats->getPostsCounter();
+        $postID = $post[0]->getId();
 
         //dump(array_key_exists($post[0]->getId(), $userStatsOnPosts));
         //dump($post[0]->getId());
         dump($userStatsOnPosts);
 
-        if (array_key_exists($post[0]->getId(), $userStatsOnPosts) === true) {
-            dump($post[0]->getId());
-            //update value on array
-            //$userStatsOnPosts[] = [$post[0]->getId() => 1];
-            $userStatsOnPosts[$post[0]->getId()]++;
+        if (array_key_exists($postID, $userStatsOnPosts) === true) {
+            dump($postID);
+            $userStatsOnPosts[$postID]++;
         } else {
-            $userStatsOnPosts[$post[0]->getId()] = 1;
+            $userStatsOnPosts[$postID] = 1;
         }
 
 //        foreach ($userStatsOnPosts as $postStatsKey => $postStats) {
@@ -92,13 +91,22 @@ class UserStatsManager
 //        }
 
         //update tag view count
-//        dump($userStats->getTagsCounter());
-//        dump($post[0]->getTag()->toArray());
+        dump($userStats->getTagsCounter());
+        $userStatsOnTags = $userStats->getTagsCounter();
+        dump($post[0]->getTag()->toArray());
+        $tagId = $post[0]->getTag()->toArray()->getId();
+
+        if (array_key_exists($tagId, $userStatsOnTags) === true) {
+            dump($tagId);
+            $userStatsOnPosts[$tagId]++;
+        } else {
+            $userStatsOnPosts[$tagId] = 1;
+        }
 
         //update final
         dump($userStatsOnPosts);
         $userStats->setPostsCounter($userStatsOnPosts);
-        //$userStats->setTagsCounter();
+        $userStats->setTagsCounter($userStatsOnTags);
         $this->entityManager->flush();
     }
 
