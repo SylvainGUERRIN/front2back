@@ -43,7 +43,7 @@ class UserStatsManager
      */
     public function createUserStats($user, $post): void
     {
-        dump('create');
+        //dump('create');
 //        dump($post);
 //        dump($post[0]->getTag()->toArray()[0]->getId());
         $userStats = new UserStats;
@@ -56,7 +56,7 @@ class UserStatsManager
 
     public function updateUserStats($user, $post): void
     {
-        dump('update');
+        //dump('update');
         //dump($post[0]);
 
         //get user stats
@@ -70,14 +70,16 @@ class UserStatsManager
 
         //dump(array_key_exists($post[0]->getId(), $userStatsOnPosts));
         //dump($post[0]->getId());
-        dump($userStatsOnPosts);
+        //dump($userStatsOnPosts);
 
         if (array_key_exists($postID, $userStatsOnPosts) === true) {
-            dump($postID);
+            //dump($postID);
             $userStatsOnPosts[$postID]++;
         } else {
             $userStatsOnPosts[$postID] = 1;
         }
+
+        $userStats->setPostsCounter($userStatsOnPosts);
 
 //        foreach ($userStatsOnPosts as $postStatsKey => $postStats) {
 //            dump($post[0]->getId());
@@ -91,22 +93,27 @@ class UserStatsManager
 //        }
 
         //update tag view count
-        dump($userStats->getTagsCounter());
+        //dump($userStats->getTagsCounter());
+//        dump($post[0]->getTag());
+//        dump($post[0]->getTag()->toArray() === null);
+//        dump(empty($post[0]->getTag()->toArray()));
         $userStatsOnTags = $userStats->getTagsCounter();
-        dump($post[0]->getTag()->toArray());
-        $tagId = $post[0]->getTag()->toArray()->getId();
-
-        if (array_key_exists($tagId, $userStatsOnTags) === true) {
-            dump($tagId);
-            $userStatsOnPosts[$tagId]++;
-        } else {
-            $userStatsOnPosts[$tagId] = 1;
+        //dump($post[0]->getTag()->toArray());
+        //dump($post[0]->getTag()->toArray()[0]->getId());
+        $tags = $post[0]->getTag()->toArray();
+        if (!empty($tags)) {
+            foreach ($tags as $tag) {
+                $tagId = $tag->getId();
+                if (array_key_exists($tagId, $userStatsOnTags) === true) {
+                    $userStatsOnTags[$tagId]++;
+                } else {
+                    $userStatsOnTags[$tagId] = 1;
+                }
+            }
+            $userStats->setTagsCounter($userStatsOnTags);
         }
 
         //update final
-        dump($userStatsOnPosts);
-        $userStats->setPostsCounter($userStatsOnPosts);
-        $userStats->setTagsCounter($userStatsOnTags);
         $this->entityManager->flush();
     }
 
@@ -124,7 +131,7 @@ class UserStatsManager
             $this->updateUserStats($user, $post);
         }
 
-        dd('terminate');
+        //dd('terminate');
         //return nothing
     }
 }
