@@ -34,6 +34,11 @@ class UserStats
     private array $tagsCounter = [];
 
     /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private array $favoritesCounter = [];
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="stats")
      */
     protected ?User $user;
@@ -84,6 +89,18 @@ class UserStats
     public function setTagsCounter(?array $tagsCounter): self
     {
         $this->tagsCounter = $tagsCounter;
+
+        return $this;
+    }
+
+    public function getFavoritesCounter(): ?array
+    {
+        return $this->favoritesCounter;
+    }
+
+    public function setFavoritesCounter(?array $favoritesCounter): self
+    {
+        $this->favoritesCounter = $favoritesCounter;
 
         return $this;
     }
