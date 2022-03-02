@@ -36,7 +36,7 @@ class UserStats
     /**
      * @ORM\Column(type="json", nullable=true)
      */
-    private array $favoritesCounter = [];
+    private $favoritesCounter = [];
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="stats")

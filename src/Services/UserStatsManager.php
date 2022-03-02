@@ -49,6 +49,7 @@ class UserStatsManager
         $userStats = new UserStats;
         $userStats->setPostsCounter([$post[0]->getId() => 1]);
         $userStats->setTagsCounter([$post[0]->getTag()->toArray()[0]->getId() => 1]);
+        $userStats->setFavoritesCounter(null);
         $userStats->setUser($user);
         $this->entityManager->persist($userStats);
         $this->entityManager->flush();
@@ -120,7 +121,7 @@ class UserStatsManager
     /**
      * @throws ORMException
      */
-    public function updateTagsCounter($user, $post): void
+    public function updateTagsAndPostCounter($user, $post): void
     {
         //vérifier si l'utilisateur n'a pas de statistiques rattachées à lui
         $existenceOfUserStats = $this->verifyIfUserHasStats($user);

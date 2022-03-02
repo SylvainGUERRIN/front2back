@@ -73,7 +73,7 @@ class BlogController extends AbstractController
 
         //update user stats
         if ($this->getUser() !== null) {
-            $this->userStatsManager->updateTagsCounter($this->getUser(), $post);
+            $this->userStatsManager->updateTagsAndPostCounter($this->getUser(), $post);
         }
 
         $comments = $post[0]->getComments()->toArray();
