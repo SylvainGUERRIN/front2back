@@ -88,7 +88,7 @@
 
 //vanilla js
 //import swal
-const Swal = require('./sweetalert2.all.min.js') //works
+const Swal = require('../../sweetalert2.all.min.js') //works
 //const Swal = import('../../../node_modules/sweetalert/dist/sweetalert2.min.js') //not working because not installed
 //const Swal = import('./sweetalert2.all.min.js') //not working
 // const Swal = require('../../../node_modules/sweetalert/dist/sweetalert.min.js')

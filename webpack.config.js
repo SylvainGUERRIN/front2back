@@ -34,11 +34,12 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     // .addEntry('app', './assets/app.js')
-    .addEntry('site', './assets/site.js')
-    .addEntry('profile', './assets/profile.js')
-    .addEntry('admin', './assets/admin.js')
+    .addEntry('site', './assets/js/site/site.js')
+    .addEntry('blog', './assets/js/site/blog.js')
+    .addEntry('profile', './assets/js/site/profile.js')
+    .addEntry('admin', './assets/js/admin/admin.js')
     .addEntry('sweet-alerts', './assets/sweetalert2.all.min.js')
-    .addEntry('admin-comments', './assets/comments.js')
+    .addEntry('admin-comments', './assets/js/admin/comments.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
