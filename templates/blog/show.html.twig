@@ -7,10 +7,6 @@
     {{ encore_entry_link_tags('site') }}
     {{ encore_entry_link_tags('blog') }}
 {% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('site') }}
-            {{ encore_entry_script_tags('blog') }}
-        {% endblock %}
 
 {% block body %}
     <div class="container glass-frame mb-5">
@@ -73,4 +69,9 @@
             {% endfor %}
         {% endif %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('site') }}
+    {{ encore_entry_script_tags('blog') }}
 {% endblock %}

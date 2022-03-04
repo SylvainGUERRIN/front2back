@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\Comments\CreateCommentType;
 use App\Repository\PostRepository;
+use App\Services\TagStatsManager;
 use App\Services\UserStatsManager;
 use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\PaginatorInterface;
@@ -18,15 +19,18 @@ class BlogController extends AbstractController
 {
     private PostRepository $postRepository;
     private RequestStack $request;
+    private TagStatsManager $tagStatsManager;
     private UserStatsManager $userStatsManager;
 
     public function __construct(
         RequestStack $request,
         PostRepository $postRepository,
+        TagStatsManager $tagStatsManager,
         UserStatsManager $userStatsManager
     ) {
         $this->postRepository = $postRepository;
         $this->request = $request;
+        $this->tagStatsManager = $tagStatsManager;
         $this->userStatsManager = $userStatsManager;
     }
 
@@ -70,6 +74,12 @@ class BlogController extends AbstractController
         $entityManager->flush();
 
         //update tag view count
+        //vérifier si le post a un ou plusieurs tags
+        //si c'est le cas lancer le tagStatsManager
+        $postTags = $post[0]->getTag()->toArray();
+        if (!empty($postTags)) {
+            $this->tagStatsManager->updateTagsCounter($postTags);
+        }
 
         //update user stats
         if ($this->getUser() !== null) {
