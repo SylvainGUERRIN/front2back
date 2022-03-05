@@ -21,7 +21,7 @@
         <label for="inputPassword" class="form-label">Votre mot de passe</label>
         <input type="password" name="password" id="inputPassword" class="form-control mb-3" required>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token('authenticate') }}">
 
         {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.

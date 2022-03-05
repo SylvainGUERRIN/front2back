@@ -1,8 +1,10 @@
 security:
-    encoders:
-        App\Entity\User:
-            algorithm: auto
-
+    enable_authenticator_manager: true
+#    encoders:
+#        App\Entity\User:
+#            algorithm: auto
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -19,7 +21,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         admin:
-            anonymous: true
+#            anonymous: true
             lazy: true
             pattern: ^/admin
             provider: admin_provider
@@ -34,12 +36,14 @@ security:
                 path: security_admin_logout
                 target: security_admin_login
         main:
-            anonymous: true
+#            anonymous: true
             lazy: true
             provider: app_user_provider
-            guard:
-                authenticators:
-                    - App\Security\Guard\WebAuthenticator
+            custom_authenticator: App\Security\User\UserAuthenticator
+#            custom_authenticator: App\Security\Guard\WebAuthenticator
+#            guard:
+#                authenticators:
+#                    - App\Security\Guard\WebAuthenticator
 #            form_login:
 #                login_path: user_connexion
 #                check_path: user_connexion
