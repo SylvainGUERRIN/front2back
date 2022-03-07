@@ -9,11 +9,11 @@
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">Logout</a>
-            </div>
-        {% endif %}
+{#        {% if app.user %}#}
+{#            <div class="mb-3">#}
+{#                You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">Logout</a>#}
+{#            </div>#}
+{#        {% endif %}#}
 
         <h1 class="mb-3 font-weight-normal">Veuillez vous connecter</h1>
         <label for="inputEmail" class="form-label">Votre mail</label>

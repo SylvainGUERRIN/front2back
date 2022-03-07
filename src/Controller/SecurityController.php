@@ -8,18 +8,20 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+//use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+//use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     private ManagerRegistry $doctrine;
-    private SessionInterface $session;
+    private RequestStack $session;
 
-    public function __construct(ManagerRegistry $managerRegistry, SessionInterface $session)
+    public function __construct(ManagerRegistry $managerRegistry, RequestStack $session)
     {
         $this->doctrine = $managerRegistry;
         $this->session = $session;
@@ -32,9 +34,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, $slug = 'profile'): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -51,7 +53,7 @@ class SecurityController extends AbstractController
     /**
      * @Route ("/register", name="security_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordEncoder): Response
     {
         $user = new User();
 
@@ -60,7 +62,8 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $hashPass = $userPasswordEncoder->encodePassword($user, $user->getPassword());
+            $hashPass = $userPasswordEncoder->hashPassword($user, $user->getPassword());
+            //$hashPass = $userPasswordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashPass);
             $user->setRegisteredAt(new \DateTimeImmutable('now'));
             $user->setRoles(['ROLE_USER']);
@@ -69,7 +72,7 @@ class SecurityController extends AbstractController
             $em = $this->doctrine->getManager();
             $em->persist($user);
             $em->flush();
-            $this->session->getFlashBag()->add(
+            $this->session->getSession()->getFlashBag()->add(
                 'success',
                 'Votre compte a bien été créé ! Vous pouvez maintenant vous connecter !'
             );
