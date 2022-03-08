@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Account;
 
 use App\Entity\Avatar;
 use Symfony\Component\Form\AbstractType;
