@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Favorite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -25,6 +26,7 @@ class FavoriteRepository extends ServiceEntityRepository
      * @param $userId
      * @param $postId
      * @return float|int|mixed|string
+     * @throws NonUniqueResultException
      */
     public function findFavoriteWithUserIdAndPostId($userId, $postId)
     {
@@ -34,7 +36,7 @@ class FavoriteRepository extends ServiceEntityRepository
             ->andWhere('f.post_id = :postID')
             ->setParameter('postID', $postId)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
             ;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Favorite;
 use App\Entity\User;
 use App\Repository\FavoriteRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ class FavoriteAjaxCalls extends AbstractController
     private FavoriteRepository $favoriteRepository;
 
     public function __construct(
-        ManagerRegistry $managerRegistry,
+        ManagerRegistry    $managerRegistry,
         FavoriteRepository $favoriteRepository
     ) {
         $this->doctrine = $managerRegistry;
@@ -27,6 +28,7 @@ class FavoriteAjaxCalls extends AbstractController
     /**
      * @Route ("/ajax/user/addToFavorite", name="ajax_user_addToFavorite")
      * @throws \JsonException
+     * @throws NonUniqueResultException
      */
     public function userAddToFavorite(Request $request): Response
     {
@@ -54,13 +56,16 @@ class FavoriteAjaxCalls extends AbstractController
                         JSON_THROW_ON_ERROR
                     )
                 );
+            } else {
+                $response->setContent(
+                    json_encode(
+                        ["Cette veille a déjà été ajoutée à vos favoris."],
+                        JSON_THROW_ON_ERROR
+                    )
+                );
             }
-            $response->setContent(
-                json_encode(
-                    ["Cette veille a déjà été ajoutée à vos favoris."],
-                    JSON_THROW_ON_ERROR
-                )
-            );
+        } else {
+            $response->setContent(json_encode(["erreur lors de la demande"], JSON_THROW_ON_ERROR));
         }
 
         $response->headers->set('Content-Type', 'application/json');
@@ -71,17 +76,41 @@ class FavoriteAjaxCalls extends AbstractController
     /**
      * @Route ("/ajax/user/removeToFavorite", name="ajax_user_removeToFavorite")
      * @throws \JsonException
+     * @throws NonUniqueResultException
      */
     public function userRemoveToFavorite(Request $request): Response
     {
         /** @var User $user */
         $user = $this->getUser();
-
         $response = new Response();
 
+        if ($request->isXMLHttpRequest()) {
+            //get postId with ajax call
+            $postId = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            //verifier dans la table favorite si il n'y a pas déjà une ligne avec le user_id et post_id
+            $favoriteAlreadyExists =
+                $this->favoriteRepository->findFavoriteWithUserIdAndPostId($user->getId(), $postId);
+            if (!empty($favoriteAlreadyExists)) {
+                $this->doctrine->getManager()->remove($favoriteAlreadyExists);
+                $this->doctrine->getManager()->flush();
+                $response->setContent(
+                    json_encode(
+                        ["Cette veille a bien été supprimée de vos favoris."],
+                        JSON_THROW_ON_ERROR
+                    )
+                );
+            } else {
+                $response->setContent(
+                    json_encode(
+                        ["Cette veille n'est pas dans vos favoris."],
+                        JSON_THROW_ON_ERROR
+                    )
+                );
+            }
+        } else {
+            $response->setContent(json_encode(["erreur lors de la demande"], JSON_THROW_ON_ERROR));
+        }
 
-
-        $response->setContent(json_encode(["a changer avec la variable concerné"], JSON_THROW_ON_ERROR));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');//set all origins but only for test
         return $response;
