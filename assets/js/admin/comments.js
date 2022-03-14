@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
         el.addEventListener('click', function (e) {
             e.preventDefault()
             let val = el.getAttribute("id")
-            console.log(val)
+            //console.log(val)
             Swal.fire({
                 title: 'Etes-vous sûrs de vouloir valider ce commentaire ?',
                 text: "Une fois validé, il sera visible pour tous les visiteurs du site.",

@@ -84,7 +84,7 @@ class FavoriteAjaxCalls extends AbstractController
         $user = $this->getUser();
         $response = new Response();
 
-        if ($request->isXMLHttpRequest()) {
+        if ($request->isXMLHttpRequest() && $user !== null) {
             //get postId with ajax call
             $postId = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
             //verifier dans la table favorite si il n'y a pas déjà une ligne avec le user_id et post_id
