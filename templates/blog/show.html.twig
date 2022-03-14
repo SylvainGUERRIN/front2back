@@ -17,9 +17,9 @@
         {% endif %}
     </div>
 
-    <div class="container glass-frame">
+    <div class="container glass-frame" id="post-content" data-id="{{ post.id }}">
         <h1>{{ post.title }}</h1>
-        <span class="heart-container">
+        <span id="heartBtnFavorite" class="heart-container">
             <i class="like-button far fa-heart">
                 <i class="like-button__filled far fa-heart"></i>
             </i>
