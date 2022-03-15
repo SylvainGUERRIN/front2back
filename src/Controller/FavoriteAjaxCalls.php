@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Favorite;
 use App\Entity\User;
 use App\Repository\FavoriteRepository;
+use App\Repository\PostRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,55 +31,7 @@ class FavoriteAjaxCalls extends AbstractController
      * @throws \JsonException
      * @throws NonUniqueResultException
      */
-    public function userAddToFavorite(Request $request): Response
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-        $response = new Response();
-
-        if ($request->isXMLHttpRequest()) {
-            //get postId with ajax call
-            $postId = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
-            //verifier dans la table favorite si il n'y a pas déjà une ligne avec le user_id et post_id
-            $favoriteAlreadyExists =
-                $this->favoriteRepository->findFavoriteWithUserIdAndPostId($user->getId(), $postId);
-            if (empty($favoriteAlreadyExists)) {
-                $favorite = new Favorite();
-                $favorite->setUser($user);
-                $favorite->setPost($postId);
-                $favorite->setLikedAt(new \DateTime('now'));
-                $this->doctrine->getManager()->persist($favorite);
-                $this->doctrine->getManager()->flush();
-
-                $response->setContent(
-                    json_encode(
-                        ["Cette veille a bien été ajoutée à vos favoris."],
-                        JSON_THROW_ON_ERROR
-                    )
-                );
-            } else {
-                $response->setContent(
-                    json_encode(
-                        ["Cette veille a déjà été ajoutée à vos favoris."],
-                        JSON_THROW_ON_ERROR
-                    )
-                );
-            }
-        } else {
-            $response->setContent(json_encode(["erreur lors de la demande"], JSON_THROW_ON_ERROR));
-        }
-
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Access-Control-Allow-Origin', '*');//set all origins but only for test
-        return $response;
-    }
-
-    /**
-     * @Route ("/ajax/user/removeToFavorite", name="ajax_user_removeToFavorite")
-     * @throws \JsonException
-     * @throws NonUniqueResultException
-     */
-    public function userRemoveToFavorite(Request $request): Response
+    public function userAddToFavorite(Request $request, PostRepository $postRepository): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -87,10 +40,26 @@ class FavoriteAjaxCalls extends AbstractController
         if ($request->isXMLHttpRequest() && $user !== null) {
             //get postId with ajax call
             $postId = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            $post = $postRepository->find(['id' => $postId['id']]);
             //verifier dans la table favorite si il n'y a pas déjà une ligne avec le user_id et post_id
             $favoriteAlreadyExists =
                 $this->favoriteRepository->findFavoriteWithUserIdAndPostId($user->getId(), $postId);
-            if (!empty($favoriteAlreadyExists)) {
+            if (empty($favoriteAlreadyExists)) {
+                $favorite = new Favorite();
+                $favorite->setUser($user);
+                $favorite->setPost($post);
+                $favorite->setLikedAt(new \DateTime('now'));
+                $this->doctrine->getManager()->persist($favorite);
+                $this->doctrine->getManager()->flush();
+
+                $response->setContent(
+                    json_encode(
+                        ["Cette veille a bien été ajoutée à vos favoris."],
+                        //$postId[0],
+                        JSON_THROW_ON_ERROR
+                    )
+                );
+            } else {
                 $this->doctrine->getManager()->remove($favoriteAlreadyExists);
                 $this->doctrine->getManager()->flush();
                 $response->setContent(
@@ -99,14 +68,13 @@ class FavoriteAjaxCalls extends AbstractController
                         JSON_THROW_ON_ERROR
                     )
                 );
-            } else {
-                $response->setContent(
-                    json_encode(
-                        ["Cette veille n'est pas dans vos favoris."],
-                        JSON_THROW_ON_ERROR
-                    )
-                );
             }
+            /*$response->setContent(
+                json_encode(
+                    $postId,
+                    JSON_THROW_ON_ERROR
+                )
+            );*/
         } else {
             $response->setContent(json_encode(["erreur lors de la demande"], JSON_THROW_ON_ERROR));
         }
@@ -115,4 +83,5 @@ class FavoriteAjaxCalls extends AbstractController
         $response->headers->set('Access-Control-Allow-Origin', '*');//set all origins but only for test
         return $response;
     }
+
 }

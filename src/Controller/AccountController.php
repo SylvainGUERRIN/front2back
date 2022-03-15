@@ -10,8 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+//use //Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
@@ -71,14 +72,14 @@ class AccountController extends AbstractController
     /**
      * @Route ("/edit-password", name="account_edit_password")
      */
-    public function editPassword(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
+    public function editPassword(Request $request, UserPasswordHasherInterface $userPasswordEncoder): Response
     {
         $form = $this->createForm(EditPasswordType::class)->handleRequest($request);
         /** @var User $user */
         $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($userPasswordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
+            $user->setPassword($userPasswordEncoder->hashPassword($user, $form->get('plainPassword')->getData()));
             $this->doctrine->getManager()->flush();
 
             $this->addFlash('success', 'Votre mot de passe a été modifié avec succès.');

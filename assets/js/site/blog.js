@@ -20,12 +20,19 @@ heartBtnFavorite.addEventListener("click", function (e) {
         })
     }).then(async result => {
         const data = await result.json();
-        console.log(data[0]);
+        //console.log(data);
+        //console.log(data[0]);
         if (data[0] === 'erreur lors de la demande') {
             Swal.fire(
                 'Vous ne pouvez pas mettre un article en favori!',
                 'Vous devez être connecté pour ajouter cet article dans vos favoris.',
                 'warning'
+            )
+        } else {
+            Swal.fire(
+                data[0],
+                'Vos veilles favorites sont a jour.',
+                'success'
             )
         }
 
