@@ -31,9 +31,9 @@ class FavoriteRepository extends ServiceEntityRepository
     public function findFavoriteWithUserIdAndPostId($userId, $postId)
     {
         return $this->createQueryBuilder('f')
-            ->where('f.user_id = :userID')
+            ->where('f.user = :userID')
             ->setParameter('userID', $userId)
-            ->andWhere('f.post_id = :postID')
+            ->andWhere('f.post = :postID')
             ->setParameter('postID', $postId)
             ->getQuery()
             ->getOneOrNullResult()

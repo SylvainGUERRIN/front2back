@@ -3,7 +3,7 @@
 namespace App\Form\Account;
 
 use App\Entity\User;
-use App\Form\AvatarType;
+use App\Form\Account\AvatarType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

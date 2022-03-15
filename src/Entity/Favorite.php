@@ -76,7 +76,7 @@ class Favorite
 
     public function setPost(?Post $post): self
     {
-        $this->user = $post;
+        $this->post = $post;
 
         return $this;
     }
