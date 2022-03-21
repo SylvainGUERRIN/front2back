@@ -19,11 +19,17 @@
 
     <div class="container glass-frame" id="post-content" data-id="{{ post.id }}">
         <h1>{{ post.title }}</h1>
-        <span id="heartBtnFavorite" class="heart-container">
-            <i class="like-button far fa-heart">
-                <i class="like-button__filled far fa-heart"></i>
-            </i>
-        </span>
+        {% if favorite == false %}
+            <span id="heartBtnFavorite" class="heart-container">
+                <i class="like-button far fa-heart">
+                    <i class="like-button__filled far fa-heart"></i>
+                </i>
+            </span>
+        {% else %}
+            <span id="heartBtnFavorite" class="heart-container">
+                <i class="like-button__favorite fas fa-heart"></i>
+            </span>
+        {% endif %}
         <p>Auteur de la veille: {{ post.author.firstname }}</p>
         <p>Veille posté le {{ post.postCreatedAt | date("d/m/Y H:i:s") }}</p>
         <p>{{ post.content }}</p>

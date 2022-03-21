@@ -1,23 +1,33 @@
-.like-button {
-  font-size: 2rem;
-  position: relative;
-  color: #777;
-  z-index: 0;
-}
+#heartBtnFavorite{
+  &:hover{
+    cursor: pointer;
+  }
+  .like-button {
+    font-size: 2rem;
+    position: relative;
+    color: #777;
+    z-index: 0;
+    .like-button__filled{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      font-weight: 600;
+      color: $dark-blue;
+      transform: scale(0);
+      transition: transform 300ms ease-in-out;
+    }
+    &:hover .like-button__filled {
+      transform: scale(1);
+    }
+  }
 
-.like-button__filled{
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  font-weight: 600;
-  color: #8045d3;
-  transform: scale(0);
-  transition: transform 300ms ease-in-out;
-}
-
-.like-button:hover .like-button__filled {
-  transform: scale(1);
+  .like-button__favorite{
+    font-size: 34px;
+    color: $dark-blue;
+    //transform: scale(1);
+    //font-weight: 600;
+  }
 }
