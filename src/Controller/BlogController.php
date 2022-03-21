@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Form\Comments\CreateCommentType;
+use App\Repository\FavoriteRepository;
 use App\Repository\PostRepository;
 use App\Services\TagStatsManager;
 use App\Services\UserStatsManager;
 use Doctrine\ORM\ORMException;
+use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,17 +23,20 @@ class BlogController extends AbstractController
     private RequestStack $request;
     private TagStatsManager $tagStatsManager;
     private UserStatsManager $userStatsManager;
+    private ManagerRegistry $doctrine;
 
     public function __construct(
         RequestStack $request,
         PostRepository $postRepository,
         TagStatsManager $tagStatsManager,
-        UserStatsManager $userStatsManager
+        UserStatsManager $userStatsManager,
+        ManagerRegistry $managerRegistry
     ) {
         $this->postRepository = $postRepository;
         $this->request = $request;
         $this->tagStatsManager = $tagStatsManager;
         $this->userStatsManager = $userStatsManager;
+        $this->doctrine = $managerRegistry;
     }
 
     /**
@@ -59,13 +64,17 @@ class BlogController extends AbstractController
     /**
      * @param $slug
      * @param Request $request
+     * @param FavoriteRepository $favoriteRepository
      * @return Response
-     * @Route("/veilles/{slug}", name="veilles_show")
      * @throws ORMException
+     * @Route("/veilles/{slug}", name="veilles_show")
      */
-    public function show($slug, Request $request): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
+    public function show(
+        $slug,
+        Request $request,
+        FavoriteRepository $favoriteRepository
+    ): Response {
+        $entityManager = $this->doctrine->getManager();
 
         //update post view count
         $post = $this->postRepository->findBy(['slug' => $slug]);
@@ -81,9 +90,15 @@ class BlogController extends AbstractController
             $this->tagStatsManager->updateTagsCounter($postTags);
         }
 
+        $favorite = false;
         //update user stats
         if ($this->getUser() !== null) {
             $this->userStatsManager->updateTagsAndPostCounter($this->getUser(), $post);
+            if ($favoriteRepository->
+                findFavoriteWithUserIdAndPostId($this->getUser()->getId(), $post[0]->getId()) !== null
+            ) {
+                $favorite = true;
+            }
         }
 
         $comments = $post[0]->getComments()->toArray();
@@ -124,6 +139,7 @@ class BlogController extends AbstractController
             'post' => $post[0],
             'comments' => $comments,
             'form' => $form->createView(),
+            'favorite' => $favorite,
         ]);
     }
 }
