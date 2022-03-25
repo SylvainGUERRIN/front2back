@@ -28,9 +28,10 @@ class TagStatsManager
 
     /**
      * @param $tags
+     * @param $option
      * @return void
      */
-    public function updateTagsCounter($tags): void
+    public function updateTagsStats($tags, $option): void
     {
         //dump($post);
         //dump($tags);
@@ -38,7 +39,7 @@ class TagStatsManager
             if ($tag->getStats() === null) {
                 $this->createTagStats($tag);
             } else {
-                $this->updateTagStats($tag);
+                $this->updateTagStats($tag, $option);
             }
         }
 
@@ -67,14 +68,24 @@ class TagStatsManager
 
     /**
      * @param $tag
+     * @param $option
      * @return void
      */
-    public function updateTagStats($tag): void
+    public function updateTagStats($tag, $option): void
     {
         //dump('update');
         $tagStats = $tag->getStats();
         //dump($tagStats);
-        $tagStats->setNumberOfViews($tagStats->getNumberOfViews() + 1);
+        if ($option === "view-count") {
+            $tagStats->setNumberOfViews($tagStats->getNumberOfViews() + 1);
+        }
+        if ($option === "favorite-count-positive") {
+            $tagStats->setFavoriteCounter($tagStats->getFavoriteCounter() + 1);
+        }
+        if ($option === "favorite-count-negative") {
+            $tagStats->setFavoriteCounter($tagStats->getFavoriteCounter() - 1);
+        }
+
         $this->entityManager->persist($tagStats);
         $this->entityManager->flush();
     }
