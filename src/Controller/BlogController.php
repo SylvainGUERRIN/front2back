@@ -87,7 +87,7 @@ class BlogController extends AbstractController
         //si c'est le cas lancer le tagStatsManager
         $postTags = $post[0]->getTag()->toArray();
         if (!empty($postTags)) {
-            $this->tagStatsManager->updateTagsCounter($postTags);
+            $this->tagStatsManager->updateTagsStats($postTags, "view-count");
         }
 
         $favorite = false;
