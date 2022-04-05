@@ -30,6 +30,16 @@
                 <i class="like-button__favorite fas fa-heart"></i>
             </span>
         {% endif %}
+        {{ dump(post.tag) }}
+        {% set tags = post.tag %}
+        {% if tags is not empty %}
+            <p>
+            Tag: <br/>
+            {% for tag in tags %}
+                <a href="{{ path('tag_show', {'slug': tag.slug}) }}">{{ tag.name }}</a>
+            {% endfor %}
+            </p>
+        {% endif %}
         <p>Auteur de la veille: {{ post.author.firstname }}</p>
         <p>Veille posté le {{ post.postCreatedAt | date("d/m/Y H:i:s") }}</p>
         <p>{{ post.content }}</p>

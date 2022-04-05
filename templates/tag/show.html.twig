@@ -1,0 +1,19 @@
+{% extends 'site/partials/base.html.twig' %}
+
+{% block title %}{{ tag.name}} - Front2Back{% endblock %}
+
+{% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    {{ encore_entry_link_tags('site') }}
+    {{ encore_entry_link_tags('blog') }}
+{% endblock %}
+
+{% block body %}
+    {{ dump(tag) }}
+    {{ dump(posts) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('site') }}
+    {{ encore_entry_script_tags('blog') }}
+{% endblock %}
