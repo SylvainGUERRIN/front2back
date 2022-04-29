@@ -9,8 +9,45 @@
 {% endblock %}
 
 {% block body %}
-    {{ dump(tag) }}
-    {{ dump(posts) }}
+{#    {{ dump(tag) }}#}
+
+    <div class="container glass-frame mb-5">
+        <h1>{{ tag.name }}</h1>
+        <p class="text-center">{{ tag.description }}</p>
+    </div>
+
+{#    {{ dump(posts) }}#}
+
+    <div class="container">
+        {% for post in posts %}
+            <div class="row mt-5 mb-5 horizontal-card">
+                <div class="col-sm-12 col-md-4 card-image">
+                    {% if post.urlImage is not null %}
+                        <img src="{{ vich_uploader_asset(post, 'imageFile')}}" alt="image de la veille">
+                    {% else %}
+                        Cet article n'a pas encore d'image
+                    {% endif %}
+                </div>
+                <div class="col-sm-12 col-md-8 card-content">
+                    <h3>{{ post.title }}</h3>
+                    <p>
+                        {{ post.excerpt }}
+                    </p>
+                    <a class="btn btn-primary" href="{{ path('veilles_show', {'slug': post.slug}) }}">Lire la suite</a>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if pageCount > 1 %}
+            <div class="row mt-5 mb-5 horizontal-card">
+                <div class="col-12">
+                    <div class="nav-pagination">
+                        {{ knp_pagination_render(posts) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
