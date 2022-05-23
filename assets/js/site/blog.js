@@ -1,7 +1,10 @@
 //import swal
-const Swal = require('../../sweetalert2.all.min.js') //works
+const Swal = require('../../sweetalert2.all.min.js')
+const getDocumentElement = require("@popperjs/core/lib/dom-utils/getDocumentElement"); //works
 
 let heartBtnFavorite = document.getElementById('heartBtnFavorite')
+//console.log(heartBtnFavorite)
+
 
 let postID = document.getElementById('post-content').getAttribute('data-id')
 
@@ -34,6 +37,24 @@ heartBtnFavorite.addEventListener("click", function (e) {
                 'Vos veilles favorites sont a jour.',
                 'success'
             )
+
+            console.log(data[0])
+            if (data[0] === "Cette veille a bien été ajoutée à vos favoris.") {
+                //remove empty with filled
+                console.log(document.querySelector("#heartBtnFavorite .like-button__favorite"))
+                let elemToRemove = document.querySelector("#heartBtnFavorite .like-button__filled")
+                elemToRemove.remove()
+                heartBtnFavorite.innerHTML = `<i class="like-button__favorite fas fa-heart"></i>`
+            }
+            if (data[0] === "Cette veille a bien été supprimée de vos favoris.") {
+                //remove empty with filled
+                console.log(document.querySelector("#heartBtnFavorite .like-button__favorite"))
+                let elemToRemove = document.querySelector("#heartBtnFavorite .like-button__favorite")
+                elemToRemove.remove()
+                heartBtnFavorite.innerHTML = `<i class="like-button far fa-heart">
+                    <i class="like-button__filled far fa-heart"></i>
+                </i>`
+            }
         }
 
 

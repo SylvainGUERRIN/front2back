@@ -68,6 +68,7 @@ class SecurityController extends AbstractController
             $user->setRegisteredAt(new \DateTimeImmutable('now'));
             $user->setRoles(['ROLE_USER']);
             $user->setActivate(true);
+            $user->setMailAlert(false);
 
             $em = $this->doctrine->getManager();
             $em->persist($user);
@@ -77,7 +78,7 @@ class SecurityController extends AbstractController
                 'Votre compte a bien été créé ! Vous pouvez maintenant vous connecter !'
             );
 
-            return new RedirectResponse('login');
+            return new RedirectResponse('login/profile');
         }
 
         return $this->render('site/register.html.twig', [
