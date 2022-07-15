@@ -11,7 +11,7 @@
             </div>
 
             <div class="col-sm-12 col-md-4 mb-3">
-                <a href="#" class="card text-white bg-primary">
+                <a href="{{ path('admin_posts_dashboard') }}" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Tous les articles</h3>
                         <p class="number">{{ countVeilles }}</p>
@@ -20,7 +20,7 @@
             </div>
 
             <div class="col-sm-12 col-md-4 mb-3">
-                <a href="#" class="card text-white bg-primary">
+                <a href="{{ path('admin_posts_dashboard') }}" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les articles à valider</h3>
                         <p class="number">{{ countUnvalidatedVeilles }}</p>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-sm-12 col-md-4 mb-3">
-                <a href="#" class="card text-white bg-primary">
+                <a href="{{ path('admin_comments_dashboard') }}" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les commentaires à valider</h3>
                         <p class="number">{{ countUnaprovedComments }}</p>
@@ -39,7 +39,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-4 mb-3">
-                <a href="#" class="card text-white bg-primary">
+                <a href="{{ path('admin_contributors_index') }}" class="card text-white bg-primary">
                     <div class="card-body">
                         <h3 class="card-title">Les contributeurs</h3>
                         <p class="number">{{ countContributors }}</p>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="col-sm-12 col-md-4 mb-3">
-                <a href="#" class="card text-white bg-primary">
+                <a href="{{ path('admin_contributors_index') }}" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les contributeurs à valider</h3>
                         <p class="number">{{ countUnvalidatedContributors }}</p>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="col-sm-12 col-md-4 mb-3">
-                <a href="#" class="card text-white bg-primary">
+                <a href="{{ path('admin_users_index') }}" class="card text-white bg-primary">
                     <div class="card-body text-center">
                         <h3 class="card-title">Les utilisateurs à valider</h3>
                         <p class="number">{{ countUnvalidatedUsers }}</p>

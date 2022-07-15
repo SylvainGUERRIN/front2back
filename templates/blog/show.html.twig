@@ -79,6 +79,7 @@
                 {% if comment.approval == true %}
                     <div class="container glass-frame mb-3">
                         <p>Commentaire posté le {{ comment.commentedAt | date("d/m/Y H:i:s") }}</p>
+                        <p>L'auteur du commentaire: {{ comment.author.firstname }}</p>
                         <p>{{ comment.content }}</p>
                     </div>
                 {% endif %}
