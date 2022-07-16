@@ -39,10 +39,8 @@ class ContributorsController extends AbstractController
         $contributors = [];
         $usersWithRequests = $this->doctrine->getRepository(User::class)->findUserWithRequests();
         foreach ($usersWithRequests as $user) {
-            if (!empty($user->getRequests())) {
-                if ($user->getRequests()['contributor'] !== null) {
-                    $contributors[] = $user;
-                }
+            if (!empty($user->getRequests()) && $user->getRequests()['contributor'] !== null) {
+                $contributors[] = $user;
             }
         }
         $paginateContributors = $paginator->paginate(
