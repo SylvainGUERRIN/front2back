@@ -29,6 +29,16 @@ class BadgeType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
+            ->add('description', TextareaType::class, [
+                'label' => 'La description du badge',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'placeholder' => 'Mettez la description du badge',
+                    'class' => 'form-control',
+                ],
+            ])
             ->add('imageFile', FileType::class, [
                 'label' => 'Téléchargez une image pour votre badge',
                 'data_class' => null,
@@ -74,7 +84,9 @@ class BadgeType extends AbstractType
                 ],
                 'choices'  => [
                     "Sur la creation" => 'create',
+                    "Sur la modification" => 'modify',
                     "Sur le nombre" => 'number',
+                    "Sur la lecture" => 'read'
                 ],
             ])
             ->add('actionQuantity', NumberType::class, [

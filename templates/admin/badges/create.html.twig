@@ -22,6 +22,13 @@
         </div>
         <div class="row">
             <div class="col-12 mb-3">
+                {{ form_errors(form.description) }}
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
                 {{ form_errors(form.imageFile) }}
                 {{ form_label(form.imageFile) }}
                 {{ form_widget(form.imageFile) }}
@@ -37,6 +44,7 @@
                 {{ form_errors(form.actionName) }}
                 {{ form_label(form.actionName) }}
                 {{ form_widget(form.actionName) }}
+                <small>Mettre l'action</small>
             </div>
             <div class="col-xs-12 col-md-6 mb-3">
                 {{ form_errors(form.actionDelimiter) }}
