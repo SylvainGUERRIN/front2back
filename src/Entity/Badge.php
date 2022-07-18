@@ -34,13 +34,18 @@ class Badge
     protected string $name;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    protected ?string $description;
+
+    /**
      * @var File|null
      * @Assert\Image(
      *     mimeTypes={"image/jpeg", "image/jpg", "image/png"}
      * )
      * @Vich\UploadableField(mapping="badge_image", fileNameProperty="url_image")
      */
-    private ?File $imageFile;
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -115,6 +120,25 @@ class Badge
     public function setName(string $name): Badge
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return $this
+     */
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
         return $this;
     }
 
