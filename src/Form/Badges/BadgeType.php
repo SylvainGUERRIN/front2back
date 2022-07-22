@@ -63,13 +63,14 @@ class BadgeType extends AbstractType
                     'class' => 'form-label',
                 ],
                 'attr' => [
-                    'placeholder' => 'Mettez le nom du badge',
+                    'placeholder' => 'Choisissez l\'élément concerné',
                     'class' => 'form-control',
                 ],
                 'choices'  => [
                     "Sur les veilles" => 'post',
                     "Sur les commentaires" => 'comment',
                     "Sur les utilisateurs" => 'user',
+                    "Sur les comptes" => 'account',
                     "Sur les tags" => 'tag',
                 ],
             ])
@@ -79,28 +80,29 @@ class BadgeType extends AbstractType
                     'class' => 'form-label',
                 ],
                 'attr' => [
-                    'placeholder' => 'Mettez le nom du badge',
+                    'placeholder' => 'Choisissez l\'action',
                     'class' => 'form-control',
                 ],
                 'choices'  => [
                     "Sur la creation" => 'create',
                     "Sur la modification" => 'modify',
                     "Sur le nombre" => 'number',
-                    "Sur la lecture" => 'read'
+                    "Sur la lecture" => 'read',
+                    "Sur les favoris" => 'favorite',
                 ],
             ])
             ->add('actionQuantity', NumberType::class, [
-                'label' => 'Mettre la quantité pour avoir le badge',
+                'label' => 'Mettre la quantité pour débloqué le badge',
                 'label_attr' => [
                     'class' => 'form-label',
                 ],
                 'attr' => [
-                    'placeholder' => 'Mettez une quantité',
+                    'placeholder' => 'Choisissez une quantité',
                     'class' => 'form-control',
                 ],
             ])
             ->add('roleDelimiter', ChoiceType::class, [
-                'label' => 'L\'utilisateur concerné.',
+                'label' => 'Le type (est-ce que cela concerne un rôle en particulier) d\'utilisateur concerné.',
                 'label_attr' => [
                     'class' => 'form-label',
                 ],

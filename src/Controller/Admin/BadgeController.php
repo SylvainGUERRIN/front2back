@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Badge;
+use App\Entity\User;
 use App\Form\Badges\BadgeType;
+use App\Form\Posts\PostType;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -75,6 +77,38 @@ class BadgeController extends AbstractController
 
         return $this->render('admin/badges/create.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @param Badge $badge
+     * @return Response
+     * @Route("/edit/{id}", name="admin_badges_edit")
+     */
+    public function edit(Badge $badge) : Response
+    {
+        $form = $this->createForm(BadgeType::class, $badge)->handleRequest($this->request->getCurrentRequest());
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /* @var User $user */
+            //$user = $this->getUser();
+
+            //$post->setPostCreatedAt(new \DateTime('now'));
+            //$badge->setPostModifiedAt(new \DateTime('now'));
+            //$post->setAuthor($user);
+            //$badge->setValidatedAt(true);
+            $this->doctrine->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                "Le badge <strong>{$badge->getName()}</strong> a bien été mis à jour !"
+            );
+
+            return $this->redirectToRoute('admin_badges_index');
+        }
+        return $this->render('admin/badges/edit.html.twig', [
+            'form' => $form->createView(),
+            'badge' => $badge,
         ]);
     }
 
