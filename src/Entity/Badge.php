@@ -82,21 +82,6 @@ class Badge
      */
     private ?\DateTimeInterface $badge_modified_at;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="badges")
-//     */
-//    private $users;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="badges")
-     */
-    private Collection $users;
-
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
-
     /**
      * @return int|null
      */
@@ -244,32 +229,6 @@ class Badge
     public function setRoleDelimiter(string $role_delimiter): Badge
     {
         $this->role_delimiter = $role_delimiter;
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): User
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-        }
-
         return $this;
     }
 
