@@ -93,16 +93,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      */
     private Collection $favorites;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="App\Entity\Badge", inversedBy="users")
-//     */
-//    protected ?Badge $badges;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Badge", inversedBy="users")
-     */
-    private Collection $badges;
-
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\UserStats", inversedBy="user", cascade={"persist", "remove"})
      */
@@ -113,7 +103,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->favorites = new ArrayCollection();
-        $this->badges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -388,34 +377,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         return $this;
     }
 
-    /**
-     * @return Collection|Badge[]
-     */
-    public function getBadges(): Collection
-    {
-        return $this->badges;
-    }
-
-    public function addBadge(Badge $badge): self
-    {
-        if (!$this->badges->contains($badge)) {
-            $this->badges[] = $badge;
-            $badge->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBadge(Badge $badge): self
-    {
-        if ($this->badges->contains($badge)) {
-            $this->badges->removeElement($badge);
-            $badge->removeUser($this);
-        }
-
-        return $this;
-    }
-
     public function getStats(): ?UserStats
     {
         return $this->stats;
@@ -427,18 +388,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
         return $this;
     }
-
-//    public function getBadges(): ?Badge
-//    {
-//        return $this->badges;
-//    }
-//
-//    public function setBadges(?Badge $badge): self
-//    {
-//        $this->badges = $badge;
-//
-//        return $this;
-//    }
 
     /**
      * Returning a salt is only needed, if you are not using a modern
