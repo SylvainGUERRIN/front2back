@@ -9,6 +9,7 @@ use App\Form\Posts\PostType;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -110,6 +111,24 @@ class BadgeController extends AbstractController
             'form' => $form->createView(),
             'badge' => $badge,
         ]);
+    }
+
+    /**
+     * @param Badge $badge
+     * @return RedirectResponse
+     * @Route("/delete/{id}", name="admin_badges_delete")
+     */
+    public function delete(Badge $badge): RedirectResponse
+    {
+        $this->doctrine->getManager()->remove($badge);
+        $this->doctrine->getManager()->flush();
+
+        $this->addFlash(
+            'success',
+            "Le badge <strong>{$badge->getName()}</strong> a bien été supprimé !"
+        );
+
+        return $this->redirectToRoute('admin_badges_index');
     }
 
     // penser à limiter les choix de l'administrateur sur le nom de l'action et le delimiteur de l'action
